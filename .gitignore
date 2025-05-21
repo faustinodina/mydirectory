@@ -13,6 +13,11 @@ dist/
 # Compiled Python bytecode
 *.py[cod]
 
+# Expo
+.expo/
+web-build/
+expo-env.d.ts
+
 # Log files
 *.log
 
@@ -48,3 +53,32 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+build/development-build.apk
+misc/build/development-build.apk
