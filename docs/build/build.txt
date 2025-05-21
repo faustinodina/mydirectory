@@ -1,0 +1,15 @@
+Development build
+=================
+  Create a development build (https://docs.expo.dev/develop/development-builds/create-a-build/)
+
+  > npm install -g eas-cli
+  > eas build --profile development --platform android
+  > adb install development-build.apk
+  > npx expo start
+
+Preview build
+=================
+  -Create first build (https://docs.expo.dev/build/setup/)
+  -Build APKs for Android Emulators and devices (https://docs.expo.dev/build-reference/apk/)
+
+  - eas build -p android --profile preview

@@ -1,0 +1,36 @@
+Recommended Folders:
+===================
+
+  /lib/: Application-specific logic (e.g., authentication logic, API wrappers, app-level state utilities)
+  /utils/: Generic utilities and helper functions (e.g., formatting dates, transforming data)
+  /hooks/: Custom React or React Native hooks (e.g., useAuth, useTheme)
+  /constants/: App-wide constants (e.g., API endpoints, color schemes)
+  /services/: Service layer logic (e.g., API calls, Firebase integration)
+  /config/: Configuration files for themes, navigation, environment variables, etc.
+
+Example:
+=======
+
+  app/
+    index.tsx
+    (auth)/
+      login.tsx
+      register.tsx
+  components/
+    Button.tsx
+    Header.tsx
+  lib/
+    auth.ts
+    apiClient.ts
+  utils/
+    formatDate.ts
+    validateEmail.ts
+  hooks/
+    useAuth.ts
+    useTheme.ts
+  constants/
+    Colors.ts
+    Endpoints.ts
+  config/
+    theme.ts
+    env.ts

@@ -1,0 +1,5 @@
+/lib/: Application-specific logic (e.g., authentication logic, API wrappers, app-level state utilities)
+
+lib/
+  auth.ts
+  apiClient.ts

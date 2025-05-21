@@ -1,0 +1,10 @@
+
+How to load redux state from a file?
+  https://chatgpt.com/share/682092bb-f68c-8013-836e-3c49b77b1d67
+
+How to save redux state to a file?
+  https://chatgpt.com/share/682092bb-f68c-8013-836e-3c49b77b1d67
+
+In Redux Toolkit when to use createAsyncThunk and when it is enough to use a "simple thunk"?
+  https://chatgpt.com/share/682092bb-f68c-8013-836e-3c49b77b1d67
+  

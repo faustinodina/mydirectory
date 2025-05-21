@@ -1,0 +1,6 @@
+/utils/: Generic utilities and helper functions (e.g., formatting dates, transforming data)
+
+utils/
+  formatDate.ts
+  validateEmail.ts
+  

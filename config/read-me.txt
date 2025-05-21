@@ -1,0 +1,5 @@
+/config/: Configuration files for themes, navigation, environment variables, etc.
+
+config/
+  theme.ts
+  env.ts
