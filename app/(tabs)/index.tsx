@@ -1,5 +1,6 @@
 import { ThemedText } from '@/app-example/components/ThemedText';
 import { ThemedView } from '@/app-example/components/ThemedView';
+import TreeList from '@/components/tree-list';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { decrement, increment } from '@/store/slices/counter/counter-slice';
 import { useRouter } from 'expo-router';
@@ -12,20 +13,28 @@ const Index = () => {
   const router = useRouter();
 
   return (
-    <ThemedView
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <ThemedText>INDEX</ThemedText>
-      <ThemedText style={{ fontSize: 24 }}>Count: {count}</ThemedText>
-      <Button title="Increment" onPress={() => dispatch(increment())} />
-      <Button title="Decrement" onPress={() => dispatch(decrement())} />
-      <Button title="GoTo Dir" onPress={() => router.push("/docs")} />
+    // <ThemedView
+    //   style={{
+    //     flex: 1,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //   }}
+    // >
+    //   <ThemedText>INDEX</ThemedText>
+    //   <ThemedText style={{ fontSize: 24 }}>Count: {count}</ThemedText>
+    //   <Button title="Increment" onPress={() => dispatch(increment())} />
+    //   <Button title="Decrement" onPress={() => dispatch(decrement())} />
+    //   <Button title="GoTo Dir" onPress={() => router.push("/docs")} />
 
-    </ThemedView>
+    // </ThemedView>
+    <TreeList 
+      treeViewType={props.treeViewType}
+      dataView={DirectoryDataView}
+      toggleButton={DirectoryNodeToggleButton}
+      styles={styles}
+      onSelectionChange={props.doSelectionChange}
+      />
+
   );
 };
 
