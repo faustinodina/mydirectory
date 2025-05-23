@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Provider as PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
@@ -34,10 +34,11 @@ export default function RootLayout() {
       <PaperProvider>
         <ReduxProvider store={store}>
           <LoadReduxState />
-          <Stack>
+          {/* <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
-          </Stack>
+          </Stack> */}
+          <Redirect href="/(tabs)/directory" />
           <StatusBar style="auto" />
         </ReduxProvider>
       </PaperProvider>
