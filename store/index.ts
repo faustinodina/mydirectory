@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import * as FileSystem from 'expo-file-system';
 import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
+import topicsReducer from './slices/topics/topics-slice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     treeList: treeListReducer,
+    topics: topicsReducer,
   },
 });
 
