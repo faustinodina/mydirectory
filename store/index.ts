@@ -3,6 +3,7 @@ import * as FileSystem from 'expo-file-system';
 import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
 import topicsReducer from './slices/topics/topics-slice';
+import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,8 @@ export const store = configureStore({
     treeList: treeListReducer,
     topics: topicsReducer,
   },
+  devTools: false,
+  enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(devToolsEnhancer()),
 });
 
 // In store/index.ts or a file like store/persist.ts
