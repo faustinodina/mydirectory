@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Divider, IconButton, Menu, Text } from "react-native-paper";
 import { IDataViewProps, NodeId } from "@/store/slices/tree-list/tree-list-types";
 import NamesView from "./NamesView";
@@ -14,23 +14,77 @@ import { useRouter } from "expo-router";
 //import { EditAccountProps } from "./EditAccount";
 //import { AddTransactionProps } from "../transactions/AddTransaction";
 
-const DirectoryDataView = () => {
+type AccountDataViewProps = IDataViewProps & {
+  //navigation: NativeStackNavigationProp<RootStackParamList>;
+}
+
+const DirectoryDataView = (props: AccountDataViewProps) => {
+
+  const node = useAppSelector(selectTreeNode(props.nodeId));
+  const topicId: NodeId = props.nodeId;
+  const nodeId: NodeId = props.nodeId;
+  const isRemovable = isNodeRemovable(node);
+  //const bookId = useAppSelector(selectCurrentBookId);
+
+  const [visibleMenu, setVisibleMenu] = useState(false);
+  const openMenu = () => setVisibleMenu(true);
+  const closeMenu = () => setVisibleMenu(false);
+
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  const addSiblingTopic = () => {    
+    closeMenu();
+    // const addAccountProps: AddAccountProps = {
+    //   siblingAccountId: topicId,
+    //   treeViewType: props.treeViewType,
+    // };
+    // const route = createRoutePath("/modal/add-account", addAccountProps);
+    // router.push(route);
+  };
+
+  const addChildTopic = () => {
+    closeMenu();
+    // //navigation.navigate("AddAccount", { parentAccountId: accountId, treeViewType: props.treeViewType });
+    // //dispatch(navigateTo({ routeName: "AddAccount", routeParameters: { parentAccountId: accountId, treeViewType: props.treeViewType }}));
+    // const addAccountProps: AddAccountProps = {
+    //   parentAccountId: topicId,
+    //   treeViewType: props.treeViewType,
+    // };
+    // const route = createRoutePath("/modal/add-account", addAccountProps);
+    // router.push(route);
+  };
+  
+  const editTopic = () => {
+    closeMenu();
+    // //navigation.navigate("EditAccount", { accountId: accountId, treeViewType: props.treeViewType });
+    // const editAccountProps: EditAccountProps = {
+    //   accountId: topicId,
+    //   treeViewType: props.treeViewType,
+    // };
+    // const route = createRoutePath("/modal/edit-account", editAccountProps);
+    // router.push(route);
+  };
+
+  const removeCurrentTopic = async () => {
+    closeMenu();
+    // await dispatch(removeAccount({bookId, nodeId: topicId, treeViewType: props.treeViewType }));
+  }; 
+
   return (
     <>
-      <NamesView accountId={accountId} style={{flexGrow: 1, /*borderWidth: 2, borderColor: "blue"*/}} />
+      <NamesView topicId={topicId} style={{flexGrow: 1, /*borderWidth: 2, borderColor: "blue"*/}} />
       <Menu
         visible={visibleMenu}
         anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}
         anchorPosition="bottom"
         onDismiss={closeMenu}
         >
-        <Menu.Item onPress={addSiblingAccount} title="Add Sibling Account" />
-        <Menu.Item onPress={addChildAccount} title="Add Child Account" />
-        <Menu.Item onPress={editAccount} title="Edit Account" />
-        {isRemovable ? <Menu.Item onPress={ removeCurrentAccount } title="Remove Account" /> : null }
-        <Divider />
-        <Menu.Item onPress={addTransactionAsOrigin} title="Add Transaction as origin" />
-        <Menu.Item onPress={addTransactionAsDestine} title="Add Transaction as destination"/>
+        <Menu.Item onPress={addSiblingTopic} title="Add Sibling Topic" />
+        <Menu.Item onPress={addChildTopic} title="Add Child Topic" />
+        <Menu.Item onPress={editTopic} title="Edit Topic" />
+        {isRemovable ? <Menu.Item onPress={ removeCurrentTopic } title="Remove Topic" /> : null }
       </Menu>    
     </>
   );
