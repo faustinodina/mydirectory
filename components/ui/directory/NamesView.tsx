@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TextStyle, StyleProp } from "react-native";
-import { Headline, Subheading } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { useAppSelector } from "@/store/hooks";
 import { NodeId } from "@/store/slices/tree-list/tree-list-types";
 import { selectTopic } from "@/store/slices/topics/topics-selectors";
@@ -23,8 +23,8 @@ const NamesView = ({topicId: topicId, style}: NamesViewProps) => {
 
   return (
     <View style={{...styles.container, ...style as object}}>
-      <Headline style={styles.title}>{name}</Headline>
-      <Subheading style={styles.subtitle}>{description}</Subheading>
+      <Text variant="headlineSmall" style={styles.title}>{name}</Text>
+      <Text variant="titleMedium" style={styles.subtitle}>{description}</Text>
     </View>
   );
 };
