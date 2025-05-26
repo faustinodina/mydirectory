@@ -10,6 +10,7 @@ import { store } from '../store';
 import { useColorScheme } from '@/app-example/hooks/useColorScheme';
 import { loadStateFromFile } from '@/store/persistence';
 import { useEffect } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 function LoadReduxState() {
   useEffect(() => {
@@ -30,17 +31,21 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <PaperProvider>
-        <ReduxProvider store={store}>
-          <LoadReduxState />
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <StatusBar style="auto" />
-        </ReduxProvider>
-      </PaperProvider>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <PaperProvider>
+            <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+              <LoadReduxState />
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" />
+              </Stack>
+              <StatusBar style="auto" />
+            </SafeAreaView>
+          </PaperProvider>
+        </ThemeProvider>
+      </ReduxProvider>
+    </SafeAreaProvider>
   );
 }
