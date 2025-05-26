@@ -1,7 +1,54 @@
 import { clearArray, clearDict } from "@/utils/ts-utils";
 import { getNextSiblingNodeId } from "./tree-list-lib";
-import { ITreeListState, ITreeNode, NodeId, TreeViewType, ViewsDict, VisibleNodesDict } from "./tree-list-types";
+import { ITreeListState, ITreeNode, NO_NodeId, NodeId, TreeViewType, ViewsDict, VisibleNodesDict } from "./tree-list-types";
 
+export function getInitialStateSample(): ITreeListState {
+  // TODO: Replace with actual initial state values as needed
+  return {
+    nodesDict: {
+      1: {
+        id: 1,
+        children: [2, 3],
+        parent: NO_NodeId,
+        level: 0,
+        sortOrder: 0,
+      }, // Sample root node
+      2: {
+        id: 2,
+        children: [],
+        parent: 1,
+        level: 1,
+        sortOrder: 0,
+      }, // Sample child node
+      3: {
+        id: 3,
+        children: [],
+        parent: 1,
+        level: 1,
+        sortOrder: 1,
+      }, // Another sample child node
+      // Add more nodes as needed
+    },
+    viewsDict: {
+      main: {
+        treeViewId: 100,
+        viewType: "main",
+        visibleNodesDict: {
+          // Sample visibility state for nodes
+          1: { id: 1, isExpanded: true },
+          2: { id: 2, isExpanded: false },
+          3: { id: 3, isExpanded: false },
+        },
+        visibleNodesList: [
+          2, // Child node
+          3, // Another child node
+        ],
+        selectedNodeId: NO_NodeId,
+      },
+      // Add more views as needed
+    },
+  };
+}
 
 export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, treeViewType: treeViewType}: {
   state: ITreeListState,
