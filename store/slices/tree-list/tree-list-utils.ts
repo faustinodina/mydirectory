@@ -3,7 +3,6 @@ import { getNextSiblingNodeId } from "./tree-list-lib";
 import { ITreeListState, ITreeNode, NO_NodeId, NodeId, TreeViewType, ViewsDict, VisibleNodesDict } from "./tree-list-types";
 
 export function getInitialStateSample(): ITreeListState {
-  // TODO: Replace with actual initial state values as needed
   return {
     nodesDict: {
       1: {

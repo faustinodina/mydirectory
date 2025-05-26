@@ -13,6 +13,10 @@ export const accountsSlice = createSlice({
   initialState,
   reducers: {
 
+    setInitialState: (state, action: PayloadAction<TopicsState>) => {
+      return action.payload;  
+    },
+
     resetTopics: (state, action: PayloadAction<ResetTopicsPayload>) => {
       const resetTopicsPayload = action.payload;
       state.topicsDict = resetTopicsPayload.topicsState.topicsDict;
@@ -47,7 +51,7 @@ export const accountsSlice = createSlice({
   },
 });
 
-export const { resetTopics: resetAccounts } = accountsSlice.actions;
+export const { resetTopics, setInitialState } = accountsSlice.actions;
 
 
 export default accountsSlice.reducer;
