@@ -8,7 +8,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../store';
 
 import { useColorScheme } from '@/app-example/hooks/useColorScheme';
-import { loadStateFromFile } from '@/store/bootstrap';
+import { loadStateFromFile } from '@/store/persistence';
 import { useEffect } from 'react';
 
 function LoadReduxState() {

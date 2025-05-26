@@ -4,6 +4,7 @@ import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
 import topicsReducer from './slices/topics/topics-slice';
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
+import { saveStateToFile } from './persistence';
 
 export const store = configureStore({
   reducer: {
@@ -18,8 +19,7 @@ export const store = configureStore({
 // In store/index.ts or a file like store/persist.ts
 store.subscribe(() => {
   const state = store.getState();
-  const fileUri = FileSystem.documentDirectory + 'state.json';
-  FileSystem.writeAsStringAsync(fileUri, JSON.stringify(state)).catch(console.error);
+  saveStateToFile(state);
 });
 
 
