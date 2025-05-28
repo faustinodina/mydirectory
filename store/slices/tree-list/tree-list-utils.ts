@@ -11,7 +11,8 @@ export function getInitialStateSample(): ITreeListState {
         parent: NO_NodeId,
         level: 0,
         sortOrder: 0,
-      }, // Sample root node
+      }, 
+      // 1st level
       2: {
         id: 2,
         children: [],
@@ -21,12 +22,34 @@ export function getInitialStateSample(): ITreeListState {
       }, // Sample child node
       3: {
         id: 3,
-        children: [],
+        children: [5, 6],
         parent: 1,
         level: 1,
         sortOrder: 1,
       }, // Another sample child node
-      // Add more nodes as needed
+      4: {
+        id: 4,
+        children: [],
+        parent: 1,
+        level: 1,
+        sortOrder: 2,
+      }, 
+      // second level
+      5: {
+        id: 5,
+        children: [],
+        parent: 3,
+        level: 2,
+        sortOrder: 0,
+      }, // Another sample child node
+      6: {
+        id: 6,
+        children: [],
+        parent: 3,
+        level: 2,
+        sortOrder: 1,
+      }, // Another sample child node
+
     },
     viewsDict: {
       main: {
@@ -37,10 +60,12 @@ export function getInitialStateSample(): ITreeListState {
           1: { id: 1, isExpanded: true },
           2: { id: 2, isExpanded: false },
           3: { id: 3, isExpanded: false },
+          4: { id: 4, isExpanded: false },
         },
         visibleNodesList: [
           2, // Child node
           3, // Another child node
+          4,
         ],
         selectedNodeId: NO_NodeId,
       },
