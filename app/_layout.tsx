@@ -1,15 +1,15 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useNavigation } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { IconButton, Provider as PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../store';
 
 import { useColorScheme } from '@/app-example/hooks/useColorScheme';
 import { loadStateFromFile } from '@/store/persistence';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 function LoadReduxState() {
@@ -24,7 +24,7 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
-
+  
   if (!loaded) {
     // Async font loading only occurs in development.
     return null;
@@ -38,7 +38,8 @@ export default function RootLayout() {
             <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
               <LoadReduxState />
               <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                {/* headerShown: false is important to display nav bar */}
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />   
                 <Stack.Screen name="+not-found" />
               </Stack>
               <StatusBar style="auto" />

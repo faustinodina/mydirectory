@@ -3,12 +3,13 @@ import { ThemedView } from '@/app-example/components/ThemedView';
 import TreeList from '@/components/tree-list';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { decrement, increment } from '@/store/slices/counter/counter-slice';
-import { useRouter } from 'expo-router';
-import React from "react";
+import { useNavigation, useRouter } from 'expo-router';
+import React, { useLayoutEffect } from "react";
 import { EvArgsOnSelectionChange, TreeViewId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
 import DirectoryDataView from '@/components/ui/directory/DirectoryDataView';
 import DirectoryNodeToggleButton from '@/components/ui/directory/DirectoryNodeToggleButton';
 import { StyleSheet } from "react-native";
+import { IconButton } from 'react-native-paper';
 
 
 const Index = () => {
@@ -16,6 +17,16 @@ const Index = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton icon="camera" onPress={() => alert('Camera pressed')} />
+      ),
+    });
+  }, [navigation]);
+  
   const doSelectionChange = (e: EvArgsOnSelectionChange): void => {
     // handle selection change here, e.g., log or dispatch
     console.log("Selection changed:", e);
