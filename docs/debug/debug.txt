@@ -1,0 +1,4 @@
+
+Logcat:
+level: INFO package:com.faustinodina.mydirectory tag:ReactNativeJS
+

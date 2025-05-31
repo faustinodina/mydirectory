@@ -1,18 +1,28 @@
-import { ThemedText } from "@/app-example/components/ThemedText";
-import { ThemedView } from "@/app-example/components/ThemedView";
+import HtmlEditor from "@/components/ui/HtmlEditor";
 import React from "react";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
+
+//https://github.com/wxik/react-native-rich-editor/blob/master/examples/src/example.tsx
+//https://chatgpt.com/share/683b3328-34d0-8013-9fd6-8226aa01e7a6
 
 const Content = () => {
   return (
-    <ThemedView
+    <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        // justifyContent: "center",
+        // alignItems: "center",
       }}
     >
-      <ThemedText>CONTENT</ThemedText>
-    </ThemedView>
+      <View style={{ flexDirection: "row" }} >
+        <Text>Current Directory:</Text>
+        <Text>Some path / subpaths</Text>
+      </View>
+      <View style={{ flex: 1}}>
+        <HtmlEditor />
+      </View>
+    </View>
   );
 };
 
