@@ -1,6 +1,6 @@
 import { ITreeNode, NO_NodeId, VisibleNodesDict, NodeId } from "../tree-list-types";
 import { mutateStateSetDefaultVisibility, mutateStateResetVisibility } from "../tree-list-utils";
-import { generateITreeListState1 } from "./test-utils";
+import { generateITreeListState1 } from "./test-utils.helper";
 
 
 describe('mutateStateSetDefaultVisibility', () => {

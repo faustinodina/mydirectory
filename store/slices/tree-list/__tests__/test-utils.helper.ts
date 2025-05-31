@@ -1,5 +1,9 @@
 import { ITreeListState, NO_NodeId } from "../tree-list-types";
 
+test('dummy', () => {
+  expect(true).toBe(true);
+});
+
 export function generateITreeListState1(): ITreeListState {
   const state: ITreeListState = {
     nodesDict: {
