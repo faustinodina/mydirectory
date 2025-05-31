@@ -7,7 +7,7 @@ export function getInitialStateSample(): ITreeListState {
     nodesDict: {
       1: {
         id: 1,
-        children: [2, 3],
+        children: [2, 3, 4],
         parent: NO_NodeId,
         level: 0,
         sortOrder: 0,

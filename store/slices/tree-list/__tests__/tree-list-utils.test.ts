@@ -1,6 +1,7 @@
 import { ITreeNode, NO_NodeId, VisibleNodesDict, NodeId } from "../tree-list-types";
-import { mutateStateSetDefaultVisibility, mutateStateResetVisibility } from "../tree-list-utils";
+import { mutateStateSetDefaultVisibility, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "../tree-list-utils";
 import { generateITreeListState1 } from "./test-utils.helper";
+import { getInitialStateSample as getTreeListInitialStateSample } from '../tree-list-utils';
 
 
 describe('mutateStateSetDefaultVisibility', () => {
@@ -19,10 +20,7 @@ describe('mutateStateSetDefaultVisibility', () => {
     expect(nodeVisibilityDict[1001]).toBeDefined();
     expect(nodeVisibilityDict[1003]).toBeDefined();
   });
-});
 
-/// Resets the visibility for all the views, with exceptions
-describe('mutateStateResetVisibility', () => {
   it('should reset the visibility for all the views, with exceptions', () => {
 
     const treeListState = generateITreeListState1();
@@ -45,5 +43,21 @@ describe('mutateStateResetVisibility', () => {
     expect(viewsDict["Other3"].visibleNodesDict[10011]).toBeUndefined();
 
   });
+
+  // it('should reset the visibility for all the views, with exceptions', () => {
+  //   const treeListState = getTreeListInitialStateSample();
+  // });
+
 });
 
+describe('mutateStateToggleNodeExpansion', () => {
+  it('should expand', () => {
+
+    const treeListState = getTreeListInitialStateSample();
+    console.log ('Initial state:', JSON.stringify(treeListState, null, 2));
+    mutateStateToggleNodeExpansion({state: treeListState, nodeId: 3, isExpanding: true, treeViewType: "main"});
+    console.log ('Final state:', JSON.stringify(treeListState, null, 2));
+
+  });
+
+});
