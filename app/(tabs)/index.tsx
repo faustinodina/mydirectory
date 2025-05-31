@@ -10,6 +10,7 @@ import DirectoryDataView from '@/components/ui/directory/DirectoryDataView';
 import DirectoryNodeToggleButton from '@/components/ui/directory/DirectoryNodeToggleButton';
 import { StyleSheet } from "react-native";
 import { IconButton } from 'react-native-paper';
+import NavBarRight from '@/components/ui/NavBarRight';
 
 
 const Index = () => {
@@ -22,7 +23,7 @@ const Index = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton icon="camera" onPress={() => alert('Camera pressed')} />
+        <NavBarRight />
       ),
     });
   }, [navigation]);
