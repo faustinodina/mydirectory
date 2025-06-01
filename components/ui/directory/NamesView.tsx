@@ -18,7 +18,7 @@ const NamesView = ({noteId: noteId, style}: NamesViewProps) => {
   const note = useAppSelector(selectNote(noteId));
   if (!note) { return null; }  // when adding an account the node was added but not yet the account 
 
-  const name = note.alias || note.name;
+  const name = note.alias || note.title;
   const description = note.description;
 
   return (

@@ -11,7 +11,7 @@ export const selectSelectedNoteName = (treeViewType: TreeViewType) => {
   return (state: RootState) => { 
     const selectedNodeId = state.treeList.viewsDict?.[treeViewType]?.selectedNodeId ?? NO_NodeId; 
     if (!selectedNodeId ) { return null; }
-    return state.notes.notesDict?.[selectedNodeId]?.name;
+    return state.notes.notesDict?.[selectedNodeId]?.title;
   }
 };
 
@@ -19,7 +19,7 @@ export const selectNoteNameById = (nodeId: NodeId) => {
   return (state: RootState) => {
     if (!nodeId) { return ""; }
     const acc = state.notes.notesDict[nodeId];
-    return acc?.alias ?? acc?.name ?? "";
+    return acc?.alias ?? acc?.title ?? "";
   };
 };
 
@@ -32,7 +32,7 @@ export const selectNote = (accId: NodeId) => { return memoize((state: RootState)
 
 export const selectNoteLabel =(accId: NodeId) => { return memoize((state: RootState) => {
   const alias = state.notes.notesDict[accId]?.alias ?? "";
-  const name = state.notes.notesDict[accId]?.name ?? "";
+  const name = state.notes.notesDict[accId]?.title ?? "";
   if (!alias && !name) { return ""; }
   return alias ? `${alias} - ${name}` : name;
 });};

@@ -7,37 +7,37 @@ export function getInitialStateSample(): NotesState {
     notesDict: {
       1: {
         id: 1,
-        name: "Root Topic",
+        title: "Root Topic",
         alias: "root",
         description: "This is a sample topic for demonstration purposes.",
       },
       2: {
         id: 2,
-        name: "Topic One",
+        title: "Topic One",
         alias: "One",
         description: "This is a sample topic for demonstration purposes.",
       },
       3: {
         id: 3,
-        name: "Topic Two",
+        title: "Topic Two",
         alias: "Two",
         description: "",
       },
       4: {
         id: 4,
-        name: "Topic Three",
+        title: "Topic Three",
         alias: "Three",
         description: "",
       },
       5: {
         id: 5,
-        name: "Topic 2-1",
+        title: "Topic 2-1",
         alias: "2-1",
         description: "",
       },
       6: {
         id: 6,
-        name: "Topic 2-2",
+        title: "Topic 2-2",
         alias: "2-2",
         description: "",
       },

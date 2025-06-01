@@ -1,7 +1,7 @@
 import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType } from "../tree-list/tree-list-types";
 
 export interface INotePayload {
-  name: string;
+  title: string;
   alias?: string;
   description?: string;
 }

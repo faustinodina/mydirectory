@@ -2,7 +2,6 @@ import type { RootState } from '@/store';
 import { NotesState, INoteEditable, INoteToAdd, ResetNotesPayload } from "@/store/slices/notes/notes-types";
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NO_NodeId, NodeId, TreeViewType } from '@/store/slices/tree-list/tree-list-types';
-import { memoize } from "proxy-memoize";
 
 const initialState: NotesState = {
   notesDict: {},
@@ -31,7 +30,7 @@ export const notesSlice = createSlice({
       const modifiedNoteData = action.payload;
       const noteToModify = state.notesDict[modifiedNoteData.noteId];
       if (!noteToModify) { return; }
-      noteToModify.name = modifiedNoteData.name;
+      noteToModify.title = modifiedNoteData.name;
       noteToModify.alias = modifiedNoteData.alias;
       noteToModify.description = modifiedNoteData.description;
     },
