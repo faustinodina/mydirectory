@@ -1,49 +1,49 @@
 import type { RootState } from '@/store';
-import { TopicsState, ITopicEditable, ITopicToAdd, ResetTopicsPayload } from "@/store/slices/topics/topics-types";
+import { NotesState, INoteEditable, INoteToAdd, ResetNotesPayload } from "@/store/slices/notes/notes-types";
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NO_NodeId, NodeId, TreeViewType } from '@/store/slices/tree-list/tree-list-types';
 import { memoize } from "proxy-memoize";
 
-const initialState: TopicsState = {
-  topicsDict: {},
+const initialState: NotesState = {
+  notesDict: {},
 };
 
-export const accountsSlice = createSlice({
-  name: 'accounts',
+export const notesSlice = createSlice({
+  name: 'notes',
   initialState,
   reducers: {
 
-    setInitialState: (state, action: PayloadAction<TopicsState>) => {
+    setInitialState: (state, action: PayloadAction<NotesState>) => {
       return action.payload;  
     },
 
-    resetTopics: (state, action: PayloadAction<ResetTopicsPayload>) => {
-      const resetTopicsPayload = action.payload;
-      state.topicsDict = resetTopicsPayload.topicsState.topicsDict;
+    resetNotes: (state, action: PayloadAction<ResetNotesPayload>) => {
+      const resetNotesPayload = action.payload;
+      state.notesDict = resetNotesPayload.notesState.notesDict;
     },
   
-    addTopic: (state, action: PayloadAction<{nodeId: NodeId, topicToAdd: ITopicToAdd}>) => {
-      const {nodeId: nodeId, topicToAdd: topicToAdd } = action.payload;
-      state.topicsDict[nodeId] = {id: nodeId, ...topicToAdd.topic};
+    addNote: (state, action: PayloadAction<{nodeId: NodeId, noteToAdd: INoteToAdd}>) => {
+      const {nodeId: nodeId, noteToAdd: noteToAdd } = action.payload;
+      state.notesDict[nodeId] = {id: nodeId, ...noteToAdd.note};
     },
 
-    updateTopic: (state, action: PayloadAction<ITopicEditable>) => {
-      const modifiedTopicData = action.payload;
-      const topicToModify = state.topicsDict[modifiedTopicData.topicId];
-      if (!topicToModify) { return; }
-      topicToModify.name = modifiedTopicData.name;
-      topicToModify.alias = modifiedTopicData.alias;
-      topicToModify.description = modifiedTopicData.description;
+    updateNote: (state, action: PayloadAction<INoteEditable>) => {
+      const modifiedNoteData = action.payload;
+      const noteToModify = state.notesDict[modifiedNoteData.noteId];
+      if (!noteToModify) { return; }
+      noteToModify.name = modifiedNoteData.name;
+      noteToModify.alias = modifiedNoteData.alias;
+      noteToModify.description = modifiedNoteData.description;
     },
 
-    removeTopic: (state, action: PayloadAction<NodeId>) => {
+    removeNote: (state, action: PayloadAction<NodeId>) => {
       const nodeId = action.payload;
-      delete state.topicsDict[nodeId];
+      delete state.notesDict[nodeId];
     },
 
     // reset the state to state before loading from db
     clearState: (state, action: PayloadAction<void>) => {
-      state.topicsDict = {};
+      state.notesDict = {};
     },
   },
 
@@ -51,7 +51,7 @@ export const accountsSlice = createSlice({
   },
 });
 
-export const { resetTopics, setInitialState } = accountsSlice.actions;
+export const { resetNotes, setInitialState } = notesSlice.actions;
 
 
-export default accountsSlice.reducer;
+export default notesSlice.reducer;

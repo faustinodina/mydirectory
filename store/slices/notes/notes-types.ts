@@ -1,39 +1,39 @@
 import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType } from "../tree-list/tree-list-types";
 
-export interface ITopicPayload {
+export interface INotePayload {
   name: string;
   alias?: string;
   description?: string;
 }
 
-export interface ITopic2 extends ITopicPayload {
+export interface INote2 extends INotePayload {
   id: NodeId;
 }
 
-export type TopicsPayloadDict = { [key: NodeId]: ITopic2 };
+export type NotesPayloadDict = { [key: NodeId]: INote2 };
 
-export interface TopicsState {
-  topicsDict: TopicsPayloadDict,   // nodes' payload: uses the same node keys used by nodesDict
+export interface NotesState {
+  notesDict: NotesPayloadDict,   // nodes' payload: uses the same node keys used by nodesDict
 }
 
-export interface ResetTopicsPayload {  
-  rootTopicId: NodeId;
-  topicsState: TopicsState;
+export interface ResetNotesPayload {  
+  rootNoteId: NodeId;
+  notesState: NotesState;
 }
 
 // used to persist together both account and tree-list states
-export interface TopicsAndITreeListState extends TopicsState, ITreeListState {
+export interface NotesAndITreeListState extends NotesState, ITreeListState {
 }
 
-export interface ITopicToAdd {
-  topic: ITopicPayload;
+export interface INoteToAdd {
+  note: INotePayload;
   position: ITreeNodePosition;
   treeViewType: TreeViewType;
 };
 
-export interface ITopicEditable {
+export interface INoteEditable {
   treeViewType: TreeViewType;
-  topicId: NodeId;
+  noteId: NodeId;
   name: string;
   alias?: string;
   description?: string;

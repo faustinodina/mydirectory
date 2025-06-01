@@ -3,23 +3,23 @@ import { View, StyleSheet, TextStyle, StyleProp } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppSelector } from "@/store/hooks";
 import { NodeId } from "@/store/slices/tree-list/tree-list-types";
-import { selectTopic } from "@/store/slices/notes/notes-selectors";
+import { selectNote } from "@/store/slices/notes/notes-selectors";
 
 export type NamesViewProps = {
-  topicId: NodeId,
+  noteId: NodeId,
   style: StyleProp<TextStyle>
 };
 
 // todo: When account has no description, name should be centered vertically, aligned with balance
 // todo: balance column should be aligned, no matter how large is the Names view
 
-const NamesView = ({topicId: topicId, style}: NamesViewProps) => {
+const NamesView = ({noteId: noteId, style}: NamesViewProps) => {
 
-  const topic = useAppSelector(selectTopic(topicId));
-  if (!topic) { return null; }  // when adding an account the node was added but not yet the account 
+  const note = useAppSelector(selectNote(noteId));
+  if (!note) { return null; }  // when adding an account the node was added but not yet the account 
 
-  const name = topic.alias || topic.name;
-  const description = topic.description;
+  const name = note.alias || note.name;
+  const description = note.description;
 
   return (
     <View style={{...styles.container, ...style as object}}>

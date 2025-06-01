@@ -4,8 +4,8 @@ import { AppDispatch, RootState } from './index';
 import { setInitialState as setCounterInitialState } from './slices/counter/counter-slice'; // assume your slice supports this
 import { getInitialStateSample as getTreeListInitialStateSample } from './slices/tree-list/tree-list-utils';
 import { setInitialState as setTreeListInitialState } from './slices/tree-list/tree-list-slice';
-import { getInitialStateSample as getTopicsInitialStateSample } from './slices/notes/notes-utils';
-import { setInitialState as setTopicsInitialState} from './slices/notes/notes-slice';
+import { getInitialStateSample as getNotesInitialStateSample } from './slices/notes/notes-utils';
+import { setInitialState as setNotesInitialState} from './slices/notes/notes-slice';
 
 const fileUri = FileSystem.documentDirectory + 'state.json';
 const treeListFileUri = FileSystem.documentDirectory + 'tree-list.json';
@@ -21,7 +21,7 @@ export const loadStateFromFile = () => async (dispatch: AppDispatch) => {
 
     dispatch(setTreeListInitialState(/*parsed.treeList ??*/ getTreeListInitialStateSample()));
 
-    dispatch(setTopicsInitialState(/*parsed.topics ??*/ getTopicsInitialStateSample()));
+    dispatch(setNotesInitialState(/*parsed.topics ??*/ getNotesInitialStateSample()));
 
   } catch (error) {
     console.log(`No existing file "${fileUri}" or failed to load:`, error);

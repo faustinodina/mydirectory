@@ -1,11 +1,10 @@
 import { NO_NodeId } from "../tree-list/tree-list-types";
-import { TopicsState } from "./notes-types";
+import { NotesState } from "./notes-types";
 
 
-export function getInitialStateSample(): TopicsState {
+export function getInitialStateSample(): NotesState {
   return {
-    topicsDict: {
-      // Sample topic
+    notesDict: {
       1: {
         id: 1,
         name: "Root Topic",

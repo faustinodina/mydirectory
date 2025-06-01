@@ -21,7 +21,7 @@ type AccountDataViewProps = IDataViewProps & {
 const DirectoryDataView = (props: AccountDataViewProps) => {
 
   const node = useAppSelector(selectTreeNode(props.nodeId));
-  const topicId: NodeId = props.nodeId;
+  const noteId: NodeId = props.nodeId;
   const nodeId: NodeId = props.nodeId;
   const isRemovable = isNodeRemovable(node);
   //const bookId = useAppSelector(selectCurrentBookId);
@@ -34,7 +34,7 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
 
   const router = useRouter();
 
-  const addSiblingTopic = () => {    
+  const addSiblingNote = () => {    
     closeMenu();
     // const addAccountProps: AddAccountProps = {
     //   siblingAccountId: topicId,
@@ -44,7 +44,7 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
     // router.push(route);
   };
 
-  const addChildTopic = () => {
+  const addChildNote = () => {
     closeMenu();
     // //navigation.navigate("AddAccount", { parentAccountId: accountId, treeViewType: props.treeViewType });
     // //dispatch(navigateTo({ routeName: "AddAccount", routeParameters: { parentAccountId: accountId, treeViewType: props.treeViewType }}));
@@ -56,7 +56,7 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
     // router.push(route);
   };
   
-  const editTopic = () => {
+  const editNote = () => {
     closeMenu();
     // //navigation.navigate("EditAccount", { accountId: accountId, treeViewType: props.treeViewType });
     // const editAccountProps: EditAccountProps = {
@@ -67,24 +67,24 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
     // router.push(route);
   };
 
-  const removeCurrentTopic = async () => {
+  const removeCurrentNote = async () => {
     closeMenu();
     // await dispatch(removeAccount({bookId, nodeId: topicId, treeViewType: props.treeViewType }));
   }; 
 
   return (
     <>
-      <NamesView topicId={topicId} style={{flexGrow: 1, /*borderWidth: 2, borderColor: "blue"*/}} />
+      <NamesView noteId={noteId} style={{flexGrow: 1, /*borderWidth: 2, borderColor: "blue"*/}} />
       <Menu
         visible={visibleMenu}
         anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}
         anchorPosition="bottom"
         onDismiss={closeMenu}
         >
-        <Menu.Item onPress={addSiblingTopic} title="Add Sibling Topic" />
-        <Menu.Item onPress={addChildTopic} title="Add Child Topic" />
-        <Menu.Item onPress={editTopic} title="Edit Topic" />
-        {isRemovable ? <Menu.Item onPress={ removeCurrentTopic } title="Remove Topic" /> : null }
+        <Menu.Item onPress={addSiblingNote} title="Add Sibling Note" />
+        <Menu.Item onPress={addChildNote} title="Add Child Note" />
+        <Menu.Item onPress={editNote} title="Edit Note" />
+        {isRemovable ? <Menu.Item onPress={ removeCurrentNote } title="Remove Note" /> : null }
       </Menu>    
     </>
   );
