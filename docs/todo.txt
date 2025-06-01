@@ -1,2 +1,11 @@
-NoteTree
-StructuredNotes
+-Rename app
+  NoteTree
+  StructuredNotes
+
+-Rename "topics" slice to "notes"
+
+-Modify topics (notes) slice content to fields more document-oriented
+  name => title
+  note content will not be in the slice
+
+  

@@ -1,5 +1,5 @@
 import { NO_NodeId } from "../tree-list/tree-list-types";
-import { TopicsState } from "./topics-types";
+import { TopicsState } from "./notes-types";
 
 
 export function getInitialStateSample(): TopicsState {

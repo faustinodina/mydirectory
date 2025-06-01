@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import * as FileSystem from 'expo-file-system';
 import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
-import topicsReducer from './slices/topics/topics-slice';
+import topicsReducer from './slices/notes/notes-slice';
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 import { saveStateToFile } from './persistence';
 

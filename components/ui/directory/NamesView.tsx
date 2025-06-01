@@ -3,7 +3,7 @@ import { View, StyleSheet, TextStyle, StyleProp } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppSelector } from "@/store/hooks";
 import { NodeId } from "@/store/slices/tree-list/tree-list-types";
-import { selectTopic } from "@/store/slices/topics/topics-selectors";
+import { selectTopic } from "@/store/slices/notes/notes-selectors";
 
 export type NamesViewProps = {
   topicId: NodeId,
