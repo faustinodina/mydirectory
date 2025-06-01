@@ -11,15 +11,14 @@ export default function HtmlEditorScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <WebView
-        originWhitelist={['*']}
-        source={{ html: htmlContent }}
-        onMessage={onMessage}
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
-      />
-    </View>
+    <WebView
+      originWhitelist={['*']}
+      source={{ html: htmlContent }}
+      onMessage={onMessage}
+      javaScriptEnabled={true}
+      domStorageEnabled={true}
+      style={{ flex: 1 }}
+    />
   );
 }
 
@@ -44,3 +43,4 @@ const htmlContent = `
   </body>
 </html>
 `;
+

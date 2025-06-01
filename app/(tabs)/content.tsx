@@ -1,4 +1,4 @@
-import HtmlEditor from "@/components/ui/HtmlEditor";
+import HtmlEditor from "@/components/ui/html-editor";
 import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
@@ -20,6 +20,7 @@ const Content = () => {
         <Text>Some path / subpaths</Text>
       </View>
       <View style={{ flex: 1}}>
+        {/* <HtmlEditor /> */}
         <HtmlEditor />
       </View>
     </View>
