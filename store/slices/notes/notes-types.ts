@@ -4,6 +4,7 @@ export interface INotePayload {
   title: string;
   alias?: string;
   description?: string;
+  contentGuid: string;  // used as name of the file containing the note content in html format
 }
 
 export interface INote2 extends INotePayload {
