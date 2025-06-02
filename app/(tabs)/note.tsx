@@ -6,7 +6,7 @@ import { Text } from "react-native-paper";
 //https://github.com/wxik/react-native-rich-editor/blob/master/examples/src/example.tsx
 //https://chatgpt.com/share/683b3328-34d0-8013-9fd6-8226aa01e7a6
 
-const Content = () => {
+const Note = () => {
   return (
     <View
       style={{
@@ -27,4 +27,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default Note;

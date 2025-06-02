@@ -7,6 +7,7 @@ import { IconSymbol } from '@/app-example/components/ui/IconSymbol';
 import TabBarBackground from '@/app-example/components/ui/TabBarBackground';
 import { Colors } from '@/app-example/constants/Colors';
 import { useColorScheme } from '@/app-example/hooks/useColorScheme';
+import { IconButton } from 'react-native-paper';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -30,14 +31,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Directory',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color, focused }) => <IconButton size={28} icon={focused ? "folder-open" : "folder-open-outline"} />,
         }}
       />
       <Tabs.Screen
-        name="content"
+        name="note"
         options={{
-          title: 'Content',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Note',
+          tabBarIcon: ({ color, focused }) => <IconButton size={28} icon={focused ? "note" : "note-outline"} />,
         }}
       />
     </Tabs>
