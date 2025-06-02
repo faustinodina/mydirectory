@@ -19,9 +19,9 @@ export const loadStateFromFile = () => async (dispatch: AppDispatch) => {
 
     dispatch(setCounterInitialState(parsed.counter));
 
-    dispatch(setTreeListInitialState(/*parsed.treeList ??*/ getTreeListInitialStateSample()));
+    dispatch(setTreeListInitialState(parsed.treeList ?? getTreeListInitialStateSample()));
 
-    dispatch(setNotesInitialState(/*parsed.topics ??*/ getNotesInitialStateSample()));
+    dispatch(setNotesInitialState(parsed.notes ?? getNotesInitialStateSample()));
 
   } catch (error) {
     console.log(`No existing file "${fileUri}" or failed to load:`, error);
