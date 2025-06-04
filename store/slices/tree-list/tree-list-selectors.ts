@@ -24,3 +24,5 @@ export const selectRootNodeId = memoize((state: RootState) => {
   return strKey ? +strKey : 0;
 });
 export const selectTreeViewId = (treeViewType: TreeViewType) => { return memoize((state: RootState) => state.treeList.viewsDict?.[treeViewType]?.treeViewId); }
+
+// todo: select path

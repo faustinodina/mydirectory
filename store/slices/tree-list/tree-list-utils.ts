@@ -51,6 +51,14 @@ export function getInitialStateSample(): ITreeListState {
       }, // Another sample child node
 
     },
+    pathCache: {
+      1: [],
+      2: [2],
+      3: [3],
+      4: [4],
+      5: [3, 5],
+      6: [3, 6],
+    },
     viewsDict: {
       main: {
         treeViewId: 100,

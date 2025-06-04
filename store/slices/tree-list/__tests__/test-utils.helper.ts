@@ -16,6 +16,16 @@ export function generateITreeListState1(): ITreeListState {
       10023: { id: 10023, parent: 1002,       level: 2, sortOrder: 30,  children: [], },
       1003: { id: 1003, parent: 1000, level: 1, sortOrder: 30, children: [], },
     },
+    pathCache: {
+      1000: [],
+      1001: [1001],
+      10011: [1001, 10011],
+      1002: [1002],
+      10021: [1002, 10021],
+      10022: [1002, 10022],
+      10023: [1002, 10023],
+      1003: [1003],
+    },
     viewsDict: {
       'Main': {
         viewType: "Main",

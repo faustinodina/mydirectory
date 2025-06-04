@@ -6,6 +6,7 @@ import { mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tr
 
 const initialState: ITreeListState = {
   nodesDict: {},
+  pathCache: {},
   viewsDict: {},
 };
 

@@ -23,7 +23,8 @@ export interface INodeVisibility {
 export type VisibleNodesDict = { [key: NodeId]: INodeVisibility };
 
 export interface ITreeListState {
-  nodesDict: TreeDict;          // tree of "pure" nodes
+  nodesDict: TreeDict;            // tree of "pure" nodes
+  pathCache: INodePathCacheDict;  // cache of paths from root to each node, used for quick access to the path without recalculating it every time
 
   // for visibleAccounts note the root account is not displayed so if you have only the root account (initial state) then visibleAccounts dict and list will be empty 
   // these are related to Accounts.tsx views. should be one per accounts tree view; we are using these for the main view
@@ -33,6 +34,10 @@ export interface ITreeListState {
 
   viewsDict: ViewsDict;
 };
+
+export interface INodePathCacheDict {
+  [nodeId: NodeId]: NodeId[];  // path from root to this node, including the node itself, NOT including the root node
+}
 
 export interface INodeToggledEvent {
   nodeId: string;
