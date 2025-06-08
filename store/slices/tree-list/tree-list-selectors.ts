@@ -25,4 +25,11 @@ export const selectRootNodeId = memoize((state: RootState) => {
 });
 export const selectTreeViewId = (treeViewType: TreeViewType) => { return memoize((state: RootState) => state.treeList.viewsDict?.[treeViewType]?.treeViewId); }
 
-// todo: select path
+export const selectCachedPath = (nodeId: NodeId) => {
+  return (state: RootState) => {
+    if (!nodeId) { return []; }
+    if (!(nodeId in state.treeList.pathCache)) { return []; }
+    return state.treeList.pathCache[nodeId];
+  };
+};
+

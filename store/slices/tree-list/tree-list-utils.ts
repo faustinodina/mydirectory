@@ -1,6 +1,6 @@
 import { clearArray, clearDict } from "@/utils/ts-utils";
-import { getNextSiblingNodeId } from "./tree-list-lib";
-import { ITreeListState, ITreeNode, NO_NodeId, NodeId, TreeViewType, ViewsDict, VisibleNodesDict } from "./tree-list-types";
+import { getNextSiblingNodeId, getRootNode } from "./tree-list-lib";
+import { INodePathCacheDict, ITreeListState, ITreeNode, NO_NodeId, NodeId, TreeDict, TreeViewType, ViewsDict, VisibleNodesDict } from "./tree-list-types";
 
 export function getInitialStateSample(): ITreeListState {
   return {
@@ -223,4 +223,35 @@ export function mutateStateSetDefaultVisibility(a: {
       nodeVisibility.isExpanded = false;
     }
   });
+}
+
+export function mutateStateResetPathCache(state: ITreeListState) {
+  // clear dictionary
+  Object.keys(state.pathCache).forEach(key => {
+    delete state.pathCache[+key];
+  });
+
+  // iterate recursively the tree, calculate paths
+  const rootNode = getRootNode(state.nodesDict);
+
+
+}
+
+function recurseTree(node: ITreeNode, path: NodeId[], pathCache: INodePathCacheDict, nodesDict: TreeDict) {
+  // add current node to the path
+  path.push(node.id);
+  // store the path in the cache
+  pathCache[node.id] = [...path];
+
+  // iterate children
+  for (const childId of node.children) {
+    const childNode = nodesDict[childId];
+    if (childNode) {
+      recurseTree(childNode, path, pathCache, nodesDict);
+    }
+  }
+
+  // remove current node from the path (backtrack)
+  path.pop();
+
 }
