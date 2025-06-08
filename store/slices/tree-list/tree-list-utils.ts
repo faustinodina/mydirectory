@@ -234,10 +234,16 @@ export function mutateStateResetPathCache(state: ITreeListState) {
   // iterate recursively the tree, calculate paths
   const rootNode = getRootNode(state.nodesDict);
 
-
+  // root node should not be included in path so we start recursing the children
+  rootNode.children.forEach(childId => {
+    const childNode = state.nodesDict[childId];
+    if (childNode) {
+      recurseTreeRecreatePaths(childNode, [], state.pathCache, state.nodesDict);
+    }
+  });
 }
 
-function recurseTree(node: ITreeNode, path: NodeId[], pathCache: INodePathCacheDict, nodesDict: TreeDict) {
+export function recurseTreeRecreatePaths(node: ITreeNode, path: NodeId[], pathCache: INodePathCacheDict, nodesDict: TreeDict) {
   // add current node to the path
   path.push(node.id);
   // store the path in the cache
@@ -247,7 +253,7 @@ function recurseTree(node: ITreeNode, path: NodeId[], pathCache: INodePathCacheD
   for (const childId of node.children) {
     const childNode = nodesDict[childId];
     if (childNode) {
-      recurseTree(childNode, path, pathCache, nodesDict);
+      recurseTreeRecreatePaths(childNode, path, pathCache, nodesDict);
     }
   }
 

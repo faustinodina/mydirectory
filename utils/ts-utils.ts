@@ -6,6 +6,10 @@ export const isString = (value: any) => typeof value === 'string';
 export function clearDict<T>(accountsDict: Dictionary<T>) {
   Object.keys(accountsDict).forEach(key => delete accountsDict[key]);
 }
+export function clearDict2<T extends { [key: string]: any } | { [key: number]: any }>(dict: T) {
+  Object.keys(dict).forEach(key => delete dict[key as keyof T]);
+}
+
 
 export function clearArray<T>(array: T[]) {
   array.splice(0, array.length);

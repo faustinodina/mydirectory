@@ -1,7 +1,9 @@
 import { ITreeNode, NO_NodeId, VisibleNodesDict, NodeId } from "../tree-list-types";
-import { mutateStateSetDefaultVisibility, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "../tree-list-utils";
+import { mutateStateSetDefaultVisibility, mutateStateResetVisibility, mutateStateToggleNodeExpansion, recurseTreeRecreatePaths, mutateStateResetPathCache } from "../tree-list-utils";
 import { generateITreeListState1 } from "./test-utils.helper";
 import { getInitialStateSample as getTreeListInitialStateSample } from '../tree-list-utils';
+import { clearDict, clearDict2 } from "@/utils/ts-utils";
+import { getRootNode } from "../tree-list-lib";
 
 
 describe('mutateStateSetDefaultVisibility', () => {
@@ -58,6 +60,55 @@ describe('mutateStateToggleNodeExpansion', () => {
     mutateStateToggleNodeExpansion({state: treeListState, nodeId: 3, isExpanding: true, treeViewType: "main"});
     console.log ('Final state:', JSON.stringify(treeListState, null, 2));
 
+  });
+
+});
+
+describe('mutateStateResetPathCache', () => {
+  it('recurseTreeRecreatePaths: root node id is included', () => {
+
+    const treeListState = getTreeListInitialStateSample();
+    clearDict2(treeListState.pathCache);
+    const x = treeListState.pathCache[1000];
+    expect(x).toBeUndefined();
+    let size = Object.keys(treeListState.pathCache)
+    expect(size.length).toBe(0);
+
+    const rootNode = getRootNode(treeListState.nodesDict);
+    const path: NodeId[] = [];
+
+    recurseTreeRecreatePaths(rootNode, path, treeListState.pathCache, treeListState.nodesDict);
+
+    size = Object.keys(treeListState.pathCache)
+    expect(size.length).not.toBe(0);
+
+    console.log('Final path cache:', JSON.stringify(treeListState.pathCache, null, 2));
+
+    expect(treeListState.pathCache[rootNode.id]).toEqual([rootNode.id]);
+    expect(treeListState.pathCache[rootNode.children[0]]).toEqual([rootNode.id, rootNode.children[0]]);
+    
+  });
+
+  it('root node id is not included in cache', () => {
+    const treeListState = getTreeListInitialStateSample();
+    clearDict2(treeListState.pathCache);
+    const x = treeListState.pathCache[1000];
+    expect(x).toBeUndefined();
+    let size = Object.keys(treeListState.pathCache)
+    expect(size.length).toBe(0);
+
+    const rootNode = getRootNode(treeListState.nodesDict);
+    const path: NodeId[] = [];
+
+    mutateStateResetPathCache(treeListState);
+
+    size = Object.keys(treeListState.pathCache)
+    expect(size.length).not.toBe(0);
+
+    console.log('Final path cache:', JSON.stringify(treeListState.pathCache, null, 2));
+
+    expect(treeListState.pathCache[rootNode.id]).toEqual([]);
+    expect(treeListState.pathCache[rootNode.children[0]]).toEqual([rootNode.children[0]]);
   });
 
 });
