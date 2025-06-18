@@ -84,3 +84,6 @@ build/development-build.apk
 misc/build/development-build.apk
 docs/build/development-build-2.apk
 docs/build/development-build.apk
+
+# Jest coverage output
+coverage/

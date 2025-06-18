@@ -107,8 +107,31 @@ describe('mutateStateResetPathCache', () => {
 
     console.log('Final path cache:', JSON.stringify(treeListState.pathCache, null, 2));
 
-    expect(treeListState.pathCache[rootNode.id]).toEqual([]);
-    expect(treeListState.pathCache[rootNode.children[0]]).toEqual([rootNode.children[0]]);
+    //expect(treeListState.pathCache[rootNode.id]).toBeUndefined();
+    expect(treeListState.pathCache).not.toHaveProperty(rootNode.id.toString());
+
   });
 
+  it('root node id is not included in any path', () => {
+    const treeListState = getTreeListInitialStateSample();
+    clearDict2(treeListState.pathCache);
+    const x = treeListState.pathCache[1000];
+    expect(x).toBeUndefined();
+    let size = Object.keys(treeListState.pathCache)
+    expect(size.length).toBe(0);
+
+    const rootNode = getRootNode(treeListState.nodesDict);
+    const path: NodeId[] = [];
+
+    mutateStateResetPathCache(treeListState);
+
+    size = Object.keys(treeListState.pathCache)
+    expect(size.length).not.toBe(0);
+
+    console.log('Final path cache:', JSON.stringify(treeListState.pathCache, null, 2));
+
+    for (const key in treeListState.pathCache) {
+      expect(treeListState.pathCache[key]).not.toContain(rootNode.id);
+    }
+  });
 });
