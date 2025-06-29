@@ -289,6 +289,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
   }
 
   state.nodesDict[nodeId] = node;
+  state.pathCache[nodeId] = [...(state.pathCache[position.parentId] || []), nodeId];
 
   if (position.siblingId) {
     // todo: error when sibling is level 1 it is not displayed
@@ -484,6 +485,9 @@ export function mutateStateRemoveLeafNode({state, nodeId, treeViewType: viewKey}
 
   // remove from tree
   delete state.nodesDict[nodeId];
+
+  // delete from path cache
+  delete state.pathCache[nodeId];
 
   // reset all the other views
   mutateStateResetVisibility({

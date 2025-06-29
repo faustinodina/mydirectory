@@ -30,7 +30,9 @@ describe('mutateStateAddNode', () => {
     expect(state.viewsDict["Other3"].visibleNodesList).toContain(1004);
     expect(state.viewsDict["Other3"].visibleNodesList[state.viewsDict["Other3"].visibleNodesList.length-1]).toEqual(1004);  // is the last
 
-    expect(state.pathCache[10025]).toBe([1004]);
+    //console.log("state.pathCache: ", state.pathCache);
+    // note parent is root which is not included in the path
+    expect(state.pathCache[1004]).toStrictEqual([1004]);
 
   });
 
@@ -65,7 +67,8 @@ describe('mutateStateAddNode', () => {
     expect(state.viewsDict["Other3"].visibleNodesDict[1002]).toBeDefined();
     expect(state.viewsDict["Other3"].visibleNodesList).toContain(10025);
 
-    expect(state.pathCache[10025]).toBe([1002, 10025]);
+    // note parent is root which is not included in the path
+    expect(state.pathCache[10025]).toStrictEqual([10025]);
 
   });
 
@@ -105,7 +108,7 @@ describe('mutateStateAddNode', () => {
     expect(state.viewsDict["Other3"].visibleNodesDict[10025]).not.toBeDefined();
     expect(state.viewsDict["Other3"].visibleNodesList).not.toContain(10025);
 
-    expect(state.pathCache[10025]).toBe([1002, 10025]);
+    expect(state.pathCache[10025]).toStrictEqual([1002, 10025]);
 
   });
 });
