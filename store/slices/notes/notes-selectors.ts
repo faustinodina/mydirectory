@@ -36,3 +36,13 @@ export const selectNoteLabel =(accId: NodeId) => { return memoize((state: RootSt
   if (!alias && !name) { return ""; }
   return alias ? `${alias} - ${name}` : name;
 });};
+
+export const selectNoteCachedPath = (nodeId: NodeId) => {
+  return (state: RootState) => {
+    if (!nodeId) { return []; }
+    if (!(nodeId in state.treeList.pathCache)) { return []; }
+    return state.treeList.pathCache[nodeId].map((id) => {
+      return state.notes.notesDict[id]?.title ?? "";
+    });
+  };
+}
