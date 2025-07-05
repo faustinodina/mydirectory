@@ -13,7 +13,9 @@ const PathBar = (props: PathBarProps) => {
 
   //const pathArray = ["Some path", "subpath1", "subpath2", "subpath3", "subpath4", "subpath5", "subpath6", "subpath7"]; // Example path array
   const nodeId = props?.nodeId ?? NO_NodeId; // Use the provided nodeId or default to NO_NodeId
+  console.log("BEFORE nodeId: ", nodeId);
   const notePathArray = useAppSelector(selectNoteCachedPath(nodeId)); 
+  console.log("AFTER");
   console.log("nodeId: ", nodeId, "notePathArray: ", notePathArray);
 
   return (
