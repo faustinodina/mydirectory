@@ -43,5 +43,3 @@ const NavBarRight = () => {
 };
 
 export default NavBarRight;
-
-Argument of type '"camera"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/docs" | `/docs?${string}` | `/docs#${string}` | "/../components/ui/SelectedNote" | `/../components/ui/SelectedNote?${string}` | `/../components/ui/SelectedNote#${string}` | ... 25 more ... | { ...; }'.ts(2345)
