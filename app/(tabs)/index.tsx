@@ -20,6 +20,8 @@ const Index = () => {
 
   const navigation = useNavigation();
 
+  console.log("RENDERING INDEX");
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (

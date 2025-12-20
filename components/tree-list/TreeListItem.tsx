@@ -5,7 +5,7 @@ import { treeListSlice } from "@/store/slices/tree-list/tree-list-slice";
 import { EvArgsOnSelectionChange, IDataViewProps, /*IOnExpandedChangeEvent, IOnSelectionChangeEvent,*/ IToggleButtonProps, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
 import React, { FunctionComponent } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { MD3Elevation, Surface, TouchableRipple, useTheme } from "react-native-paper";
+import { MD3Elevation, Surface, Text, TouchableRipple, useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
 import LevelSpacer from "./LevelSpacer";
 
@@ -68,12 +68,14 @@ const TreeListItem = (props: TreeListItemProps) => {
   const surfaceElevation = props.elevation || 1;
   const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.elevation[surfaceElevation]
 
+  console.log("RENDERING TREE LIST ITEM: ", node.id);
+
   return (
-    <TouchableRipple onPress={onSurfacePress}>
+    <TouchableRipple onPress={onSurfacePress} style={{ borderColor: "blue", borderWidth: 1 }}>
       <Surface style={{...rowContainerStyle, ...props.styles?.surface, backgroundColor: surfaceColor}} 
         elevation={surfaceElevation}
         >
-        <View style={{ flexDirection: "row", ...props.styles?.leftView}}>
+        <View style={{ flexDirection: "row", ...props.styles?.leftView, borderWidth: 1, borderColor: "red" }}>
           {/* // insert spacings for levels */}
           <LevelSpacer level={node.level} />
           <ToggleButton 
@@ -84,7 +86,7 @@ const TreeListItem = (props: TreeListItemProps) => {
             onPress={onToggleButtonPress}
             />
         </View>
-        <View style={{...props.styles?.rightView, }}>
+        <View style={{...props.styles?.rightView, borderWidth: 1, borderColor: "red" }}>
           <DataView 
             treeViewType={props.treeViewType}
             nodeId={props.nodeId} 
