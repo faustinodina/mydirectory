@@ -38,11 +38,12 @@ export const selectNoteLabel =(accId: NodeId) => { return memoize((state: RootSt
 });};
 
 export const selectNoteCachedPath = (nodeId: NodeId) => {
-  return (state: RootState) => {
+  return memoize((state: RootState) => {
     if (!nodeId) { return []; }
+    console.log("state.treeList.pathCache: ", state.treeList);
     if (!(nodeId in state.treeList.pathCache)) { return []; }
     return state.treeList.pathCache[nodeId].map((id) => {
       return state.notes.notesDict[id]?.title ?? "";
     });
-  };
+  });
 }

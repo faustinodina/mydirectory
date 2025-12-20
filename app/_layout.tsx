@@ -14,7 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 function LoadReduxState() {
   useEffect(() => {
-    store.dispatch(loadStateFromFile());
+    store.dispatch(loadStateFromFile(true));
   }, []);
   return null;
 }
@@ -40,6 +40,7 @@ export default function RootLayout() {
               <Stack>
                 {/* headerShown: false is important to display nav bar */}
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />   
+                <Stack.Screen name="camera" options={{ headerShown: false }} />   
                 <Stack.Screen name="+not-found" />
               </Stack>
               <StatusBar style="auto" />
