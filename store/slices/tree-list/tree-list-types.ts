@@ -1,3 +1,5 @@
+import { GestureResponderEvent } from "react-native";
+
 export type NodeId = number;
 
 export const NO_NodeId: NodeId = 0;
@@ -57,6 +59,7 @@ export interface IDataViewProps {
   nodeId: NodeId;
   //viewKey: ViewKey;
   treeViewType: TreeViewType;
+  onOpenMenu: (nodeId: NodeId, e: GestureResponderEvent) => void;
   // nodeData: ITreeNode;
   // isExpanded: boolean;
   // isExpansible: boolean;

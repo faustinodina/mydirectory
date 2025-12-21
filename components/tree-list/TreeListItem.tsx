@@ -4,7 +4,7 @@ import { isNodeExpanded, selectTreeNode } from "@/store/slices/tree-list/tree-li
 import { treeListSlice } from "@/store/slices/tree-list/tree-list-slice";
 import { EvArgsOnSelectionChange, IDataViewProps, /*IOnExpandedChangeEvent, IOnSelectionChangeEvent,*/ IToggleButtonProps, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
 import React, { FunctionComponent } from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { GestureResponderEvent, StyleProp, View, ViewStyle } from "react-native";
 import { MD3Elevation, Surface, TouchableRipple, useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
 import LevelSpacer from "./LevelSpacer";
@@ -25,6 +25,7 @@ export type TreeListItemProps = {
   };
   selectedColor: string;
   onSelectionChange: (e: EvArgsOnSelectionChange) => void;
+  onOpenMenu: (nodeId: NodeId, e: GestureResponderEvent) => void;
 };
 
 const rowContainerStyle: StyleProp<ViewStyle> = { flex: 1, flexDirection: "row" };
@@ -88,6 +89,7 @@ const TreeListItem = (props: TreeListItemProps) => {
           <DataView 
             treeViewType={props.treeViewType}
             nodeId={props.nodeId} 
+            onOpenMenu={props.onOpenMenu}
             // nodeData={node} 
             // isExpanded={isExpanded} 
             // isExpansible={isExpansible()}
