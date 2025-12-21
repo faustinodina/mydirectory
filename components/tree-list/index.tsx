@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/store/hooks";
 import { selectNodesDict, selectSelectedNodeId, selectVisibleNodesDict, selectVisibleNodesList } from "@/store/slices/tree-list/tree-list-selectors";
 import { setSelectedNode } from "@/store/slices/tree-list/tree-list-slice";
-import { EvArgsOnSelectionChange, IDataViewProps, IToggleButtonProps, NO_NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
+import { EvArgsOnSelectionChange, IDataViewProps, IToggleButtonProps, NO_NodeId, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
 import React, { FunctionComponent, useState } from "react";
 import { GestureResponderEvent, ScrollView, ViewStyle } from "react-native";
 import { Menu, Portal, useTheme } from "react-native-paper";
@@ -27,7 +27,7 @@ const TreeList = (props: TreeListProps) => {
 
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
+  const [activeNodeId, setActiveNodeId] = useState<NodeId | null>(null);
   
   //console.log("ATT!: props.treeViewId:", props.treeViewType);
 
@@ -47,7 +47,7 @@ const TreeList = (props: TreeListProps) => {
     props.onSelectionChange && props.onSelectionChange(e);
   };
 
-  const openMenu = (nodeId: string, e: GestureResponderEvent) => {
+  const openMenu = (nodeId: NodeId, e: GestureResponderEvent) => {
     setActiveNodeId(nodeId);
     setMenuAnchor({
       x: e.nativeEvent.pageX,
