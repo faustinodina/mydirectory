@@ -92,6 +92,9 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
         onPress={openMenu}
       />
       
+      {/* TODO: a better solution would be to have one menu for all the elements in the list. The menu wiill be handled by the items container component 
+      see at:  https://chatgpt.com/share/69474e18-e378-8013-9ecd-cb20a846f3fd
+      */}
       {/* note we use key change to force Menu to re-mount, this fixes the issue the menu is only displayed on the first click
           this is related to the fact we use a menu for each element of the list
       */}
