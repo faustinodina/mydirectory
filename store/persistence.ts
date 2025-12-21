@@ -1,5 +1,5 @@
 // store/bootstrap.ts
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { AppDispatch, RootState } from './index';
 import { setInitialState as setCounterInitialState } from './slices/counter/counter-slice'; // assume your slice supports this
 import { getInitialStateSample as getTreeListInitialStateSample } from './slices/tree-list/tree-list-utils';

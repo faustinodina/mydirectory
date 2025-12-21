@@ -14,7 +14,7 @@ import NavBarRight from '@/components/ui/NavBarRight';
 
 
 const Index = () => {
-  const count = useAppSelector((state) => state.counter.value);
+  const count = useAppSelector((state) => state.counter?.value ?? 0);
   const dispatch = useAppDispatch();
   const router = useRouter();
 

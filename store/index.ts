@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
 import notesReducer from './slices/notes/notes-slice';
