@@ -65,6 +65,10 @@ export interface IDataViewProps {
   // isExpansible: boolean;
 }
 
+export interface IMenuItemHandlerProps {
+  onOpenMenu: (nodeId: NodeId, e: GestureResponderEvent) => void;
+}
+
 export interface ITreeNodePosition {
   parentId: NodeId;
   siblingId?: NodeId;

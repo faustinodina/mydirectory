@@ -11,6 +11,7 @@ import DirectoryNodeToggleButton from '@/components/ui/directory/DirectoryNodeTo
 import { StyleSheet } from "react-native";
 import { IconButton } from 'react-native-paper';
 import NavBarRight from '@/components/ui/NavBarRight';
+import DirectoryNodeMenu from '@/components/ui/directory/DirectoryNodeMenu';
 
 
 const Index = () => {
@@ -54,6 +55,7 @@ const Index = () => {
       toggleButton={DirectoryNodeToggleButton}
       styles={styles}
       onSelectionChange={doSelectionChange}
+      menuItemHandler={DirectoryNodeMenu}
       />
 
   );
