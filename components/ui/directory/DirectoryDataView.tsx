@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useMemo} from "react";
 import { Divider, IconButton, Menu, Text } from "react-native-paper";
 import { IDataViewProps, NodeId } from "@/store/slices/tree-list/tree-list-types";
 import NamesView from "./NamesView";
@@ -9,6 +9,7 @@ import { selectTreeNode } from "@/store/slices/tree-list/tree-list-selectors";
 //import { removeAccount } from "../../redux/actions/accounts-actions-2";
 //import { selectCurrentBookId } from "../../redux/reducers/db-config-slice";
 import { useRouter } from "expo-router";
+import { View } from "react-native";
 //import { AddAccountProps } from "./AddAccount";
 //import { createRoutePath } from "@/utils/lib";
 //import { EditAccountProps } from "./EditAccount";
@@ -27,12 +28,25 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
   //const bookId = useAppSelector(selectCurrentBookId);
 
   const [visibleMenu, setVisibleMenu] = useState(false);
+  const anchorRef = useRef<View>(null);
   const openMenu = () => setVisibleMenu(true);
   const closeMenu = () => setVisibleMenu(false);
 
   const dispatch = useAppDispatch();
 
   const router = useRouter();
+
+  const menuAnchor = useMemo(
+    () => (
+      <View collapsable={false} >
+        <IconButton
+          icon="dots-vertical"
+          onPress={() => setVisibleMenu(true)}
+        />
+      </View>
+    ),
+    []
+  );
 
   const addSiblingNote = () => {    
     closeMenu();
@@ -77,7 +91,7 @@ const DirectoryDataView = (props: AccountDataViewProps) => {
       <NamesView noteId={noteId} style={{flexGrow: 1, /*borderWidth: 2, borderColor: "blue"*/}} />
       <Menu
         visible={visibleMenu}
-        anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}
+        anchor={menuAnchor}
         anchorPosition="bottom"
         onDismiss={closeMenu}
         >
