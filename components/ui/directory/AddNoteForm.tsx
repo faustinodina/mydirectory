@@ -2,11 +2,11 @@ import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 
-const EditNote = () => {
+const AddNoteForm = () => {
   return (
-    <View><Text>EDIT NOTE</Text></View>
+    <View><Text>ADD NOTE</Text></View>
   );
 
 };
 
-export default EditNote;
+export default AddNoteForm;

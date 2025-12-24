@@ -1,9 +1,9 @@
-import EditNote from "@/components/ui/directory/EditNote";
+import EditNoteForm from "@/components/ui/directory/EditNoteForm";
 import React from "react";
 
 const EditNoteModal = () => {
   return (
-    <EditNote />
+    <EditNoteForm />
   );
 
 };
