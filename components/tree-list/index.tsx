@@ -8,6 +8,20 @@ import { Menu, Portal, useTheme } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import TreeListItem from "./TreeListItem";
 
+/*
+1. Define a Menu Component Contract
+    The menu component must be:
+      -Stateless
+      -Controlled via props
+      -Agnostic of where it is used
+*/
+export type TreeListMenuProps = {
+  visible: boolean;
+  anchor: { x: number; y: number };
+  node: NodeId | null;
+  onDismiss: () => void;
+};
+
 export type TreeListProps = {
   treeViewType: TreeViewType,
   toggleButton: FunctionComponent<IToggleButtonProps>;
@@ -18,17 +32,34 @@ export type TreeListProps = {
     rightView?: ViewStyle
   },
   onSelectionChange?: (e: EvArgsOnSelectionChange) => void;
-  menuItemHandler: FunctionComponent<IMenuItemHandlerProps>;
+  MenuComponent: FunctionComponent<TreeListMenuProps>;
 };
 
 const TreeList = (props: TreeListProps) => {
 
   const theme = useTheme();
   const dispatch = useDispatch();
+  
+  // menu related code begin
+  const [visible, setVisible] = useState(false);
+  const [anchor, setAnchor] = useState({ x: 0, y: 0 });
+  const [activeNode, setActiveNode] = useState<NodeId | null>(null);  
 
-  //console.log("ATT!: props.treeViewId:", props.treeViewType);
+  //onOpenMenu: (nodeId: NodeId, e: GestureResponderEvent) => void;
+  const openMenu = (node: NodeId, e: any) => {
+    const { pageX, pageY } = e.nativeEvent;
 
-  //console.log("TreeList starting; props: ", props);
+    setActiveNode(node);
+    setAnchor({ x: pageX, y: pageY });
+    setVisible(true);
+  };
+
+  const dismissMenu = () => {
+    setVisible(false);
+    setActiveNode(null);
+  };  
+  // menu related code end
+
   const visibleNodesList = useAppSelector(selectVisibleNodesList(props.treeViewType));
   const visibleNodesDict = useAppSelector(selectVisibleNodesDict(props.treeViewType));
   const nodesDict = useAppSelector(selectNodesDict);
@@ -44,12 +75,7 @@ const TreeList = (props: TreeListProps) => {
     props.onSelectionChange && props.onSelectionChange(e);
   };
 
-  const MenuItemHandler = props.menuItemHandler;
-
-  const openMenu = (nodeId: NodeId, e: GestureResponderEvent) => {
-    console.log("openMenu nodeId: ", nodeId /*, "e: ", e*/);
-    // dispatch(setSelectedNode({nodeId: nodeId, treeViewType: props.treeViewType}));
-  }
+  const MenuComponent = props.MenuComponent;
 
   // for visibleAccounts note the root account is not displayed so if you have only the root account (initial state) then visibleAccounts dict and list will be empty 
   return (
@@ -72,12 +98,17 @@ const TreeList = (props: TreeListProps) => {
               selectedColor={theme.colors.surfaceVariant}
               onSelectionChange={onSelectionChange}
               onOpenMenu={openMenu}
-              // menuItemHandler={props.menuItemHandler}
+              //menuItemHandler={props.menuItemHandler}
               />
             );
         })}
 
-        <MenuItemHandler onOpenMenu={openMenu} />
+        <MenuComponent 
+          visible={visible}
+          anchor={anchor}
+          node={activeNode}
+          onDismiss={dismissMenu}
+          />
 
       </ScrollView>
 

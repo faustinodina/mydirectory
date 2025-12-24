@@ -55,7 +55,7 @@ const Index = () => {
       toggleButton={DirectoryNodeToggleButton}
       styles={styles}
       onSelectionChange={doSelectionChange}
-      menuItemHandler={DirectoryNodeMenu}
+      MenuComponent={DirectoryNodeMenu}
       />
 
   );
