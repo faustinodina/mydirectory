@@ -66,7 +66,7 @@ const TreeList = (props: TreeListProps) => {
   const selectedNodeId = useAppSelector(selectSelectedNodeId(props.treeViewType));
   
   // console.log("props.treeViewId:", props.treeViewType);
-  console.log("visibleNodesList:", visibleNodesList);
+  //console.log("visibleNodesList:", visibleNodesList);
 
   const onSelectionChange = (e: EvArgsOnSelectionChange) => {
     dispatch(setSelectedNode({nodeId: e.isSelected ? e.nodeId : NO_NodeId, treeViewType: props.treeViewType}));

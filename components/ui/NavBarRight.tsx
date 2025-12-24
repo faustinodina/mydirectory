@@ -22,7 +22,7 @@ const NavBarRight = () => {
 
   const onPressCamera = () => {
     closeMenu();
-    router.push("/camera");
+    //router.push("/camera");
     //router.push(createRoutePath("/camera");
   };
 

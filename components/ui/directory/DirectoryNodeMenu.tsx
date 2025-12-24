@@ -4,7 +4,7 @@ import { NodeId } from "@/store/slices/tree-list/tree-list-types";
 import React, { FunctionComponent, useState, forwardRef, useImperativeHandle } from "react";
 import { GestureResponderEvent } from "react-native";
 import { Menu, Portal } from "react-native-paper";
-
+import { router } from "expo-router";
 
 // https://chatgpt.com/share/69487884-b924-8013-bc04-126f21f09aea convert into a forwardRef component
 
@@ -34,15 +34,24 @@ const DirectoryNodeMenu = ({
           onDismiss={onDismiss}
         >
           <Menu.Item 
-            title="Edit" 
+            title="Add child note" 
             onPress={() => {
-              console.log("Edit", node);
+              console.log("Add child note", node);
+              router.push("/modal/add-note");
               onDismiss();
             }} />
           <Menu.Item 
-            title="Delete" 
+            title="Add sibling note" 
             onPress={() => {
-              console.log("Delete", node);
+              console.log("Add sibling note", node);
+              router.push("/modal/add-note");
+              onDismiss();
+            }} />
+          <Menu.Item 
+            title="Edit note" 
+            onPress={() => {
+              console.log("Edit note", node);
+              router.push("/modal/edit-note");
               onDismiss();
             }} />
         </Menu>

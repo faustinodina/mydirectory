@@ -69,7 +69,7 @@ const TreeListItem = (props: TreeListItemProps) => {
   const surfaceElevation = props.elevation || 1;
   const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.elevation[surfaceElevation]
 
-  console.log("RENDERING TREE LIST ITEM: ", node.id);
+  //console.log("RENDERING TREE LIST ITEM: ", node.id);
 
   return (
     <TouchableRipple onPress={onSurfacePress} style={{ borderColor: "blue", borderWidth: 1 }}>
