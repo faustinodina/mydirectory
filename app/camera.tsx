@@ -1,11 +1,11 @@
-import CameraV from '@/components/ui/CameraV';
-import React from 'react';
+// import CameraV from '@/components/ui/CameraV';
+// import React from 'react';
 
-const Camera = () => {
+// const Camera = () => {
 
-  return (
-    <CameraV/>
-  );
-};
+//   return (
+//     <CameraV/>
+//   );
+// };
 
-export default Camera;
+// export default Camera;
