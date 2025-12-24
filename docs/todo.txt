@@ -9,3 +9,4 @@
   note content will not be in the slice
 
 -Use react-hook-form to input data
+-Moving app/modal/add-note, app/modal/edit-note to app/modal/note/[mode].tsx

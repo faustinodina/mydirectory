@@ -1,11 +1,13 @@
+import { Stack } from "expo-router";
 import AddNoteForm from "@/components/ui/directory/AddNoteForm";
 import React from "react";
-import { View } from "react-native";
-import { Text } from "react-native-paper";
 
 const AddNoteModal = () => {
   return (
-    <AddNoteForm />
+    <>
+      <Stack.Screen options={{ title: "Add Note" }} />
+      <AddNoteForm />
+    </>
   );
 
 };
