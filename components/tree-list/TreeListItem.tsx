@@ -75,9 +75,11 @@ const TreeListItem = (props: TreeListItemProps) => {
   const MARGIN_VERTICAL = 1;
   const MARGIN_HORIZONTAL = 2;
 
-  console.log("surfaceElevation: ", surfaceElevation, "props.styles?.surface: ", props.styles?.surface);
+  //console.log("surfaceElevation: ", surfaceElevation, "props.styles?.surface: ", props.styles?.surface);
 
   return (
+
+    // note some styling props in TouchableRipple and Surface should be in sync
     <TouchableRipple 
       onPress={onSurfacePress} 
       borderless={false}
@@ -100,6 +102,7 @@ const TreeListItem = (props: TreeListItemProps) => {
           backgroundColor: surfaceColor, 
           //borderColor: "blue", 
           borderWidth: 1, 
+          borderColor: theme.colors.outline, // M3-friendly
           borderRadius: BORDER_RADIUS, 
           marginVertical: MARGIN_VERTICAL,
           marginHorizontal: MARGIN_HORIZONTAL,

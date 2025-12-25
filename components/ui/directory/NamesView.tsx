@@ -34,11 +34,20 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1, 
+    justifyContent: "center",
     minWidth: 0, 
+
+    // borderWidth: 1,
+    // borderColor: "red",
   },
-  title: {},
+  title: {
+    // borderWidth: 1,
+    // borderColor: "blue",
+  },
   subtitle: {
     flexShrink: 1, 
+    // borderWidth: 1,
+    // borderColor: "green",
   }
 });
 
