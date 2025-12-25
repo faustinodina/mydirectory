@@ -12,4 +12,18 @@ Preview build
   -Create first build (https://docs.expo.dev/build/setup/)
   -Build APKs for Android Emulators and devices (https://docs.expo.dev/build-reference/apk/)
 
+/*
   - eas build -p android --profile preview
+  - npx eas build -p android --profile preview
+
+  npx eas-cli build -p android --profile preview
+*/
+
+-This is the recommended sequence
+  nvm use 18
+
+  npm install --save-dev eas-cli
+  npm install cosmiconfig --save-dev
+
+  npx eas --version
+  npx eas build -p android --profile preview
