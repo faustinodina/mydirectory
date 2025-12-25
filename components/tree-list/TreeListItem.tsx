@@ -28,7 +28,7 @@ export type TreeListItemProps = {
   onOpenMenu: (nodeId: NodeId, e: GestureResponderEvent) => void;
 };
 
-const rowContainerStyle: StyleProp<ViewStyle> = { flex: 1, flexDirection: "row" };
+//const rowContainerStyle: StyleProp<ViewStyle> = { flex: 1, flexDirection: "row" };
 
 const TreeListItem = (props: TreeListItemProps) => {
 
@@ -71,14 +71,48 @@ const TreeListItem = (props: TreeListItemProps) => {
 
   //console.log("RENDERING TREE LIST ITEM: ", node.id);
 
+  const BORDER_RADIUS = 8;
+  const MARGIN_VERTICAL = 1;
+  const MARGIN_HORIZONTAL = 2;
+
+  console.log("surfaceElevation: ", surfaceElevation, "props.styles?.surface: ", props.styles?.surface);
+
   return (
-    <TouchableRipple onPress={onSurfacePress} style={{ /*borderColor: "blue", borderWidth: 1*/ }}>
-      <Surface style={{...rowContainerStyle, ...props.styles?.surface, backgroundColor: surfaceColor, /*borderColor: "blue", borderWidth: 3*/ }} 
-        elevation={surfaceElevation}
+    <TouchableRipple 
+      onPress={onSurfacePress} 
+      borderless={false}
+      style={{ 
+        overflow: "hidden",
+        borderRadius: BORDER_RADIUS, 
+        marginVertical: MARGIN_VERTICAL, 
+        marginHorizontal: MARGIN_HORIZONTAL,
+        //borderColor: "blue", 
+        // borderWidth: 1, 
+        }} 
+      >
+      <Surface 
+        // elevation={surfaceElevation}
+        elevation={0}
+        style={{
+          flex: 1,                  //...rowContainerStyle, 
+          flexDirection: "row",     //...rowContainerStyle, 
+          //...props.styles?.surface, 
+          backgroundColor: surfaceColor, 
+          //borderColor: "blue", 
+          borderWidth: 1, 
+          borderRadius: BORDER_RADIUS, 
+          marginVertical: MARGIN_VERTICAL,
+          marginHorizontal: MARGIN_HORIZONTAL,
+          }} 
         >
-        <View style={{ flexDirection: "row", ...props.styles?.leftView, /*borderWidth: 1, borderColor: "red"*/ }}>
+        {/* spacer with toggle button */}
+        <View 
+          style={{ flexDirection: "row", ...props.styles?.leftView, /*borderWidth: 1, borderColor: "red"*/ }}
+          >
+          
           {/* // insert spacings for levels */}
           <LevelSpacer level={node.level} />
+
           <ToggleButton 
             treeViewType={props.treeViewType} 
             nodeId={props.nodeId} 
@@ -87,7 +121,10 @@ const TreeListItem = (props: TreeListItemProps) => {
             onPress={onToggleButtonPress}
             />
         </View>
-        <View style={{...props.styles?.rightView, /*borderWidth: 1, borderColor: "red" */ }}>
+
+        <View 
+          style={{...props.styles?.rightView, /*borderWidth: 1, borderColor: "red" */ }}
+          >
           <DataView 
             treeViewType={props.treeViewType}
             nodeId={props.nodeId} 
