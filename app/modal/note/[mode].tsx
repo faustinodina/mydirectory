@@ -1,8 +1,8 @@
-import AddNoteForm from "@/components/ui/directory/AddNoteForm";
+import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { useLocalSearchParams, Stack } from "expo-router";
 
 export default function AddNoteScreen() {
-  const { mode } = useLocalSearchParams<{ mode?: string }>();
+  const { mode } = useLocalSearchParams<{ mode?: "add" | "edit" }>();
 
   const isEdit = mode === "edit";
 
@@ -11,7 +11,7 @@ export default function AddNoteScreen() {
       <Stack.Screen
         options={{ title: isEdit ? "Edit Note" : "Add Note" }}
       />
-      <AddNoteForm mode={mode} />
+      <AddEditNoteForm mode={mode} />
     </>
   );
 }

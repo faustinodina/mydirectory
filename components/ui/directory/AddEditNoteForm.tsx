@@ -13,13 +13,19 @@ type AddNoteFormData = {
   description: string;
 };
 
-const AddNoteForm = () => {
+type AddNoteFormProps = {
+  mode?: "add" | "edit";
+};
+
+const AddEditNoteForm = ({ mode }: AddNoteFormProps) => {
 
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddNoteFormData>();
+
+  console.log("AddNoteForm mode:", mode);
 
   return (
      <>
@@ -62,4 +68,4 @@ const AddNoteForm = () => {
 
 };
 
-export default AddNoteForm;
+export default AddEditNoteForm;

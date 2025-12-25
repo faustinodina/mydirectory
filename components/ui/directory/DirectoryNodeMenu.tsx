@@ -37,21 +37,21 @@ const DirectoryNodeMenu = ({
             title="Add child note" 
             onPress={() => {
               console.log("Add child note", node);
-              router.push("/modal/add-note");
+              router.push("/modal/note/add");
               onDismiss();
             }} />
           <Menu.Item 
             title="Add sibling note" 
             onPress={() => {
               console.log("Add sibling note", node);
-              router.push("/modal/add-note");
+              router.push("/modal/note/add");
               onDismiss();
             }} />
           <Menu.Item 
             title="Edit note" 
             onPress={() => {
               console.log("Edit note", node);
-              router.push("/modal/edit-note");
+              router.push("/modal/note/edit");
               onDismiss();
             }} />
         </Menu>

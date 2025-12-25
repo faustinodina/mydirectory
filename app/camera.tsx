@@ -1,11 +1,12 @@
-// import CameraV from '@/components/ui/CameraV';
-// import React from 'react';
+import React from 'react';
+import { View } from 'react-native';
+import { Text} from 'react-native-paper';
 
-// const Camera = () => {
+const Camera = () => {
 
-//   return (
-//     <CameraV/>
-//   );
-// };
+  return (
+    <View><Text>CAMERA SCREEN</Text></View>
+  );
+};
 
-// export default Camera;
+export default Camera;
