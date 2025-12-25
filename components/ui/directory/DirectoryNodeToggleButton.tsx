@@ -53,16 +53,16 @@ const AccountNodeToggleButton = (props: AccountNodeToggleButtonProps) => {
 
 const styles = StyleSheet.create({
   icon: {
-    // backgroundColor: 'green',
+    //backgroundColor: 'green',
     // color: "#fff",
   },
   noIcon: {
-    // color: "#fff",
+    color: "#fff",
     // backgroundColor: '#fff',
     opacity: 0
   },
   pressable: {
-    backgroundColor: 'red',
+    //backgroundColor: 'red',
     borderRadius: 5,
   }
 });

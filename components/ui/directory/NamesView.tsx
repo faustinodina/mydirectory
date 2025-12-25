@@ -7,24 +7,25 @@ import { selectNote } from "@/store/slices/notes/notes-selectors";
 
 export type NamesViewProps = {
   noteId: NodeId,
-  style: StyleProp<TextStyle>
+  //style: StyleProp<TextStyle>
 };
 
 // todo: When account has no description, name should be centered vertically, aligned with balance
 // todo: balance column should be aligned, no matter how large is the Names view
 
-const NamesView = ({noteId: noteId, style}: NamesViewProps) => {
+const NamesView = ({noteId: noteId}: NamesViewProps) => {
 
   const note = useAppSelector(selectNote(noteId));
   if (!note) { return null; }  // when adding an account the node was added but not yet the account 
 
   const name = note.alias || note.title;
   const description = note.description;
+  const isDescEmpty = !description || description.trim() === "";
 
   return (
-    <View style={{...styles.container, ...style as object}}>
+    <View style={styles.container}>
       <Text variant="headlineSmall" style={styles.title}>{name}</Text>
-      <Text variant="titleMedium" style={styles.subtitle}>{description}</Text>
+      {!isDescEmpty && <Text variant="titleMedium" style={styles.subtitle}>{description}</Text>}
     </View>
   );
 };
@@ -32,9 +33,13 @@ const NamesView = ({noteId: noteId, style}: NamesViewProps) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
+    flex: 1, 
+    minWidth: 0, 
   },
   title: {},
-  subtitle: {}
+  subtitle: {
+    flexShrink: 1, 
+  }
 });
 
 export default NamesView;

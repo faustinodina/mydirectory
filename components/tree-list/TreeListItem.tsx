@@ -72,11 +72,11 @@ const TreeListItem = (props: TreeListItemProps) => {
   //console.log("RENDERING TREE LIST ITEM: ", node.id);
 
   return (
-    <TouchableRipple onPress={onSurfacePress} style={{ borderColor: "blue", borderWidth: 1 }}>
-      <Surface style={{...rowContainerStyle, ...props.styles?.surface, backgroundColor: surfaceColor}} 
+    <TouchableRipple onPress={onSurfacePress} style={{ /*borderColor: "blue", borderWidth: 1*/ }}>
+      <Surface style={{...rowContainerStyle, ...props.styles?.surface, backgroundColor: surfaceColor, /*borderColor: "blue", borderWidth: 3*/ }} 
         elevation={surfaceElevation}
         >
-        <View style={{ flexDirection: "row", ...props.styles?.leftView, borderWidth: 1, borderColor: "red" }}>
+        <View style={{ flexDirection: "row", ...props.styles?.leftView, /*borderWidth: 1, borderColor: "red"*/ }}>
           {/* // insert spacings for levels */}
           <LevelSpacer level={node.level} />
           <ToggleButton 
@@ -87,7 +87,7 @@ const TreeListItem = (props: TreeListItemProps) => {
             onPress={onToggleButtonPress}
             />
         </View>
-        <View style={{...props.styles?.rightView, borderWidth: 1, borderColor: "red" }}>
+        <View style={{...props.styles?.rightView, /*borderWidth: 1, borderColor: "red" */ }}>
           <DataView 
             treeViewType={props.treeViewType}
             nodeId={props.nodeId} 
