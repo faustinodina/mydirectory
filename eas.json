@@ -6,22 +6,10 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "applicationId": "com.faustinodina.mydirectory.dev"
-      },
-      "ios": {
-        "bundleIdentifier": "com.faustinodina.mydirectory.dev"
-      }
+      "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "android": {
-        "applicationId": "com.faustinodina.mydirectory.preview"
-      },
-      "ios": {
-        "bundleIdentifier": "com.faustinodina.mydirectory.preview"
-      }
+      "distribution": "internal"
     },
     "production": {
       "autoIncrement": true
