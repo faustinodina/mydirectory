@@ -9,9 +9,14 @@ export default ({ config }) => {
   if (profile === "development") {
     iosBundleId = "com.faustinodina.mydirectory.dev";
     androidPackage = "com.faustinodina.mydirectory.dev";
-  } else if (profile === "preview") {
+  } 
+  else if (profile === "preview") {
     iosBundleId = "com.faustinodina.mydirectory.preview";
     androidPackage = "com.faustinodina.mydirectory.preview";
+  }
+  else if (profile === "production") {
+    iosBundleId = "com.faustinodina.mydirectory";
+    androidPackage = "com.faustinodina.mydirectory";
   }
 
   return {

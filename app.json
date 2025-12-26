@@ -10,6 +10,7 @@
     "version": "1.0.0",
     "android": {
       "versionCode": 2,
+      "package": "com.faustinodina.mydirectory",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -17,7 +18,8 @@
       "edgeToEdgeEnabled": true
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.faustinodina.mydirectory.dev"
     },
     "web": {
       "bundler": "metro",
@@ -35,7 +37,7 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-web-browser",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
