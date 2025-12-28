@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TextInput, Button } from "react-native-paper";
@@ -7,6 +7,13 @@ import { Text, TextInput, Button } from "react-native-paper";
         // alias: "2-2",
         // description: "",
 
+export type Note = {
+  id: string;
+  title: string;
+  alias: string;
+  description: string;
+};
+
 type AddNoteFormData = {
   title: string;
   alias: string;
@@ -14,56 +21,102 @@ type AddNoteFormData = {
 };
 
 type AddNoteFormProps = {
-  mode?: "add" | "edit";
+  mode: "add" | "edit";
+  note?: Note; // required in edit mode
+  onSubmit: (data: AddNoteFormData) => void;
 };
 
-const AddEditNoteForm = ({ mode }: AddNoteFormProps) => {
-
+const AddEditNoteForm = ({ mode = "add", note, onSubmit }: AddNoteFormProps) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<AddNoteFormData>();
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<AddNoteFormData>({
+    defaultValues: {
+      title: "",
+      alias: "",
+      description: "",
+    },
+  });
+
+  // populate form when editing
+  useEffect(() => {
+    if (mode === "edit" && note) {
+      reset({
+        title: note.title,
+        alias: note.alias,
+        description: note.description,
+      });
+    }
+  }, [mode, note, reset]);
 
   console.log("AddNoteForm mode:", mode);
 
+  // const onSubmit = (data: AddNoteFormData) => {
+  //   if (mode === "add") {
+  //     console.log("Adding note:", data);
+  //     // createNote(data)
+  //   } else {
+  //     console.log("Editing note:", data);
+  //     // updateNote(data)
+  //   }
+  // };
+
   return (
-     <>
+    <View style={{ /*gap: 16*/}}>
       <Controller
         control={control}
         name="title"
         rules={{ required: "Title is required" }}
-        render={({ field: { onChange, value, onBlur } }) => (
-          <>
+        render={({ field }) => (
           <TextInput
             label="Title"
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
+            value={field.value}
+            onChangeText={field.onChange}
+            onBlur={field.onBlur}
             error={!!errors.title}
           />
-          <TextInput
-            label="Alias"
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            error={!!errors.alias}
-          />
-          <TextInput
-            label="Description"
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            error={!!errors.description}
-          />
-          </>
         )}
       />
 
-      <Button mode="contained" onPress={handleSubmit(console.log)}>
-        Save
+      <Controller
+        control={control}
+        name="alias"
+        rules={{ required: "Alias is required" }}
+        render={({ field }) => (
+          <TextInput
+            label="Alias"
+            value={field.value}
+            onChangeText={field.onChange}
+            onBlur={field.onBlur}
+            error={!!errors.alias}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="description"
+        render={({ field }) => (
+          <TextInput
+            label="Description"
+            value={field.value}
+            onChangeText={field.onChange}
+            onBlur={field.onBlur}
+            error={!!errors.description}
+            multiline
+          />
+        )}
+      />
+
+      <Button 
+        mode="contained" 
+        loading={isSubmitting}
+        onPress={handleSubmit(onSubmit)}>
+        {mode === "add" ? "Create Note" : "Save Changes"}
       </Button>
-    </>
+    </View>
   );
 
 };
