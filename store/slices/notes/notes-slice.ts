@@ -50,7 +50,7 @@ export const notesSlice = createSlice({
   },
 });
 
-export const { resetNotes, setInitialState } = notesSlice.actions;
+export const { resetNotes, setInitialState, updateNote } = notesSlice.actions;
 
 
 export default notesSlice.reducer;

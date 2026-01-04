@@ -18,8 +18,12 @@ export const store = configureStore({
 
 // In store/index.ts or a file like store/persist.ts
 store.subscribe(() => {
-  const state = store.getState();
-  saveStateToFile(state);
+  try {
+    const state = store.getState();
+    saveStateToFile(state);
+  } catch (error) {
+    console.error("Error saving state to file:", error);
+  }
 });
 
 

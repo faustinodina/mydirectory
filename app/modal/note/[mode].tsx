@@ -1,8 +1,12 @@
 import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { parseNumberParam } from "@/lib/helpers";
-import { useLocalSearchParams, Stack } from "expo-router";
+import { useAppDispatch } from "@/store/hooks";
+import { updateNoteThunk } from "@/store/slices/notes/notes-thunks";
+import { useLocalSearchParams, Stack, router } from "expo-router";
 
 export default function AddNoteScreen() {
+
+  const dispatch = useAppDispatch();
   
   const { mode, parentId, siblingId, id } = useLocalSearchParams<{ 
     mode?: "add" | "edit" | undefined,
@@ -17,6 +21,23 @@ export default function AddNoteScreen() {
 
   const isEdit = mode === "edit";
 
+  const onEditSubmit = (data: { title: string; alias: string; description: string }) => {
+    // handle edit note submission logic here
+    console.log("Edit Note Submitted:", data);
+
+    dispatch(updateNoteThunk({
+      id: nodeIdNum,
+      data: data
+    }));
+
+    router.back();
+  }
+  const onAddSubmit = (data: { title: string; alias: string; description: string }) => {
+    // handle add note submission logic here
+    console.log("Add Note Submitted:", data);
+  }
+  const onSubmit = mode === "edit" ? onEditSubmit : onAddSubmit;
+
   return (
     <>
       <Stack.Screen
@@ -27,9 +48,7 @@ export default function AddNoteScreen() {
         parentId={parentIdNum} 
         siblingId={siblingIdNum}
         noteId={nodeIdNum}
-        onSubmit={(data) => {
-          console.log("Submitted data:", data);
-        }}
+        onSubmit={onSubmit}
        />
     </>
   );
