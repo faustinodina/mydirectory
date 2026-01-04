@@ -18,7 +18,7 @@ import TreeListItem from "./TreeListItem";
 export type TreeListMenuProps = {
   visible: boolean;
   anchor: { x: number; y: number };
-  node: NodeId | null;
+  nodeId: NodeId | null;
   onDismiss: () => void;
 };
 
@@ -106,7 +106,7 @@ const TreeList = (props: TreeListProps) => {
         <MenuComponent 
           visible={visible}
           anchor={anchor}
-          node={activeNode}
+          nodeId={activeNode}
           onDismiss={dismissMenu}
           />
 

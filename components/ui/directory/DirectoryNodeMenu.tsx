@@ -20,11 +20,13 @@ import { router } from "expo-router";
 const DirectoryNodeMenu = ({
   visible,
   anchor,
-  node,
+  nodeId,
   onDismiss,
 }: TreeListMenuProps) => {
 
-  if (!node) return null;
+  if (!nodeId) return null;
+
+  console.log("DirectoryNodeMenu for node:", nodeId);
 
   return (
       <Portal>
@@ -36,22 +38,22 @@ const DirectoryNodeMenu = ({
           <Menu.Item 
             title="Add child note" 
             onPress={() => {
-              console.log("Add child note", node);
-              router.push("/modal/note/add?parentId=123");
+              console.log("Add child note", nodeId);
+              router.push(`/modal/note/add?parentId=${nodeId}`);
               onDismiss();
             }} />
           <Menu.Item 
             title="Add sibling note" 
             onPress={() => {
-              console.log("Add sibling note", node);
-              router.push("/modal/note/add?siblingId=123");
+              console.log("Add sibling note", nodeId);
+              router.push(`/modal/note/add?siblingId=${nodeId}`);
               onDismiss();
             }} />
           <Menu.Item 
             title="Edit note" 
             onPress={() => {
-              console.log("Edit note", node);
-              router.push("/modal/note/edit");
+              console.log("Edit note", nodeId);
+              router.push(`/modal/note/edit?id=${nodeId}`);
               onDismiss();
             }} />
         </Menu>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TextInput, Button } from "react-native-paper";
+import { useLocalSearchParams } from "expo-router";
 
         // title: "Topic 2-2",
         // alias: "2-2",
@@ -20,13 +21,21 @@ type AddNoteFormData = {
   description: string;
 };
 
-type AddNoteFormProps = {
-  mode: "add" | "edit";
+export type AddNoteFormProps = {
+  mode: "add" | "edit" | undefined;
+  parentId?: number;
+  siblingId?: number;
   note?: Note; // required in edit mode
   onSubmit: (data: AddNoteFormData) => void;
 };
 
-const AddEditNoteForm = ({ mode = "add", note, onSubmit }: AddNoteFormProps) => {
+const AddEditNoteForm = ({ 
+  mode = "add", 
+  note, 
+  parentId,
+  siblingId,
+  onSubmit 
+}: AddNoteFormProps) => {
   const {
     control,
     handleSubmit,
@@ -39,6 +48,8 @@ const AddEditNoteForm = ({ mode = "add", note, onSubmit }: AddNoteFormProps) => 
       description: "",
     },
   });
+
+  console.log("parentNodeId:", parentId, "siblingNodeId:", siblingId, "note:", note);
 
   // populate form when editing
   useEffect(() => {
