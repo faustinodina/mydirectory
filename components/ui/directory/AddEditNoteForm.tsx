@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TextInput, Button } from "react-native-paper";
 import { useLocalSearchParams } from "expo-router";
+import { NodeId } from "@/store/slices/tree-list/tree-list-types";
+import { useAppSelector } from "@/store/hooks";
+import { selectNote } from "@/store/slices/notes/notes-selectors";
 
         // title: "Topic 2-2",
         // alias: "2-2",
@@ -15,33 +18,45 @@ export type Note = {
   description: string;
 };
 
-type AddNoteFormData = {
+type AddEditNoteFormData = {
   title: string;
   alias: string;
   description: string;
 };
 
-export type AddNoteFormProps = {
+export type AddEditNoteFormProps = {
   mode: "add" | "edit" | undefined;
   parentId?: number;
   siblingId?: number;
-  note?: Note; // required in edit mode
-  onSubmit: (data: AddNoteFormData) => void;
+  //note?: Note; // required in edit mode
+  noteId?: NodeId;   // required in edit mode
+  onSubmit: (data: AddEditNoteFormData) => void;
 };
 
 const AddEditNoteForm = ({ 
   mode = "add", 
-  note, 
   parentId,
   siblingId,
+  noteId,
   onSubmit 
-}: AddNoteFormProps) => {
+}: AddEditNoteFormProps) => {
+
+  // use redux selector to get note data if in edit mode 
+  // const note: Note = {
+  //   id: "1",
+  //   title: "Sample Note",
+  //   alias: "sample-note",
+  //   description: "This is a sample note for editing.",
+  // };
+  const note = useAppSelector(selectNote(noteId ?? -1));
+
+  // initializes form state and validation
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<AddNoteFormData>({
+  } = useForm<AddEditNoteFormData>({
     defaultValues: {
       title: "",
       alias: "",
@@ -49,30 +64,26 @@ const AddEditNoteForm = ({
     },
   });
 
-  console.log("parentNodeId:", parentId, "siblingNodeId:", siblingId, "note:", note);
+  console.log("parentNodeId:", parentId, "siblingNodeId:", siblingId, "noteId:", noteId, "note:", note);
+
+  // Prevent multiple resets (important when store updates frequently)
+  const hasInitialized = useRef(false);
 
   // populate form when editing
   useEffect(() => {
-    if (mode === "edit" && note) {
-      reset({
-        title: note.title,
-        alias: note.alias,
-        description: note.description,
-      });
-    }
+    if (mode !== "edit") { return; }
+    if (!note) { return; }
+    if (hasInitialized.current) return;
+
+    reset({
+      title: note.title,
+      alias: note.alias,
+      description: note.description,
+    });
+
+    hasInitialized.current = true;
+
   }, [mode, note, reset]);
-
-  console.log("AddNoteForm mode:", mode);
-
-  // const onSubmit = (data: AddNoteFormData) => {
-  //   if (mode === "add") {
-  //     console.log("Adding note:", data);
-  //     // createNote(data)
-  //   } else {
-  //     console.log("Editing note:", data);
-  //     // updateNote(data)
-  //   }
-  // };
 
   return (
     <View style={{ /*gap: 16*/}}>
