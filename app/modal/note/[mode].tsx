@@ -2,6 +2,7 @@ import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { parseNumberParam } from "@/lib/helpers";
 import { useAppDispatch } from "@/store/hooks";
 import { updateNoteThunk } from "@/store/slices/notes/notes-thunks";
+import { treeListSlice } from "@/store/slices/tree-list";
 import { useLocalSearchParams, Stack, router } from "expo-router";
 
 export default function AddNoteScreen() {
@@ -35,6 +36,11 @@ export default function AddNoteScreen() {
   const onAddSubmit = (data: { title: string; alias: string; description: string }) => {
     // handle add note submission logic here
     console.log("Add Note Submitted:", data);
+
+    dispatch(treeListSlice.actions.addNode({
+      nodeId: 0, // Replace with actual new node ID
+      treeViewType: "notes", // Replace with actual tree view type
+    }));
   }
   const onSubmit = mode === "edit" ? onEditSubmit : onAddSubmit;
 

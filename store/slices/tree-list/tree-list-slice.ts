@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getRootNode } from "./tree-list-lib";
-import { ITreeListState, NodeId, TreeViewType } from "./tree-list-types";
-import { mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
+import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType } from "./tree-list-types";
+import { mutateStateAddNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
 //import { setInitialState } from "../counter/counter-slice";
 
 const initialState: ITreeListState = {
@@ -53,8 +53,21 @@ export const treeListSlice = createSlice({
 
       state.viewsDict[treeViewType].selectedNodeId = nodeId;
     },
+    
+    addNode: (state, action: PayloadAction<{treeViewType: TreeViewType, position: ITreeNodePosition}>) => {
+      const {treeViewType, position } = action.payload;
+
+      const newNodeId: NodeId = generateNewNodeId();
+      mutateStateAddNode({
+        state, 
+        nodeId: newNodeId, 
+        position, 
+        treeViewType,
+        sortOrder: 0,
+      });
+    },
   },
 });
 
-export const { setInitialState, collapseNode, expandNode, resetVisibility, setSelectedNode } = treeListSlice.actions;
+export const { setInitialState, collapseNode, expandNode, resetVisibility, setSelectedNode, addNode } = treeListSlice.actions;
 export default treeListSlice.reducer;
