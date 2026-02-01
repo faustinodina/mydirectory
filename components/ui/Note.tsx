@@ -1,5 +1,5 @@
 import HtmlEditor from "@/components/ui/html-editor";
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PathBar from "./PathBar";
@@ -12,6 +12,13 @@ export type NoteProps = {
 };
 
 const Note = (props: NoteProps) => {
+
+  const [content, setContent] = React.useState("");
+
+  useEffect(() => {
+    // Fetch note content from file name based on nodeId
+  }, [props.nodeId]);
+
   return (
     <View
       style={{
@@ -26,7 +33,7 @@ const Note = (props: NoteProps) => {
       </View> */}
       <PathBar nodeId={props.nodeId}/>
       <View style={{ flex: 1}}>
-        <HtmlEditor />
+        <HtmlEditor initialContent={content} />
       </View>
     </View>
   );

@@ -1,10 +1,15 @@
 import React from "react";
 import Note from "@/components/ui/Note";
-import SelectedNote from "@/components/ui/SelectedNote";
+import { NodeId } from "@/store/slices/tree-list/tree-list-types";
+import { useLocalSearchParams } from "expo-router";
 
 const NoteScreen = () => {
+  
+  const { nodeId } = useLocalSearchParams<{ nodeId: string }>();  
+  
   return (
-    <SelectedNote />
+    // <SelectedNote nodeId={parseInt(nodeId)} />
+    <Note nodeId={parseInt(nodeId)} />
   );
 };
 

@@ -34,6 +34,10 @@ const Index = () => {
   const doSelectionChange = (e: EvArgsOnSelectionChange): void => {
     // handle selection change here, e.g., log or dispatch
     console.log("Selection changed:", e);
+    router.push({
+      pathname: '/note',
+      params: { nodeId: e.nodeId }
+    });
   };
 
   return (

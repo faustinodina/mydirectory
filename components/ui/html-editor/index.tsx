@@ -3,9 +3,13 @@ import { WebView } from 'react-native-webview';
 import { View, Button, Text } from 'react-native';
 import { generateHtml } from './template';
 
-export default function HtmlEditor() {
+type HtmlEditorProps = {
+  initialContent?: string;
+};
+
+export default function HtmlEditor({ initialContent }: HtmlEditorProps) {
   const webViewRef = useRef<WebView>(null);
-  const [editorContent, setEditorContent] = useState('');
+  const [editorContent, setEditorContent] = useState(initialContent || '');
 
   const onMessage = (event: { nativeEvent: { data: string; }; }) => {
     const data = JSON.parse(event.nativeEvent.data);
