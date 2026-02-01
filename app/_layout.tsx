@@ -14,7 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 function LoadReduxState() {
   useEffect(() => {
-    store.dispatch(loadStateFromFile(true));
+    store.dispatch(loadStateFromFile(false));
   }, []);
   return null;
 }

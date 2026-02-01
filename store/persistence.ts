@@ -13,8 +13,9 @@ const treeListFileUri = FileSystem.documentDirectory + 'tree-list.json';
 // note it is a dispatch-able thunk
 export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDispatch) => {
   try {
+    //console.log('Loading state from file:', fileUri);
     const data = await FileSystem.readAsStringAsync(fileUri);
-    console.log('state.json:', data);
+    //console.log('Raw data from file:', data);
     const parsed = loadSample ? { counter: null, treeList: null, notes: null } : JSON.parse(data) as RootState;
 
     dispatch(setCounterInitialState(parsed.counter));
@@ -29,5 +30,6 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
 };
 
 export const saveStateToFile = (state: RootState) => {
+    console.log('Saving state to file:', fileUri);
     FileSystem.writeAsStringAsync(fileUri, JSON.stringify(state)).catch(console.error);
 }
