@@ -5,6 +5,9 @@ import treeListReducer from './slices/tree-list/tree-list-slice';
 import notesReducer from './slices/notes/notes-slice';
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 import { saveStateToFile } from './persistence';
+import { debounce } from "ts-debounce";
+
+const saveStateToFileDebounced = debounce(saveStateToFile, 1000);
 
 const saverClosure = () => {
   let pastState: any = null;
@@ -12,7 +15,7 @@ const saverClosure = () => {
   return (newState: any) => {
     if (newState !== pastState) {
       pastState = newState;
-      saveStateToFile(newState);
+      saveStateToFileDebounced(newState);
     }
   };
 }
