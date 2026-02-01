@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PathBar from "./PathBar";
+import * as FileSystem from 'expo-file-system/legacy';
 
 //https://github.com/wxik/react-native-rich-editor/blob/master/examples/src/example.tsx
 //https://chatgpt.com/share/683b3328-34d0-8013-9fd6-8226aa01e7a6
@@ -15,8 +16,30 @@ const Note = (props: NoteProps) => {
 
   const [content, setContent] = React.useState("");
 
+  const fileUri = `${FileSystem.documentDirectory}n-${props.nodeId}.html`;
+ 
+
   useEffect(() => {
-    // Fetch note content from file name based on nodeId
+
+    console.log("File: ", fileUri);
+
+    const fetchNoteContent = async () => {
+      // Fetch note content from file name based on nodeId
+      const exists = await FileSystem.getInfoAsync(fileUri);
+      if (!exists.exists) {
+        console.log("File does not exist, creating new note.");
+        setContent("<p>This note is empty. Start writing!</p>");
+        return;
+      } else {
+        console.log("File exists, reading content.");
+        const fileContent = await FileSystem.readAsStringAsync(fileUri);
+        setContent(fileContent);
+        return;
+      }
+    };
+
+    fetchNoteContent();
+
   }, [props.nodeId]);
 
   return (

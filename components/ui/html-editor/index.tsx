@@ -19,7 +19,7 @@ export default function HtmlEditor({ initialContent }: HtmlEditorProps) {
   };
 
   const setInitialContent = () => {
-    const command = JSON.stringify({ command: 'setContent', content: '<p><strong>Hello</strong> from React Native!</p>' });
+    const command = JSON.stringify({ command: 'setContent', content: initialContent });
     webViewRef.current?.injectJavaScript(`document.dispatchEvent(new MessageEvent('message', { data: '${command}' }));`);
   };
 
@@ -29,12 +29,13 @@ export default function HtmlEditor({ initialContent }: HtmlEditorProps) {
         ref={webViewRef}
         originWhitelist={['*']}
         source={{ html: generateHtml() }}
+        // source={{ html: initialContent || generateHtml('') }}
         onMessage={onMessage}
         javaScriptEnabled={true}
         domStorageEnabled={true}
       />
-      <Button title="Set Initial Content" onPress={setInitialContent} />
-      <Text numberOfLines={2} style={{ padding: 10 }}>Live Content: {editorContent}</Text>
+      {/* <Button title="Set Initial Content" onPress={setInitialContent} />
+      <Text numberOfLines={2} style={{ padding: 10 }}>Live Content: {editorContent}</Text> */}
     </View>
   );
 }
