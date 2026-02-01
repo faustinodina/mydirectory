@@ -6,12 +6,30 @@ import notesReducer from './slices/notes/notes-slice';
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 import { saveStateToFile } from './persistence';
 
+const saverClosure = () => {
+  let pastState: any = null;
+
+  return (newState: any) => {
+    if (newState !== pastState) {
+      pastState = newState;
+      saveStateToFile(newState);
+    }
+  };
+}
+
+const save = saverClosure();
+
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     treeList: treeListReducer,
     notes: notesReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      immutableCheck: true,         // This will throw warnings if immutability is violated.
+      serializableCheck: true,
+    }),
   devTools: false,
   enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(devToolsEnhancer()),
 });
@@ -20,7 +38,7 @@ export const store = configureStore({
 store.subscribe(() => {
   try {
     const state = store.getState();
-    saveStateToFile(state);
+    save(state);
   } catch (error) {
     console.error("Error saving state to file:", error);
   }
