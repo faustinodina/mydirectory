@@ -4,17 +4,19 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PathBar from "./PathBar";
 import * as FileSystem from 'expo-file-system/legacy';
+import TextEditor from "./txt-editor";
 
 //https://github.com/wxik/react-native-rich-editor/blob/master/examples/src/example.tsx
 //https://chatgpt.com/share/683b3328-34d0-8013-9fd6-8226aa01e7a6
 
 export type NoteProps = {
   nodeId?: number; // Optional nodeId to get the path for a specific node
+  isFocused?: boolean; // Optional prop to indicate if the note is currently focused
 };
 
 const Note = (props: NoteProps) => {
 
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState("INITIAL CONTENT");
 
   const fileUri = `${FileSystem.documentDirectory}n-${props.nodeId}.html`;
  
@@ -42,6 +44,16 @@ const Note = (props: NoteProps) => {
 
   }, [props.nodeId]);
 
+  useEffect(() => {
+    if (props.isFocused) {
+      // load content when note becomes focused
+      console.log("Load text here!");
+    } else {
+      // save content when note becomes unfocused
+      console.log("Save text here!");
+    }
+  }, [props.isFocused]);
+
   return (
     <View
       style={{
@@ -56,7 +68,8 @@ const Note = (props: NoteProps) => {
       </View> */}
       <PathBar nodeId={props.nodeId}/>
       <View style={{ flex: 1}}>
-        <HtmlEditor initialContent={content} />
+        {/* <HtmlEditor initialContent={content} /> */}
+        <TextEditor initialContent={content} />
       </View>
     </View>
   );
