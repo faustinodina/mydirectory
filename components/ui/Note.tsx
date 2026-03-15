@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PathBar from "./PathBar";
-import * as FileSystem from 'expo-file-system/legacy';
+import { File, Paths } from 'expo-file-system';
 import TextEditor from "./txt-editor";
 
 //https://github.com/wxik/react-native-rich-editor/blob/master/examples/src/example.tsx
@@ -18,41 +18,34 @@ const Note = (props: NoteProps) => {
 
   const [content, setContent] = React.useState("INITIAL CONTENT");
 
-  const fileUri = `${FileSystem.documentDirectory}n-${props.nodeId}.html`;
- 
-
   useEffect(() => {
-
-    console.log("File: ", fileUri);
-
     const fetchNoteContent = async () => {
-      // Fetch note content from file name based on nodeId
-      const exists = await FileSystem.getInfoAsync(fileUri);
-      if (!exists.exists) {
-        console.log("File does not exist, creating new note.");
-        setContent("<p>This note is empty. Start writing!</p>");
-        return;
+      if (props.isFocused) {
+        // load content when note becomes focused
+        console.log("Load text here!");
+        const fileName = `n-${props.nodeId}.html`;
+        const file = new File(Paths.document, fileName);
+        const fileExists = await file.exists;
+        if (!fileExists) {
+          console.log(`File ${fileName} does not exist, creating new note.`);
+          setContent("This note is empty. Start writing!");
+          return;
+        } else {
+          const fileContent = await file.text();
+          setContent(fileContent);
+          console.log("Loaded text: ", fileName, fileContent );
+          return;
+        }
       } else {
-        console.log("File exists, reading content.");
-        const fileContent = await FileSystem.readAsStringAsync(fileUri);
-        setContent(fileContent);
-        return;
+        // save content when note becomes unfocused
+        const fileName = `n-${props.nodeId}.html`;
+        const file = new File(Paths.document, fileName);
+        await file.write(content);
+        console.log("Saved text: ", fileName, content);
       }
     };
-
     fetchNoteContent();
-
-  }, [props.nodeId]);
-
-  useEffect(() => {
-    if (props.isFocused) {
-      // load content when note becomes focused
-      console.log("Load text here!");
-    } else {
-      // save content when note becomes unfocused
-      console.log("Save text here!");
-    }
-  }, [props.isFocused]);
+  }, [props.isFocused, props.nodeId]);
 
   return (
     <View
@@ -62,14 +55,10 @@ const Note = (props: NoteProps) => {
         // alignItems: "center",
       }}
     >
-      {/* <View style={{ flexDirection: "row" }} >
-        <Text>Current Directory:</Text>
-        <Text>Some path / subpaths</Text>
-      </View> */}
       <PathBar nodeId={props.nodeId}/>
       <View style={{ flex: 1}}>
         {/* <HtmlEditor initialContent={content} /> */}
-        <TextEditor initialContent={content} />
+        <TextEditor content={content} onChange={(newContent) => { setContent(newContent); }} />
       </View>
     </View>
   );

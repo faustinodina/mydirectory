@@ -3,21 +3,22 @@ import { View } from "react-native";
 import { TextInput } from "react-native-paper";
 
 export type TextEditorProps = {
-  initialContent?: string;
+  content?: string;
+  onChange?: (newContent: string) => void; // Optional callback when content changes
   onExiting?: (finalContent: string) => void; // Optional callback when exiting the note
 };
 
-const TextEditor = ({initialContent}: TextEditorProps) => {
+const TextEditor = ({content, onChange}: TextEditorProps) => {
 
-  const [text, setText] = useState(initialContent);
+  console.log("Redrawing Text Editor with initial content: ", content);
 
   return (
     <TextInput 
       style={{ flex: 1, minHeight: 100  }} 
       label="Notes"
       multiline
-      value={text}
-      onChangeText={setText}
+      value={content}
+      onChangeText={(newContent) => onChange && onChange(newContent)}
       mode="outlined"
       />  
   );
