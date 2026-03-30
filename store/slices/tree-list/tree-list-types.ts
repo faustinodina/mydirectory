@@ -25,6 +25,7 @@ export interface INodeVisibility {
 export type VisibleNodesDict = { [key: NodeId]: INodeVisibility };
 
 export interface ITreeListState {
+  nextNodeId: NodeId;          // used for generating new node ids, should be incremented every time a new node is added
   nodesDict: TreeDict;            // tree of "pure" nodes
   pathCache: INodePathCacheDict;  // cache of paths from root to each node, used for quick access to the path without recalculating it every time
 

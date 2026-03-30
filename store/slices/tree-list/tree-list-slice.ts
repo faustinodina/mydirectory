@@ -5,6 +5,7 @@ import { mutateStateAddNode, mutateStateResetVisibility, mutateStateToggleNodeEx
 //import { setInitialState } from "../counter/counter-slice";
 
 const initialState: ITreeListState = {
+  nextNodeId: 0,    // means it is not initialized yet, when we initialize the state from file we will set it to max existing node id + 1
   nodesDict: {},
   pathCache: {},
   viewsDict: {},
@@ -17,7 +18,16 @@ export const treeListSlice = createSlice({
   reducers: {
 
     setInitialState: (state, action: PayloadAction<ITreeListState>) => {
-      return action.payload;  
+      const newState = action.payload;
+
+      // lets initialize the nextNodeId value based on the existing nodes in the state, so we can be sure it is always correct and we will never have id conflicts when adding new nodes
+      if (newState ) {
+        if (newState.nextNodeId === undefined) { newState.nextNodeId = 0; }
+        
+        const maxNodeId = Math.max(...Object.keys(newState.nodesDict).map(id => parseInt(id)), 0);
+        newState.nextNodeId = maxNodeId + 1;
+      }
+      return newState;  
     },
 
     collapseNode: (state, action: PayloadAction<{nodeId: NodeId, treeViewType: TreeViewType}>) => {
