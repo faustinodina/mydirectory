@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getRootNode } from "./tree-list-lib";
-import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType } from "./tree-list-types";
+import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType, IAddNodeData } from "./tree-list-types";
 import { mutateStateAddNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
+import { addNoteDialogSubmitted } from "@/store/actions/dialogActions";
 //import { setInitialState } from "../counter/counter-slice";
 
 const initialState: ITreeListState = {
@@ -64,10 +65,13 @@ export const treeListSlice = createSlice({
       state.viewsDict[treeViewType].selectedNodeId = nodeId;
     },
     
-    addNode: (state, action: PayloadAction<{treeViewType: TreeViewType, position: ITreeNodePosition}>) => {
-      const {treeViewType, position } = action.payload;
+    incrementNextNodeId: (state, action: PayloadAction<void>) => {
+      state.nextNodeId = state.nextNodeId + 1;
+    },
 
-      const newNodeId: NodeId = generateNewNodeId();
+    addNode: (state, action: PayloadAction<IAddNodeData >) => {
+      const {newNodeId, treeViewType, position } = action.payload;
+
       mutateStateAddNode({
         state, 
         nodeId: newNodeId, 
@@ -77,7 +81,19 @@ export const treeListSlice = createSlice({
       });
     },
   },
+
+  extraReducers: (builder) => {
+    builder.addCase(addNoteDialogSubmitted, (state, action) => {
+      mutateStateAddNode({
+        state,
+        nodeId: action.payload.newNodeId, 
+        position: action.payload.position, 
+        treeViewType: action.payload.treeViewType,
+        sortOrder: 0,
+      });
+    });
+  }
 });
 
-export const { setInitialState, collapseNode, expandNode, resetVisibility, setSelectedNode, addNode } = treeListSlice.actions;
+export const { incrementNextNodeId, setInitialState, collapseNode, expandNode, resetVisibility, setSelectedNode, addNode } = treeListSlice.actions;
 export default treeListSlice.reducer;

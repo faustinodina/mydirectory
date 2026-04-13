@@ -1,5 +1,6 @@
 import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { parseNumberParam } from "@/lib/helpers";
+import { addNoteDialogSubmitted } from "@/store/actions/dialogActions";
 import { useAppDispatch } from "@/store/hooks";
 import { updateNoteThunk } from "@/store/slices/notes/notes-thunks";
 import { treeListSlice } from "@/store/slices/tree-list";
@@ -37,10 +38,29 @@ export default function AddNoteScreen() {
     // handle add note submission logic here
     console.log("Add Note Submitted:", data);
 
-    dispatch(treeListSlice.actions.addNode({
-      nodeId: 0, // Replace with actual new node ID
-      treeViewType: "notes", // Replace with actual tree view type
+    // dispatch(treeListSlice.actions.addNode({
+    //   newNodeId: 0, 
+    //   treeViewType: "main", // Replace with actual tree view type
+    //   position: {
+    //     parentId: parentIdNum!,
+    //     siblingId: siblingIdNum,
+    //   }
+    // }));
+
+    // pass all the form data: extra reducers will mutate the state
+    dispatch(addNoteDialogSubmitted({
+      newNodeId: 0, 
+      treeViewType: "main", // Replace with actual tree view type
+      position: {
+        parentId: parentIdNum!,
+        siblingId: siblingIdNum,
+      },
+      title: data.title,
+      alias: data.alias,
+      description: data.description,
     }));
+
+    router.back();
   }
   const onSubmit = mode === "edit" ? onEditSubmit : onAddSubmit;
 

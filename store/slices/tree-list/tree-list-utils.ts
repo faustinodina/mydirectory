@@ -317,7 +317,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
 
   const stateView = state.viewsDict[viewType];
 
-  console.log("SEIS");
+  console.log("SEIS, stateView: ", stateView, viewType);
   // always register the new node in the visibility dictionary
   stateView.visibleNodesDict[nodeId] = {id: nodeId, isExpanded: false }
   console.log("SIETE");

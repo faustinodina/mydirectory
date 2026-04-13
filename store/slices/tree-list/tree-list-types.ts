@@ -105,3 +105,9 @@ export type EvArgsOnSelectionChange = {
   nodeId: NodeId, 
   isSelected: boolean
 };
+
+export interface IAddNodeData {
+  newNodeId: number; 
+  treeViewType: TreeViewType; 
+  position: ITreeNodePosition;
+};

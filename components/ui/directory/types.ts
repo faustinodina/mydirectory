@@ -7,9 +7,14 @@ export type Note = {
   description: string;
 };
 
-export type AddEditNoteFormData = {
+// export type AddEditNoteFormData = {
+//   title: string;
+//   alias: string;
+//   description: string;
+// };
+
+export interface IAddEditNoteFormData {
   title: string;
   alias: string;
   description: string;
 };
-

@@ -1,6 +1,8 @@
 //resetTreeView
 
+import { createAppAsyncThunk } from '@/store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { incrementNextNodeId } from '../tree-list/tree-list-slice';
 
 export const resetTreeView = createAsyncThunk(
   'treeList/resetTreeView', 
@@ -14,5 +16,18 @@ export const resetTreeView = createAsyncThunk(
 
     // Return any data if necessary
     return;
+  } 
+);
+
+export const getNextNodeId = createAppAsyncThunk<number, void>(
+  'treeList/getNextNodeId', 
+  async (_, { dispatch, getState }) => {
+    // You can access the current state if needed
+    const currentState = getState();
+    const result = currentState.treeList.nextNodeId;
+
+    dispatch(incrementNextNodeId());
+
+    return result;
   } 
 );

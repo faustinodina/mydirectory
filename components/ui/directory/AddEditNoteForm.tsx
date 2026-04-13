@@ -6,7 +6,7 @@ import { useLocalSearchParams } from "expo-router";
 import { NodeId } from "@/store/slices/tree-list/tree-list-types";
 import { useAppSelector } from "@/store/hooks";
 import { selectNote } from "@/store/slices/notes/notes-selectors";
-import { AddEditNoteFormData } from "./types";
+import { IAddEditNoteFormData } from "./types";
 
         // title: "Topic 2-2",
         // alias: "2-2",
@@ -18,7 +18,7 @@ export type AddEditNoteFormProps = {
   siblingId?: number;
   //note?: Note; // required in edit mode
   noteId?: NodeId;   // required in edit mode
-  onSubmit: (data: AddEditNoteFormData) => void;  // note according to best practices dealing with form submit is responsibility of parent component!
+  onSubmit: (data: IAddEditNoteFormData) => void;  // note according to best practices dealing with form submit is responsibility of parent component!
 };
 
 const AddEditNoteForm = ({ 
@@ -44,7 +44,7 @@ const AddEditNoteForm = ({
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<AddEditNoteFormData>({
+  } = useForm<IAddEditNoteFormData>({
     defaultValues: {
       title: "",
       alias: "",

@@ -2,6 +2,7 @@ import type { RootState } from '@/store';
 import { NotesState, INoteEditable, INoteToAdd, ResetNotesPayload } from "@/store/slices/notes/notes-types";
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NO_NodeId, NodeId, TreeViewType } from '@/store/slices/tree-list/tree-list-types';
+import { addNoteDialogSubmitted } from '@/store/actions/dialogActions';
 
 const initialState: NotesState = {
   notesDict: {},
@@ -47,6 +48,22 @@ export const notesSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(addNoteDialogSubmitted, (state, action) => {
+      //const {nodeId: nodeId, noteToAdd: noteToAdd } = action.payload;
+      const nodeId = action.payload.newNodeId;
+      const noteToAdd: INoteToAdd = {
+        note: {
+          title: action.payload.title,
+          alias: action.payload.alias,
+          description: action.payload.description,
+          contentGuid: `note_${nodeId}.html`,  // we will use this guid to create the file containing the note content in html format, and also to link the note to its content file
+        },
+        position: action.payload.position,
+        treeViewType: action.payload.treeViewType,
+      };
+
+      state.notesDict[nodeId] = {id: nodeId, ...noteToAdd.note};
+    });
   },
 });
 

@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, createAsyncThunk } from '@reduxjs/toolkit';
 import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
 import notesReducer from './slices/notes/notes-slice';
@@ -49,3 +49,11 @@ store.subscribe(() => {
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const createAppAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState
+  dispatch: AppDispatch
+  rejectValue: string
+  extra: { s: string; n: number }
+}>();
+
