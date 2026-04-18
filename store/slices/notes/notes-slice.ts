@@ -2,7 +2,7 @@ import type { RootState } from '@/store';
 import { NotesState, INoteEditable, INoteToAdd, ResetNotesPayload } from "@/store/slices/notes/notes-types";
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NO_NodeId, NodeId, TreeViewType } from '@/store/slices/tree-list/tree-list-types';
-import { addNoteDialogSubmitted } from '@/store/actions/dialogActions';
+import { addNoteDialogSubmitted, editNoteDialogSubmitted } from '@/store/actions/dialogActions';
 
 const initialState: NotesState = {
   notesDict: {},
@@ -22,19 +22,10 @@ export const notesSlice = createSlice({
       state.notesDict = resetNotesPayload.notesState.notesDict;
     },
   
-    addNote: (state, action: PayloadAction<{nodeId: NodeId, noteToAdd: INoteToAdd}>) => {
-      const {nodeId: nodeId, noteToAdd: noteToAdd } = action.payload;
-      state.notesDict[nodeId] = {id: nodeId, ...noteToAdd.note};
-    },
-
-    updateNote: (state, action: PayloadAction<INoteEditable>) => {
-      const modifiedNoteData = action.payload;
-      const noteToModify = state.notesDict[modifiedNoteData.noteId];
-      if (!noteToModify) { return; }
-      noteToModify.title = modifiedNoteData.name;
-      noteToModify.alias = modifiedNoteData.alias;
-      noteToModify.description = modifiedNoteData.description;
-    },
+    // addNote: (state, action: PayloadAction<{nodeId: NodeId, noteToAdd: INoteToAdd}>) => {
+    //   const {nodeId: nodeId, noteToAdd: noteToAdd } = action.payload;
+    //   state.notesDict[nodeId] = {id: nodeId, ...noteToAdd.note};
+    // },
 
     removeNote: (state, action: PayloadAction<NodeId>) => {
       const nodeId = action.payload;
@@ -48,6 +39,8 @@ export const notesSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+
+    // this functions as addNote reducer
     builder.addCase(addNoteDialogSubmitted, (state, action) => {
       //const {nodeId: nodeId, noteToAdd: noteToAdd } = action.payload;
       const nodeId = action.payload.newNodeId;
@@ -64,6 +57,17 @@ export const notesSlice = createSlice({
 
       state.notesDict[nodeId] = {id: nodeId, ...noteToAdd.note};
     });
+
+    // this works as updateNote reducer
+    builder.addCase(editNoteDialogSubmitted, (state, action) => {
+      const modifiedNoteData = action.payload;
+      const noteToModify = state.notesDict[modifiedNoteData.noteId];
+      if (!noteToModify) { return; }
+      noteToModify.title = modifiedNoteData.name;
+      noteToModify.alias = modifiedNoteData.alias;
+      noteToModify.description = modifiedNoteData.description;
+    });
+
   },
 });
 

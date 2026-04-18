@@ -1,11 +1,10 @@
 import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { parseNumberParam } from "@/lib/helpers";
-import { addNoteDialogSubmitted } from "@/store/actions/dialogActions";
+import { addNoteDialogSubmitted, editNoteDialogSubmitted } from "@/store/actions/dialogActions";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { updateNoteThunk } from "@/store/slices/notes/notes-thunks";
-import { treeListSlice } from "@/store/slices/tree-list";
 import { useLocalSearchParams, Stack, router } from "expo-router";
 import { selectNextNodeId } from "@/store/slices/tree-list/tree-list-selectors";
+import { ViewKeysRegistry } from "@/store/slices/notes/notes-types";
 
 export default function AddNoteScreen() {
 
@@ -30,9 +29,12 @@ export default function AddNoteScreen() {
     // handle edit note submission logic here
     console.log("Edit Note Submitted:", data);
 
-    dispatch(updateNoteThunk({
-      id: nodeIdNum,
-      data: data
+    dispatch(editNoteDialogSubmitted({
+      treeViewType: ViewKeysRegistry.Main,
+      noteId: nodeIdNum!,
+      name: data.title,
+      alias: data.alias,
+      description: data.description,
     }));
 
     router.back();
@@ -40,15 +42,6 @@ export default function AddNoteScreen() {
   const onAddSubmit = (data: { title: string; alias: string; description: string }) => {
     // handle add note submission logic here
     console.log("Add Note Submitted:", data);
-
-    // dispatch(treeListSlice.actions.addNode({
-    //   newNodeId: 0, 
-    //   treeViewType: "main", // Replace with actual tree view type
-    //   position: {
-    //     parentId: parentIdNum!,
-    //     siblingId: siblingIdNum,
-    //   }
-    // }));
 
     // pass all the form data: extra reducers will mutate the state
     dispatch(addNoteDialogSubmitted({
