@@ -1,15 +1,18 @@
 import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
 import { parseNumberParam } from "@/lib/helpers";
 import { addNoteDialogSubmitted } from "@/store/actions/dialogActions";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { updateNoteThunk } from "@/store/slices/notes/notes-thunks";
 import { treeListSlice } from "@/store/slices/tree-list";
 import { useLocalSearchParams, Stack, router } from "expo-router";
+import { selectNextNodeId } from "@/store/slices/tree-list/tree-list-selectors";
 
 export default function AddNoteScreen() {
 
   const dispatch = useAppDispatch();
-  
+
+  const nextNodeId = useAppSelector(selectNextNodeId);
+
   const { mode, parentId, siblingId, id } = useLocalSearchParams<{ 
     mode?: "add" | "edit" | undefined,
     parentId?: string,
@@ -49,7 +52,7 @@ export default function AddNoteScreen() {
 
     // pass all the form data: extra reducers will mutate the state
     dispatch(addNoteDialogSubmitted({
-      newNodeId: 0, 
+      newNodeId: nextNodeId, 
       treeViewType: "main", // Replace with actual tree view type
       position: {
         parentId: parentIdNum!,

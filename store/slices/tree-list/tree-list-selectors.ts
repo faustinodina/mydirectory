@@ -33,3 +33,4 @@ export const selectTreeViewId = (treeViewType: TreeViewType) => { return memoize
 //   };
 // };
 
+export const selectNextNodeId = (state: RootState) => state.treeList.nextNodeId;
