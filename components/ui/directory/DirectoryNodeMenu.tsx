@@ -5,6 +5,8 @@ import React, { FunctionComponent, useState, forwardRef, useImperativeHandle } f
 import { GestureResponderEvent } from "react-native";
 import { Menu, Portal } from "react-native-paper";
 import { router } from "expo-router";
+import { useDispatch } from "react-redux";
+import { removeNoteSubmitted } from "@/store/actions/dialogActions";
 
 // https://chatgpt.com/share/69487884-b924-8013-bc04-126f21f09aea convert into a forwardRef component
 
@@ -23,6 +25,8 @@ const DirectoryNodeMenu = ({
   nodeId,
   onDismiss,
 }: TreeListMenuProps) => {
+
+  const dispatch = useDispatch();
 
   if (!nodeId) return null;
 
@@ -54,6 +58,12 @@ const DirectoryNodeMenu = ({
             onPress={() => {
               console.log("Edit note", nodeId);
               router.push(`/modal/note/edit?id=${nodeId}`);
+              onDismiss();
+            }} />
+          <Menu.Item 
+            title="Remove note" 
+            onPress={() => {
+              dispatch(removeNoteSubmitted(nodeId));
               onDismiss();
             }} />
         </Menu>

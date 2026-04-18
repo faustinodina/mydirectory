@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAddNodeData } from '../slices/tree-list/tree-list-types';
+import { IAddNodeData, NodeId } from '../slices/tree-list/tree-list-types';
 import { INoteEditable } from '../slices/notes/notes-types';
 import { IAddEditNoteFormData } from '@/components/ui/directory/types';
 
@@ -7,3 +7,5 @@ import { IAddEditNoteFormData } from '@/components/ui/directory/types';
 export const addNoteDialogSubmitted = createAction<IAddNodeData & IAddEditNoteFormData>('addNoteDialog/submitted');
 
 export const editNoteDialogSubmitted = createAction<INoteEditable>('editNoteDialog/submitted');
+
+export const removeNoteSubmitted = createAction<NodeId>('removeNote/submitted');

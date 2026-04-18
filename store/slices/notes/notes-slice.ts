@@ -2,7 +2,7 @@ import type { RootState } from '@/store';
 import { NotesState, INoteEditable, INoteToAdd, ResetNotesPayload } from "@/store/slices/notes/notes-types";
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NO_NodeId, NodeId, TreeViewType } from '@/store/slices/tree-list/tree-list-types';
-import { addNoteDialogSubmitted, editNoteDialogSubmitted } from '@/store/actions/dialogActions';
+import { addNoteDialogSubmitted, editNoteDialogSubmitted, removeNoteSubmitted } from '@/store/actions/dialogActions';
 
 const initialState: NotesState = {
   notesDict: {},
@@ -68,10 +68,18 @@ export const notesSlice = createSlice({
       noteToModify.description = modifiedNoteData.description;
     });
 
+    // remove note
+    builder.addCase(removeNoteSubmitted, (state, action) => {
+      const nodeId = action.payload;
+      
+      // remove the note
+      // throw new Error() will fail the entire dispatch
+    });
+
   },
 });
 
-export const { resetNotes, setInitialState, updateNote } = notesSlice.actions;
+export const { resetNotes, setInitialState } = notesSlice.actions;
 
 
 export default notesSlice.reducer;

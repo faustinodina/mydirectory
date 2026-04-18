@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getRootNode } from "./tree-list-lib";
 import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType, IAddNodeData } from "./tree-list-types";
 import { mutateStateAddNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
-import { addNoteDialogSubmitted } from "@/store/actions/dialogActions";
+import { addNoteDialogSubmitted, removeNoteSubmitted } from "@/store/actions/dialogActions";
 //import { setInitialState } from "../counter/counter-slice";
 
 const initialState: ITreeListState = {
@@ -98,6 +98,13 @@ export const treeListSlice = createSlice({
         treeViewType: action.payload.treeViewType,
         sortOrder: 0,
       });
+    });
+
+    // remove node
+    builder.addCase(removeNoteSubmitted, (state, action) => {
+      const nodeId = action.payload;
+      // throw new Error() will fail the entire dispatch
+      delete state.nodesDict[nodeId];
     });
   }
 });
