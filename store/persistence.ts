@@ -12,9 +12,14 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
   try {
     console.log('Loading state from file');
     const file = new File(Paths.document,'state.json');
-    const data = await file.text();
+    let data: string = "";
+    if (file.exists) {
+      data = await file.text();
+    }
     //console.log('Raw data from file:', data);
-    const parsed = loadSample ? { counter: null, treeList: null, notes: null } : JSON.parse(data) as RootState;
+    const parsed = (loadSample || !data) 
+      ? { counter: null, treeList: null, notes: null } 
+      : JSON.parse(data) as RootState;
 
     dispatch(setCounterInitialState(parsed.counter));
 

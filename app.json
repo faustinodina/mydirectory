@@ -6,7 +6,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "mydirectory",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "version": "1.0.0",
     "android": {
       "versionCode": 2,
@@ -14,8 +13,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      }
     },
     "ios": {
       "supportsTablet": true,
@@ -28,6 +26,8 @@
     },
     "plugins": [
       "expo-router",
+      "expo-font",
+      "expo-image",
       [
         "expo-splash-screen",
         {
