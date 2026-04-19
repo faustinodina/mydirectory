@@ -1,5 +1,3 @@
-import appJson from './app.json';
-
 export default ({ config }) => {
   let iosBundleId = "com.faustinodina.mydirectory";
   let androidPackage = "com.faustinodina.mydirectory";
@@ -9,7 +7,7 @@ export default ({ config }) => {
   if (profile === "development") {
     iosBundleId = "com.faustinodina.mydirectory.dev";
     androidPackage = "com.faustinodina.mydirectory.dev";
-  } 
+  }
   else if (profile === "preview") {
     iosBundleId = "com.faustinodina.mydirectory.preview";
     androidPackage = "com.faustinodina.mydirectory.preview";
@@ -20,13 +18,13 @@ export default ({ config }) => {
   }
 
   return {
-    ...appJson,
+    ...config,
     ios: {
-      ...appJson.ios,
+      ...config.ios,
       bundleIdentifier: iosBundleId
     },
     android: {
-      ...appJson.android,
+      ...config.android,
       package: androidPackage
     }
   };
