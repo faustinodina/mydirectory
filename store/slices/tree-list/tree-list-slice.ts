@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getRootNode } from "./tree-list-lib";
 import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType, IAddNodeData } from "./tree-list-types";
-import { mutateStateAddNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
+import { mutateStateAddNode, mutateStateRemoveLeafNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
 import { addNoteDialogSubmitted, removeNoteSubmitted } from "@/store/actions/dialogActions";
 //import { setInitialState } from "../counter/counter-slice";
 
@@ -102,9 +102,15 @@ export const treeListSlice = createSlice({
 
     // remove node
     builder.addCase(removeNoteSubmitted, (state, action) => {
-      const nodeId = action.payload;
+      const { nodeId, treeViewType } = action.payload;
       // throw new Error() will fail the entire dispatch
-      delete state.nodesDict[nodeId];
+
+      mutateStateRemoveLeafNode({
+        state,
+        nodeId,
+        treeViewType, // we need to pass the treeViewType to remove the node from the correct view, but in our current implementation we are using only one view type (main) so we can hardcode it here, but in a more complex implementation we should pass it as a parameter in the action payload
+      });
+
     });
   }
 });

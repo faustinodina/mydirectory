@@ -70,10 +70,11 @@ export const notesSlice = createSlice({
 
     // remove note
     builder.addCase(removeNoteSubmitted, (state, action) => {
-      const nodeId = action.payload;
+      const { nodeId, treeViewType } = action.payload;
       
       // remove the note
       // throw new Error() will fail the entire dispatch
+      delete state.notesDict[nodeId];
     });
 
   },

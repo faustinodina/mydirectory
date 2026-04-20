@@ -25,6 +25,11 @@ const NavBarRight = () => {
     //router.push(createRoutePath("/camera");
   };
 
+  const onEditState = () => {
+    closeMenu();
+    router.push("/modal/state");
+  }
+
   return (
     <Menu
         key={visibleMenu ? "open" : "closed"}
@@ -37,6 +42,7 @@ const NavBarRight = () => {
           />
         }>
         <Menu.Item onPress={onPressResetDirectoryView} title="Reset Directory View" />
+        <Menu.Item onPress={onEditState} title="Edit State" />
         <Menu.Item onPress={onPressCamera} title="Camera" />
     </Menu>
   );

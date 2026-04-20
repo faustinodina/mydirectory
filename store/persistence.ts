@@ -10,12 +10,14 @@ import { setInitialState as setNotesInitialState} from './slices/notes/notes-sli
 // note it is a dispatch-able thunk
 export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDispatch) => {
   try {
-    console.log('Loading state from file');
-    const file = new File(Paths.document,'state.json');
-    let data: string = "";
-    if (file.exists) {
-      data = await file.text();
-    }
+    // console.log('Loading state from file');
+    // const file = new File(Paths.document,'state.json');
+    // let data: string = "";
+    // if (file.exists) {
+    //   data = await file.text();
+    // }
+    
+    let data: string = await getStateFromFile() ?? "";
     //console.log('Raw data from file:', data);
     const parsed = (loadSample || !data) 
       ? { counter: null, treeList: null, notes: null } 
@@ -41,3 +43,21 @@ export const saveStateToFile = (state: RootState) => {
     console.error("Error saving state to file: ", err);
   }
 }
+
+export const getStateFromFile = async (): Promise<string | null> => {
+  try {
+    console.log('Getting state from file');
+    const file = new File(Paths.document,'state.json');
+    if (!file.exists) {
+      console.log('State file does not exist');
+      return null;
+    }
+    const data = await file.text();
+    //console.log('Raw data from file:', data);
+    return data;
+  }
+ catch (error) {
+    console.log(`Error getting state from file: `, error);
+    return null;
+  }
+};

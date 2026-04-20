@@ -63,7 +63,7 @@ const DirectoryNodeMenu = ({
           <Menu.Item 
             title="Remove note" 
             onPress={() => {
-              dispatch(removeNoteSubmitted(nodeId));
+              dispatch(removeNoteSubmitted({nodeId, treeViewType: "main"})); // Replace "main" with actual tree view type if needed
               onDismiss();
             }} />
         </Menu>
