@@ -19,15 +19,15 @@ export const resetTreeView = createAsyncThunk(
   } 
 );
 
-export const getNextNodeId = createAppAsyncThunk<number, void>(
-  'treeList/getNextNodeId', 
-  async (_, { dispatch, getState }) => {
-    // You can access the current state if needed
-    const currentState = getState();
-    const result = currentState.treeList.nextNodeId;
+// export const getNextNodeId = createAppAsyncThunk<number, void>(
+//   'treeList/getNextNodeId', 
+//   async (_, { dispatch, getState }) => {
+//     // You can access the current state if needed
+//     const currentState = getState();
+//     const result = currentState.treeList.nextNodeId;
 
-    dispatch(incrementNextNodeId());
+//     dispatch(incrementNextNodeId());
 
-    return result;
-  } 
-);
+//     return result;
+//   } 
+// );
