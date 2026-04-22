@@ -1,11 +1,12 @@
-import { getStateFromFile } from "@/store/persistence";
+import { getStateFromFile, writeStringToStateFile } from "@/store/persistence";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { useWindowDimensions, View, Alert } from "react-native";
 import { TextInput, Button, } from "react-native-paper";
+import * as Updates from 'expo-updates';
 
 const EditState = () => {
-
-  const [stateData, setStateData] = useState<string | null>(null); 
+  const { height } = useWindowDimensions();
+  const [stateData, setStateData] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("EditState modal opened");
@@ -24,20 +25,22 @@ const EditState = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, borderWidth: 1, borderColor: "red", padding: 10 }}>
-      <View style={{ flex: 1, borderWidth: 1, borderColor: "blue" }}>
-        <TextInput
-          multiline={true}
-          scrollEnabled={true}
-          value={stateData ?? "No state data found"}
-          style={{ flex: 1, textAlignVertical: "top", borderWidth: 1, borderColor: "green", padding: 10 }}
-          onChangeText={setStateData}
-        />
-      </View>
-      <Button onPress={() => {
-        console.log("State data to save:", stateData);
-        }}
-        >Save State</Button>
+    <View style={{ height: height - 100,  }}>
+      <TextInput
+        multiline={true}
+        style={{ flex: 1 }}
+        contentStyle={{ flex: 1 }}
+        value={stateData ?? "No state data found"}
+        onChangeText={setStateData}
+      />
+      <Button 
+        mode="contained" 
+        onPress={async () => {
+          console.log("State data to save:", stateData);
+          writeStringToStateFile(stateData ?? "");
+          Alert.alert("State saved successfully. The app will restart to apply changes.");
+          await Updates.reloadAsync();
+        }}>Save State</Button>
     </View>
   );
 }

@@ -35,14 +35,23 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
 };
 
 export const saveStateToFile = (state: RootState) => {
+
   try {
-    console.log('Saving state to file');
-    const file = new File(Paths.document,'state.json');
-    file.write(JSON.stringify(state));
-  } catch(err) {
-    console.error("Error saving state to file: ", err);
+    writeStringToStateFile(JSON.stringify(state));
+  } catch (error) {
+    console.log(`Error serializing state for saving state to file: `, error);
   }
-}
+};
+
+export const writeStringToStateFile = (json: string) => {
+  try {
+    console.log('Saving json state to file');
+    const file = new File(Paths.document,'state.json');
+    file.write(json);
+  } catch(err) {
+    console.error("Error saving json state to file: ", err);
+  }
+};
 
 export const getStateFromFile = async (): Promise<string | null> => {
   try {
