@@ -5,8 +5,11 @@ import React, { FunctionComponent, useState, forwardRef, useImperativeHandle } f
 import { GestureResponderEvent } from "react-native";
 import { Menu, Portal } from "react-native-paper";
 import { router } from "expo-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeNoteSubmitted } from "@/store/actions/dialogActions";
+import { isNodeRemovable } from "@/store/slices/tree-list/tree-list-selectors";
+import { RootState } from "@/store";
+import { useAppSelector } from "@/store/hooks";
 
 // https://chatgpt.com/share/69487884-b924-8013-bc04-126f21f09aea convert into a forwardRef component
 
@@ -27,6 +30,7 @@ const DirectoryNodeMenu = ({
 }: TreeListMenuProps) => {
 
   const dispatch = useDispatch();
+  const isRemovable = useAppSelector(isNodeRemovable(nodeId ?? 0));
 
   if (!nodeId) return null;
 
@@ -60,12 +64,14 @@ const DirectoryNodeMenu = ({
               router.push(`/modal/note/edit?id=${nodeId}`);
               onDismiss();
             }} />
-          <Menu.Item 
-            title="Remove note" 
-            onPress={() => {
-              dispatch(removeNoteSubmitted({nodeId, treeViewType: "main"})); // Replace "main" with actual tree view type if needed
-              onDismiss();
-            }} />
+          {isRemovable && (
+            <Menu.Item 
+              title="Remove note" 
+              onPress={() => {
+                dispatch(removeNoteSubmitted({nodeId, treeViewType: "main"})); // Replace "main" with actual tree view type if needed
+                onDismiss();
+              }} />
+          )}
         </Menu>
       </Portal>
   );

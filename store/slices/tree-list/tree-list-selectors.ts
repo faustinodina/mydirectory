@@ -34,3 +34,15 @@ export const selectTreeViewId = (treeViewType: TreeViewType) => { return memoize
 // };
 
 export const selectNextNodeId = (state: RootState) => state.treeList.nextNodeId;
+export const isNodeRemovable = (nodeId: NodeId) => (state: RootState) => {
+  if (!nodeId) { return false; }
+  if (!(nodeId in state.treeList.nodesDict)) { return false; }
+  
+  const node = state.treeList.nodesDict[nodeId];
+  if (node.parent === NO_NodeId) { return false; }  // root node can't be removed
+
+  // for now we only allow removing leaf nodes
+  if (node.children.length != 0) { return false; }  // has children
+
+  return true;
+};
