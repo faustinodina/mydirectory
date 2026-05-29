@@ -34,7 +34,7 @@ const DirectoryNodeMenu = ({
 
   if (!nodeId) return null;
 
-  console.log("DirectoryNodeMenu for node:", nodeId);
+  // console.log("DirectoryNodeMenu for node:", nodeId);
 
   return (
       <Portal>
