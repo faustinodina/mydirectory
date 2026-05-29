@@ -42,6 +42,7 @@ Thumbs.db
 
 # Applications
 *.app
+*.apk
 *.exe
 *.war
 
@@ -80,15 +81,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-build/development-build.apk
-misc/build/development-build.apk
-docs/build/development-build-2.apk
-docs/build/development-build.apk
-
 # Jest coverage output
 coverage/
-docs/build/development-build-1.apk
-docs/build/application-1.apk
-docs/build/application-2.apk
-docs/build/development-build-55.apk
-docs/build/development-build-56.apk
