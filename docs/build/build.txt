@@ -4,6 +4,7 @@ Development build
 
   > npm install -g eas-cli
   > eas build --profile development --platform android
+  > eas build --profile preview --platform android
   > adb install development-build.apk
   > npx expo start
 
