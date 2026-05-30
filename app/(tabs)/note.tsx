@@ -1,9 +1,7 @@
 import React, {useCallback} from "react";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useLocalSearchParams } from "expo-router";
 import Note from "@/components/ui/Note";
 import { NodeId } from "@/store/slices/tree-list/tree-list-types";
-import { useLocalSearchParams } from "expo-router";
-import { useFocusEffect } from '@react-navigation/native';
 
 const NoteScreen = () => {
   
