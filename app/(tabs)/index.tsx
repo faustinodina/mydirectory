@@ -1,8 +1,4 @@
-import { ThemedText } from '@/components/ui/ThemedText';
-import { ThemedView } from '@/components/ui/ThemedView';
 import TreeList from '@/components/tree-list';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { decrement, increment } from '@/store/slices/counter/counter-slice';
 import { useNavigation, useRouter } from 'expo-router';
 import React, { useLayoutEffect } from "react";
 import { EvArgsOnSelectionChange, TreeViewId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
@@ -15,8 +11,6 @@ import DirectoryNodeMenu from '@/components/ui/directory/DirectoryNodeMenu';
 
 
 const Index = () => {
-  const count = useAppSelector((state) => state.counter?.value ?? 0);
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const navigation = useNavigation();

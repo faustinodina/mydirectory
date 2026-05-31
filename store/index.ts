@@ -1,5 +1,4 @@
 import { configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import counterReducer from './slices/counter/counter-slice';
 import treeListReducer from './slices/tree-list/tree-list-slice';
 import notesReducer from './slices/notes/notes-slice';
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
@@ -24,7 +23,6 @@ const save = saverClosure();
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     treeList: treeListReducer,
     notes: notesReducer,
   },

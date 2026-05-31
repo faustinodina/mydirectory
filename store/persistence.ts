@@ -1,7 +1,6 @@
 // store/bootstrap.ts
 import { File, Paths} from 'expo-file-system';
 import { AppDispatch, RootState } from './index';
-import { setInitialState as setCounterInitialState } from './slices/counter/counter-slice'; // assume your slice supports this
 import { getInitialStateSample as getTreeListInitialStateSample } from './slices/tree-list/tree-list-utils';
 import { setInitialState as setTreeListInitialState } from './slices/tree-list/tree-list-slice';
 import { getInitialStateSample as getNotesInitialStateSample } from './slices/notes/notes-utils';
@@ -37,7 +36,6 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
       }
     }
 
-    dispatch(setCounterInitialState(parsed.counter ?? null));
     dispatch(setTreeListInitialState(parsed.treeList ?? getTreeListInitialStateSample()));
     dispatch(setNotesInitialState(parsed.notes ?? getNotesInitialStateSample()));
 
