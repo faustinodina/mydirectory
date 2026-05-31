@@ -2,11 +2,11 @@ import { Tabs, useNavigation } from 'expo-router';
 import React, { useLayoutEffect } from 'react';
 import { Platform } from 'react-native';
 
-import { HapticTab } from '@/app-example/components/HapticTab';
-import { IconSymbol } from '@/app-example/components/ui/IconSymbol';
-import TabBarBackground from '@/app-example/components/ui/TabBarBackground';
-import { Colors } from '@/app-example/constants/Colors';
-import { useColorScheme } from '@/app-example/hooks/useColorScheme';
+import { HapticTab } from '@/components/ui/HapticTab';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import TabBarBackground from '@/components/ui/TabBarBackground';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 import { IconButton } from 'react-native-paper';
 
 export default function TabLayout() {

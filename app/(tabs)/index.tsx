@@ -1,5 +1,5 @@
-import { ThemedText } from '@/app-example/components/ThemedText';
-import { ThemedView } from '@/app-example/components/ThemedView';
+import { ThemedText } from '@/components/ui/ThemedText';
+import { ThemedView } from '@/components/ui/ThemedView';
 import TreeList from '@/components/tree-list';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { decrement, increment } from '@/store/slices/counter/counter-slice';

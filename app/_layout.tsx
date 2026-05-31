@@ -6,7 +6,7 @@ import 'react-native-reanimated';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../store';
 
-import { useColorScheme } from '@/app-example/hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/useColorScheme';
 import { loadStateFromFile } from '@/store/persistence';
 import { useEffect, useLayoutEffect } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';

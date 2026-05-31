@@ -1,4 +1,4 @@
-import { ThemedText } from '@/app-example/components/ThemedText';
+import { ThemedText } from '@/components/ui/ThemedText';
 import { listFilesRecursive } from '@/utils/lib';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
