@@ -44,9 +44,11 @@ export const saveStateToFile = async (state: RootState) => {
 
 export const writeStringToStateFile = async (json: string) => {
   try {
-    console.log('Saving json state to file');
-    const file = new File(Paths.document,'state.json');
-    await file.write(json);
+    // Write to a temp file first, then atomically move it over state.json.
+    // This prevents a corrupt state file if the app is killed mid-write.
+    const tmp = new File(Paths.document, 'state.json.tmp');
+    tmp.write(json);
+    await tmp.move(new File(Paths.document, 'state.json'), { overwrite: true });
   } catch(err) {
     console.error("Error saving json state to file: ", err);
   }
