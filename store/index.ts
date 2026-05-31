@@ -54,7 +54,7 @@ store.subscribe(() => {
 // process shortly after backgrounding, so this is the last reliable save point.
 AppState.addEventListener('change', (nextState) => {
   if (nextState === 'background') {
-    saveStateToFile(store.getState());
+    void saveStateToFile(store.getState());
   }
 });
 
