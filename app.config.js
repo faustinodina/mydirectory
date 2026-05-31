@@ -27,6 +27,11 @@ export default ({ config }) => {
     android: {
       ...config.android,
       package: androidPackage
-    }
+    },
+    extra: {
+      ...config.extra,
+      axiomToken: process.env.AXIOM_TOKEN,
+      axiomDataset: 'mydirectory-logs',
+    },
   };
 };

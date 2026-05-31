@@ -1,4 +1,5 @@
 import { consoleTransport, logger } from "react-native-logs";
+import { axiomTransport } from "./axiom-transport";
 
 const log = logger.createLogger({
   levels: {
@@ -8,7 +9,8 @@ const log = logger.createLogger({
     error: 3,
   },
   severity: "debug",
-  transport: consoleTransport,
+  // note transport is set to console only in development to avoid sending logs during testing or in production without explicit opt-in.
+  transport: __DEV__ ? consoleTransport : [consoleTransport, axiomTransport],
   transportOptions: {
     colors: {
       info: "blueBright",
