@@ -40,7 +40,6 @@ export default function RootLayout() {
                 {/* headerShown: false is important to display nav bar */}
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />   
                 <Stack.Screen name="modal" options={{ headerShown: false }} />   
-                <Stack.Screen name="camera" options={{ headerShown: false }} />   
                 <Stack.Screen name="+not-found" />
               </Stack>
               <StatusBar style="auto" />

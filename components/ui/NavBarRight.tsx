@@ -19,12 +19,6 @@ const NavBarRight = () => {
     dispatch(treeListSlice.actions.resetVisibility());
   };
 
-  const onPressCamera = () => {
-    closeMenu();
-    router.push("/camera");
-    //router.push(createRoutePath("/camera");
-  };
-
   const onEditState = () => {
     closeMenu();
     router.push("/modal/state");
@@ -43,7 +37,6 @@ const NavBarRight = () => {
         }>
         <Menu.Item onPress={onPressResetDirectoryView} title="Reset Directory View" />
         <Menu.Item onPress={onEditState} title="Edit State" />
-        <Menu.Item onPress={onPressCamera} title="Camera" />
     </Menu>
   );
 };
