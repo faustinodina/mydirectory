@@ -7,26 +7,38 @@ import { setInitialState as setTreeListInitialState } from './slices/tree-list/t
 import { getInitialStateSample as getNotesInitialStateSample } from './slices/notes/notes-utils';
 import { setInitialState as setNotesInitialState} from './slices/notes/notes-slice';
 
+// Increment this when the shape of RootState changes in a breaking way.
+// loadStateFromFile will discard persisted state that doesn't match,
+// preventing crashes from stale or incompatible data.
+const STATE_VERSION = 1;
+
+type PersistedState = {
+  version: number;
+  state: RootState;
+};
+
 // note it is a dispatch-able thunk
 export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDispatch) => {
   try {
-    // console.log('Loading state from file');
-    // const file = new File(Paths.document,'state.json');
-    // let data: string = "";
-    // if (file.exists) {
-    //   data = await file.text();
-    // }
-    
-    let data: string = await getStateFromFile() ?? "";
-    //console.log('Raw data from file:', data);
-    const parsed = (loadSample || !data) 
-      ? { counter: null, treeList: null, notes: null } 
-      : JSON.parse(data) as RootState;
+    let parsed: Partial<RootState> = {};
 
-    dispatch(setCounterInitialState(parsed.counter));
+    if (!loadSample) {
+      const data = await getStateFromFile();
+      if (data) {
+        const persisted = JSON.parse(data) as Partial<PersistedState>;
 
+        if (persisted.version === STATE_VERSION) {
+          parsed = persisted.state ?? parsed;
+        } else {
+          // Persisted state is from a different version — discard it and start fresh.
+          // Add migration logic here when needed instead of discarding.
+          console.log(`State version mismatch (found ${persisted.version}, expected ${STATE_VERSION}), starting fresh.`);
+        }
+      }
+    }
+
+    dispatch(setCounterInitialState(parsed.counter ?? null));
     dispatch(setTreeListInitialState(parsed.treeList ?? getTreeListInitialStateSample()));
-
     dispatch(setNotesInitialState(parsed.notes ?? getNotesInitialStateSample()));
 
   } catch (error) {
@@ -36,7 +48,8 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
 
 export const saveStateToFile = async (state: RootState) => {
   try {
-    await writeStringToStateFile(JSON.stringify(state));
+    const persisted: PersistedState = { version: STATE_VERSION, state };
+    await writeStringToStateFile(JSON.stringify(persisted));
   } catch (error) {
     console.log(`Error serializing state for saving state to file: `, error);
   }
@@ -63,7 +76,6 @@ export const getStateFromFile = async (): Promise<string | null> => {
       return null;
     }
     const data = await file.text();
-    //console.log('Raw data from file:', data);
     return data;
   }
  catch (error) {
