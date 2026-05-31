@@ -45,6 +45,14 @@
           "supportsOpeningDocumentsInPlace": true,
           "enableFileSharing": true
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native",
+          "organization": "faustino-dina-rivas"
+        }
       ]
     ],
     "experiments": {

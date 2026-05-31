@@ -83,3 +83,5 @@ yarn-error.*
 
 # Jest coverage output
 coverage/
+
+.env.local
