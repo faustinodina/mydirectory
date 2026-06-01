@@ -1,8 +1,8 @@
 import { useFonts } from 'expo-font';
-import { Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { darkTheme, lightTheme, navDarkTheme, navLightTheme } from '@/constants/theme';
+import { darkTheme, lightTheme } from '@/constants/theme';
 import 'react-native-reanimated';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from '../store';
@@ -53,7 +53,7 @@ export default Sentry.wrap(function RootLayout() {
   return (
     <SafeAreaProvider>
       <ReduxProvider store={store}>
-        <ThemeProvider value={colorScheme === 'dark' ? navDarkTheme : navLightTheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
             <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
               <LoadReduxState />

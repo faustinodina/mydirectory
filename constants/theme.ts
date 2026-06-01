@@ -1,4 +1,4 @@
-import { MD3DarkTheme, MD3LightTheme, adaptNavigationTheme } from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 
 // Brand color: #154157 (dark steel blue)
 // Full MD3 tonal palette derived from the brand color for light and dark modes.
@@ -81,7 +81,3 @@ export const darkTheme = {
   },
 };
 
-// Syncs the Paper theme with expo-router's navigation theme so that
-// headers, tab bars and modals also use the brand colors.
-export const { LightTheme: navLightTheme, DarkTheme: navDarkTheme } =
-  adaptNavigationTheme({ reactNavigationLight: lightTheme, reactNavigationDark: darkTheme });
