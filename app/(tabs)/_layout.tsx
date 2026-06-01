@@ -13,6 +13,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
         headerShown: true,    // important to display nav bar
         headerStyle: { backgroundColor: theme.colors.primary },
         headerTintColor: theme.colors.onPrimary,
@@ -31,14 +32,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Directory',
-          tabBarIcon: ({ color, focused }) => <IconButton size={28} icon={focused ? "folder-open" : "folder-open-outline"} />,
+          tabBarIcon: ({ color, focused }) => <IconButton size={28} iconColor={color as string} icon={focused ? "folder-open" : "folder-open-outline"} />,
         }}
       />
       <Tabs.Screen
         name="note"
         options={{
           title: 'Note',
-          tabBarIcon: ({ color, focused }) => <IconButton size={28} icon={focused ? "note" : "note-outline"} />,
+          tabBarIcon: ({ color, focused }) => <IconButton size={28} iconColor={color as string} icon={focused ? "note" : "note-outline"} />,
         }}
       />
     </Tabs>

@@ -81,7 +81,7 @@ const TreeListItem = (props: TreeListItemProps) => {
     // note some styling props in TouchableRipple and Surface should be in sync
     <TouchableRipple
       onPress={onSurfacePress}
-      rippleColor={`${theme.colors.onSurface}1F`}
+      rippleColor={theme.dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)'}
       borderless={false}
       style={{ 
         overflow: "hidden",
