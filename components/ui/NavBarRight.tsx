@@ -45,6 +45,7 @@ const NavBarRight = () => {
         anchor={
           <Appbar.Action
             icon="dots-vertical"
+            iconColor={theme.colors.onPrimary}
             onPress={openMenu}
           />
         }>

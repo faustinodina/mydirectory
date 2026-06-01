@@ -1,15 +1,13 @@
-import log from "@/config/log-conf";
 import { useAppDispatch } from "@/store/hooks";
 import { isNodeExpanded, selectTreeNode } from "@/store/slices/tree-list/tree-list-selectors";
 import { treeListSlice } from "@/store/slices/tree-list/tree-list-slice";
 import { EvArgsOnSelectionChange, IDataViewProps, /*IOnExpandedChangeEvent, IOnSelectionChangeEvent,*/ IToggleButtonProps, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
-import React, { FunctionComponent } from "react";
-import { GestureResponderEvent, StyleProp, View, ViewStyle } from "react-native";
+import { FunctionComponent } from "react";
+import { GestureResponderEvent, View, ViewStyle } from "react-native";
 import { MD3Elevation, Surface, TouchableRipple, useTheme } from "react-native-paper";
 import { useSelector } from "react-redux";
 import LevelSpacer from "./LevelSpacer";
 
-const logger = log.extend("TreeListItem");
 
 export type TreeListItemProps = {
   treeViewType: TreeViewType;
@@ -67,7 +65,8 @@ const TreeListItem = (props: TreeListItemProps) => {
   const ToggleButton = props.toggleButton;
   const DataView = props.dataView;
   const surfaceElevation = props.elevation || 1;
-  const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.elevation[surfaceElevation]
+  const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.surfaceContainerLow;
+  const borderColor = props.isSelected ? theme.colors.secondary : theme.colors.outlineVariant;
 
   //console.log("RENDERING TREE LIST ITEM: ", node.id);
 
@@ -80,8 +79,9 @@ const TreeListItem = (props: TreeListItemProps) => {
   return (
 
     // note some styling props in TouchableRipple and Surface should be in sync
-    <TouchableRipple 
-      onPress={onSurfacePress} 
+    <TouchableRipple
+      onPress={onSurfacePress}
+      rippleColor={`${theme.colors.onSurface}1F`}
       borderless={false}
       style={{ 
         overflow: "hidden",
@@ -101,8 +101,8 @@ const TreeListItem = (props: TreeListItemProps) => {
           //...props.styles?.surface, 
           backgroundColor: surfaceColor, 
           //borderColor: "blue", 
-          borderWidth: 1, 
-          borderColor: theme.colors.outline, // M3-friendly
+          borderWidth: 1,
+          borderColor: borderColor,
           borderRadius: BORDER_RADIUS, 
           marginVertical: MARGIN_VERTICAL,
           marginHorizontal: MARGIN_HORIZONTAL,

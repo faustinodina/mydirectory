@@ -91,7 +91,7 @@ const TreeList = (props: TreeListProps) => {
               toggleButton={props.toggleButton}
               isSelected={selectedNodeId === id}
               styles={props.styles}
-              selectedColor={theme.colors.surfaceVariant}
+              selectedColor={theme.colors.secondaryContainer}
               onSelectionChange={onSelectionChange}
               onOpenMenu={openMenu}
               //menuItemHandler={props.menuItemHandler}
