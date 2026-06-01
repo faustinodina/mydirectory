@@ -8,7 +8,7 @@ const NoteScreen = () => {
   const { nodeId } = useLocalSearchParams<{ nodeId: string }>();  
   const isFocused = useIsFocused();
 
-  console.log("NoteScreen - nodeId: ", nodeId);
+  //console.log("NoteScreen - nodeId: ", nodeId);
 
   // useFocusEffect(
     

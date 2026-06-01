@@ -27,7 +27,7 @@ export default function AddNoteScreen() {
 
   const onEditSubmit = (data: { title: string; alias: string; description: string }) => {
     // handle edit note submission logic here
-    console.log("Edit Note Submitted:", data);
+    //console.log("Edit Note Submitted:", data);
 
     dispatch(editNoteDialogSubmitted({
       treeViewType: ViewKeysRegistry.Main,
@@ -41,7 +41,7 @@ export default function AddNoteScreen() {
   }
   const onAddSubmit = (data: { title: string; alias: string; description: string }) => {
     // handle add note submission logic here
-    console.log("Add Note Submitted:", data);
+    //console.log("Add Note Submitted:", data);
 
     // pass all the form data: extra reducers will mutate the state
     dispatch(addNoteDialogSubmitted({

@@ -94,7 +94,7 @@ export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, tree
 
   // update expanding state in nodeVisibilityDict
   const stateView = state.viewsDict[treeViewType];
-  console.log("stateView: ", stateView, treeViewType);
+  //console.log("stateView: ", stateView, treeViewType);
 
   //console.log("BEFORE nodeVisibilityDict", stateView.visibleNodesDict);
   const nodeVisibility = stateView.visibleNodesDict[nodeId];
@@ -147,7 +147,7 @@ export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, tree
     if (nextSiblingNodeId === undefined) {
       // remove all the list after collapsingNodeIndex
       countToRemove = stateView.visibleNodesList.length - (collapsingNodeIndex + 1);
-      console.log("countToRemove1: ", countToRemove)
+      //console.log("countToRemove1: ", countToRemove)
     }
     else {
       // find index of sibling
@@ -156,7 +156,7 @@ export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, tree
 
       // remove all between collapsingNodeIndex + 1 and siblingNodeIndex
       countToRemove = siblingNodeIndex - (collapsingNodeIndex + 1);
-      console.log("countToRemove2: ", countToRemove)
+      //console.log("countToRemove2: ", countToRemove)
     }
     //newVisibleNodeIdsList = update(state.visibleNodesList, {$splice: [[collapsingNodeIndex + 1, countToRemove]] });
     stateView.visibleNodesList.splice(collapsingNodeIndex + 1, countToRemove);
@@ -270,7 +270,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
   sortOrder: number,
 }): void {
 
-  console.log("addNode CALLED parameters: ", arguments);
+  //console.log("addNode CALLED parameters: ", arguments);
   const parentNode = state.nodesDict[position.parentId];
   if (!parentNode) { return; }
 
@@ -317,10 +317,10 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
 
   const stateView = state.viewsDict[viewType];
 
-  console.log("SEIS, stateView: ", stateView, viewType);
+  //console.log("SEIS, stateView: ", stateView, viewType);
   // always register the new node in the visibility dictionary
   stateView.visibleNodesDict[nodeId] = {id: nodeId, isExpanded: false }
-  console.log("SIETE");
+  //console.log("SIETE");
 
   // if parent is root it is not in the vis dictionary nor in the vis list so it will need special treatment
   const isParentTheRoot = !parentNode.parent;
@@ -348,7 +348,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
       if (_siblingVisIndex != -1) {
         const siblingVisibility = stateView.visibleNodesDict[position.siblingId];
         if (!siblingVisibility) {
-          console.log("sibling visibility not found: looks like a corrupted visibility state");
+          //console.log("sibling visibility not found: looks like a corrupted visibility state");
           // todo: how to escape from here?
         }
 
@@ -394,7 +394,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
       else {
         // sibling not found when parent is expanded: looks like a corrupted state
         // but we can add the new node under the parent
-        console.log("sibling not found when parent is expanded: looks like a corrupted state");
+        //console.log("sibling not found when parent is expanded: looks like a corrupted state");
       }
     }
 
@@ -480,7 +480,7 @@ export function mutateStateRemoveLeafNode({state, nodeId, treeViewType: viewKey}
     throw `mutateStateRemoveLeafNode: Invalid state: parentNode could not be found (nodeId: ${nodeToDelete.parent})`;
   }
   if (!mutateArrayRemoveElement(parentNode.children, nodeId)) {
-    console.log("error: not removed from parent's list");
+    //console.log("error: not removed from parent's list");
   }
 
   // remove from tree

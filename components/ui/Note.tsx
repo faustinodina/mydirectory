@@ -22,18 +22,18 @@ const Note = (props: NoteProps) => {
     const fetchNoteContent = async () => {
       if (props.isFocused) {
         // load content when note becomes focused
-        console.log("Load text here!");
+        //console.log("Load text here!");
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         const fileExists = await file.exists;
         if (!fileExists) {
-          console.log(`File ${fileName} does not exist, creating new note.`);
+          //console.log(`File ${fileName} does not exist, creating new note.`);
           setContent("This note is empty. Start writing!");
           return;
         } else {
           const fileContent = await file.text();
           setContent(fileContent);
-          console.log("Loaded text: ", fileName, fileContent );
+          //console.log("Loaded text: ", fileName, fileContent );
           return;
         }
       } else {
@@ -41,7 +41,7 @@ const Note = (props: NoteProps) => {
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         await file.write(content);
-        console.log("Saved text: ", fileName, content);
+        //console.log("Saved text: ", fileName, content);
       }
     };
     fetchNoteContent();

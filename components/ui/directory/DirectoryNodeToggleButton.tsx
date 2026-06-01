@@ -22,7 +22,7 @@ const AccountNodeToggleButton = (props: AccountNodeToggleButtonProps) => {
 
   if (!node) { 
     // this happens after opening a book
-    console.log(`1 No node found for props.nodeId = ${props.nodeId}`);
+    //console.log(`1 No node found for props.nodeId = ${props.nodeId}`);
     //logger.debug(`No node found for props.nodeId = ${props.nodeId}`);
     return null; 
   }

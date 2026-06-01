@@ -10,7 +10,7 @@ export type TextEditorProps = {
 
 const TextEditor = ({content, onChange}: TextEditorProps) => {
 
-  console.log("Redrawing Text Editor with initial content: ", content);
+  //console.log("Redrawing Text Editor with initial content: ", content);
 
   return (
     <TextInput 

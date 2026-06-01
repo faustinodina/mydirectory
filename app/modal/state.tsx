@@ -1,5 +1,5 @@
 import { getStateFromFile, writeStringToStateFile } from "@/store/persistence";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useWindowDimensions, View, Alert } from "react-native";
 import { TextInput, Button, } from "react-native-paper";
 import * as Updates from 'expo-updates';
@@ -9,11 +9,11 @@ const EditState = () => {
   const [stateData, setStateData] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("EditState modal opened");
+    //console.log("EditState modal opened");
 
     const loadData = async () => {
       const data = await getStateFromFile();
-      console.log("State data loaded:", data);
+      //console.log("State data loaded:", data);
       if (data != null) {
         const pretty = JSON.stringify(JSON.parse(data), null, 2);
         setStateData(pretty);
@@ -36,7 +36,7 @@ const EditState = () => {
       <Button 
         mode="contained" 
         onPress={async () => {
-          console.log("State data to save:", stateData);
+          //console.log("State data to save:", stateData);
           writeStringToStateFile(stateData ?? "");
           Alert.alert("State saved successfully. The app will restart to apply changes.");
           await Updates.reloadAsync();

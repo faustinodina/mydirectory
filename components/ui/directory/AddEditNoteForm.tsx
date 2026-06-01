@@ -52,7 +52,7 @@ const AddEditNoteForm = ({
     },
   });
 
-  console.log("parentNodeId:", parentId, "siblingNodeId:", siblingId, "noteId:", noteId, "note:", note);
+  //console.log("parentNodeId:", parentId, "siblingNodeId:", siblingId, "noteId:", noteId, "note:", note);
 
   // Prevent multiple resets (important when store updates frequently)
   const hasInitialized = useRef(false);

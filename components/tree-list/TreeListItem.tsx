@@ -40,7 +40,7 @@ const TreeListItem = (props: TreeListItemProps) => {
 
   if (!node) { 
     // this happens after opening a book
-    console.log(`2 No node found for props.nodeId: ${props.nodeId}`);
+    //console.log(`2 No node found for props.nodeId: ${props.nodeId}`);
     //logger.warn(`No node found for props.nodeId: ${props.nodeId}`);
     return null; 
   }

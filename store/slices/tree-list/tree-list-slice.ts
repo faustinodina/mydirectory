@@ -85,7 +85,7 @@ export const treeListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addNoteDialogSubmitted, (state, action) => {
 
-      console.log("action.payload.newNodeId: ", action.payload.newNodeId, "state.nextNodeId: ", state.nextNodeId);
+      //console.log("action.payload.newNodeId: ", action.payload.newNodeId, "state.nextNodeId: ", state.nextNodeId);
 
       // current nextNodeId is used, we need to generate a new one
       state.nextNodeId = state.nextNodeId + 1;

@@ -6,7 +6,7 @@ export default function HtmlEditorScreen() {
   const onMessage = (event: { nativeEvent: { data: string; }; }) => {
     const data = JSON.parse(event.nativeEvent.data);
     if (data.event === 'text-change') {
-      console.log('Editor content:', data.content);
+      //console.log('Editor content:', data.content);
     }
   };
 

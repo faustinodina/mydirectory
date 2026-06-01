@@ -79,10 +79,10 @@ export function getFirstVisibleNodeFromDifferentAncestor(a: {
   const result = a.nodeVisibilityList.findIndex((nodeId, index) => {
     const node = a.nodesDict[nodeId];
     if (!node) {
-      console.log("error: node in visList is not in the tree dict");
+      //console.log("error: node in visList is not in the tree dict");
       return false;
     }
-    console.log("nodeId: ", nodeId, ", node: ", node, ", parents: ", parents);
+    //console.log("nodeId: ", nodeId, ", node: ", node, ", parents: ", parents);
     // start checking parents for the next visible after startingVisIndex
     if (index <= a.startingVisIndex) { return false; }
     if (parents.includes(node.parent)) {

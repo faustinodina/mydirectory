@@ -31,7 +31,7 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
         } else {
           // Persisted state is from a different version — discard it and start fresh.
           // Add migration logic here when needed instead of discarding.
-          console.log(`State version mismatch (found ${persisted.version}, expected ${STATE_VERSION}), starting fresh.`);
+          //console.log(`State version mismatch (found ${persisted.version}, expected ${STATE_VERSION}), starting fresh.`);
         }
       }
     }
@@ -40,7 +40,7 @@ export const loadStateFromFile = (loadSample: boolean) => async (dispatch: AppDi
     dispatch(setNotesInitialState(parsed.notes ?? getNotesInitialStateSample()));
 
   } catch (error) {
-    console.log(`Error loading state from file: `, error);
+    //console.log(`Error loading state from file: `, error);
   }
 };
 
@@ -49,7 +49,7 @@ export const saveStateToFile = async (state: RootState) => {
     const persisted: PersistedState = { version: STATE_VERSION, state };
     await writeStringToStateFile(JSON.stringify(persisted));
   } catch (error) {
-    console.log(`Error serializing state for saving state to file: `, error);
+    //console.log(`Error serializing state for saving state to file: `, error);
   }
 };
 
@@ -67,17 +67,17 @@ export const writeStringToStateFile = async (json: string) => {
 
 export const getStateFromFile = async (): Promise<string | null> => {
   try {
-    console.log('Getting state from file');
+    //console.log('Getting state from file');
     const file = new File(Paths.document,'state.json');
     if (!file.exists) {
-      console.log('State file does not exist');
+      //console.log('State file does not exist');
       return null;
     }
     const data = await file.text();
     return data;
   }
  catch (error) {
-    console.log(`Error getting state from file: `, error);
+    //console.log(`Error getting state from file: `, error);
     return null;
   }
 };
