@@ -1,5 +1,4 @@
 import { Tabs, useNavigation } from 'expo-router';
-import React, { useLayoutEffect } from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/ui/HapticTab';
@@ -15,6 +14,9 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: theme.colors.primary,
         headerShown: true,    // important to display nav bar
+        headerStyle: { backgroundColor: theme.colors.primary },
+        headerTintColor: theme.colors.onPrimary,
+        headerStatusBarHeight: 0,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({

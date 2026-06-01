@@ -1,10 +1,10 @@
 import { useAppSelector } from "@/store/hooks";
 import { selectNodesDict, selectSelectedNodeId, selectVisibleNodesDict, selectVisibleNodesList } from "@/store/slices/tree-list/tree-list-selectors";
 import { setSelectedNode } from "@/store/slices/tree-list/tree-list-slice";
-import { EvArgsOnSelectionChange, IDataViewProps, IMenuItemHandlerProps, IToggleButtonProps, NO_NodeId, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
-import React, { FunctionComponent, useState } from "react";
-import { GestureResponderEvent, ScrollView, ViewStyle } from "react-native";
-import { Menu, Portal, useTheme } from "react-native-paper";
+import { EvArgsOnSelectionChange, IDataViewProps, IToggleButtonProps, NO_NodeId, NodeId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
+import { FunctionComponent, useState } from "react";
+import { ScrollView, ViewStyle } from "react-native";
+import { useTheme } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import TreeListItem from "./TreeListItem";
 
@@ -80,12 +80,8 @@ const TreeList = (props: TreeListProps) => {
   // for visibleAccounts note the root account is not displayed so if you have only the root account (initial state) then visibleAccounts dict and list will be empty 
   return (
     <>
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: theme.colors.background }}>
         { visibleNodesList.map(id => {
-          //console.log("id: ", id);
-          const node = nodesDict[id];
-          const nodeVisibility = visibleNodesDict[id];
-          //console.log("node: ", node, "nodeVisibility: ", nodeVisibility);
           return (
             <TreeListItem
               treeViewType={props.treeViewType}
