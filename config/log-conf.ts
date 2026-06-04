@@ -8,7 +8,7 @@ const log = logger.createLogger({
     warn: 2,
     error: 3,
   },
-  severity: "debug",
+  severity: __DEV__ ? "debug" : "info",
   // note transport is set to console only in development to avoid sending logs during testing or in production without explicit opt-in.
   transport: __DEV__ ? consoleTransport : [consoleTransport, axiomTransport],
   transportOptions: {
