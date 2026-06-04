@@ -1,4 +1,7 @@
+import log from '@/config/log-conf';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+const logger = log.extend('tree-list-slice');
 import { getRootNode } from "./tree-list-lib";
 import { ITreeListState, ITreeNodePosition, NodeId, TreeViewType, IAddNodeData } from "./tree-list-types";
 import { mutateStateAddNode, mutateStateRemoveLeafNode, mutateStateResetVisibility, mutateStateToggleNodeExpansion } from "./tree-list-utils";
@@ -84,8 +87,7 @@ export const treeListSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(addNoteDialogSubmitted, (state, action) => {
-
-      //console.log("action.payload.newNodeId: ", action.payload.newNodeId, "state.nextNodeId: ", state.nextNodeId);
+      logger.info('Node added', { newNodeId: action.payload.newNodeId, parentId: action.payload.position.parentId });
 
       // current nextNodeId is used, we need to generate a new one
       state.nextNodeId = state.nextNodeId + 1;

@@ -1,4 +1,7 @@
+import log from "@/config/log-conf";
 import AddEditNoteForm from "@/components/ui/directory/AddEditNoteForm";
+
+const logger = log.extend('NoteModal');
 import { parseNumberParam } from "@/lib/helpers";
 import { addNoteDialogSubmitted, editNoteDialogSubmitted } from "@/store/actions/dialogActions";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -26,9 +29,7 @@ export default function AddNoteScreen() {
   const isEdit = mode === "edit";
 
   const onEditSubmit = (data: { title: string; alias: string; description: string }) => {
-    // handle edit note submission logic here
-    //console.log("Edit Note Submitted:", data);
-
+    logger.info('Note edited', { nodeId: nodeIdNum, title: data.title });
     dispatch(editNoteDialogSubmitted({
       treeViewType: ViewKeysRegistry.Main,
       noteId: nodeIdNum!,
@@ -40,10 +41,7 @@ export default function AddNoteScreen() {
     router.back();
   }
   const onAddSubmit = (data: { title: string; alias: string; description: string }) => {
-    // handle add note submission logic here
-    //console.log("Add Note Submitted:", data);
-
-    // pass all the form data: extra reducers will mutate the state
+    logger.info('Note added', { parentId: parentIdNum, siblingId: siblingIdNum, title: data.title });
     dispatch(addNoteDialogSubmitted({
       newNodeId: nextNodeId, 
       treeViewType: "main", // Replace with actual tree view type

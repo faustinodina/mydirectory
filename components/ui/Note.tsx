@@ -1,5 +1,8 @@
+import log from "@/config/log-conf";
 import HtmlEditor from "@/components/ui/html-editor";
 import React, { useEffect } from "react";
+
+const logger = log.extend('Note');
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import PathBar from "./PathBar";
@@ -21,27 +24,24 @@ const Note = (props: NoteProps) => {
   useEffect(() => {
     const fetchNoteContent = async () => {
       if (props.isFocused) {
-        // load content when note becomes focused
-        //console.log("Load text here!");
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         const fileExists = await file.exists;
         if (!fileExists) {
-          //console.log(`File ${fileName} does not exist, creating new note.`);
+          logger.info('Note file not found, starting empty', { nodeId: props.nodeId });
           setContent("This note is empty. Start writing!");
           return;
         } else {
           const fileContent = await file.text();
           setContent(fileContent);
-          //console.log("Loaded text: ", fileName, fileContent );
+          logger.debug('Note loaded', { nodeId: props.nodeId, size: fileContent.length });
           return;
         }
       } else {
-        // save content when note becomes unfocused
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         await file.write(content);
-        //console.log("Saved text: ", fileName, content);
+        logger.debug('Note saved', { nodeId: props.nodeId, size: content.length });
       }
     };
     fetchNoteContent();

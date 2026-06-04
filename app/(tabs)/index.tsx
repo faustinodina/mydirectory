@@ -1,6 +1,9 @@
+import log from '@/config/log-conf';
 import TreeList from '@/components/tree-list';
 import { useNavigation, useRouter } from 'expo-router';
 import React, { useLayoutEffect } from "react";
+
+const logger = log.extend('Index');
 import { EvArgsOnSelectionChange, TreeViewId, TreeViewType } from "@/store/slices/tree-list/tree-list-types";
 import DirectoryDataView from '@/components/ui/directory/DirectoryDataView';
 import DirectoryNodeToggleButton from '@/components/ui/directory/DirectoryNodeToggleButton';
@@ -26,8 +29,7 @@ const Index = () => {
   }, [navigation]);
   
   const doSelectionChange = (e: EvArgsOnSelectionChange): void => {
-    // handle selection change here, e.g., log or dispatch
-    //console.log("Selection changed:", e);
+    logger.info('Node selected', { nodeId: e.nodeId, isSelected: e.isSelected });
     router.push({
       pathname: '/note',
       params: { nodeId: e.nodeId }
