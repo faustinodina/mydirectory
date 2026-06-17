@@ -80,7 +80,10 @@ const TreeList = (props: TreeListProps) => {
   // for visibleAccounts note the root account is not displayed so if you have only the root account (initial state) then visibleAccounts dict and list will be empty 
   return (
     <>
-      <ScrollView style={{ backgroundColor: theme.colors.background }}>
+      <ScrollView
+        style={{ backgroundColor: theme.colors.background }}
+        contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 12, paddingBottom: 12 }}
+      >
         { visibleNodesList.map(id => {
           return (
             <TreeListItem

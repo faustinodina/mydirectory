@@ -64,7 +64,12 @@ const Index = () => {
 };
 
 const styles = StyleSheet.create({
-  surface: {},
+  // match the Note.tsx outlined TextInput look: radius 4 + 16px horizontal padding
+  surface: {
+    borderRadius: 4,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
   leftView: {},
   rightView: {
     // borderWidth: 1, 

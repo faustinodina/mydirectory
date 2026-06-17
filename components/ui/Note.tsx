@@ -117,7 +117,7 @@ const Note = (props: NoteProps) => {
         // alignItems: "center",
       }}
     >
-      <PathBar nodeId={props.nodeId}/>
+      {/* <PathBar nodeId={props.nodeId}/> */}
       <View style={{ padding: 16, gap: 12 }}>
         <Controller
           control={control}
@@ -125,6 +125,7 @@ const Note = (props: NoteProps) => {
           rules={{ required: "Title is required" }}
           render={({ field }) => (
             <TextInput
+              mode="outlined"
               label="Title"
               value={field.value}
               onChangeText={field.onChange}
@@ -143,6 +144,7 @@ const Note = (props: NoteProps) => {
           rules={{ required: "Alias is required" }}
           render={({ field }) => (
             <TextInput
+              mode="outlined"
               label="Alias"
               value={field.value}
               onChangeText={field.onChange}
@@ -160,6 +162,7 @@ const Note = (props: NoteProps) => {
           name="description"
           render={({ field }) => (
             <TextInput
+              mode="outlined"
               label="Description"
               value={field.value}
               onChangeText={field.onChange}
@@ -173,7 +176,7 @@ const Note = (props: NoteProps) => {
           )}
         />
       </View>
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, paddingHorizontal: 16, paddingBottom: 16 }}>
         {/* <HtmlEditor initialContent={content} /> */}
         <TextEditor content={content} onChange={(newContent) => { setContent(newContent); }} />
       </View>

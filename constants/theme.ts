@@ -1,6 +1,6 @@
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 
-// Brand color: #154157 (dark steel blue)
+// Brand color: 
 // Full MD3 tonal palette derived from the brand color for light and dark modes.
 
 export const lightTheme = {
@@ -23,10 +23,10 @@ export const lightTheme = {
     "onError": "rgb(255, 255, 255)",
     "errorContainer": "rgb(255, 218, 214)",
     "onErrorContainer": "rgb(65, 0, 2)",
-    "background": "rgb(255, 251, 255)",
-    "onBackground": "rgb(30, 27, 22)",
-    "surface": "rgb(255, 251, 255)",
-    "onSurface": "rgb(30, 27, 22)",
+    "background": "rgb(255, 255, 255)",
+    "onBackground": "rgb(28, 28, 28)",
+    "surface": "rgb(255, 255, 255)",
+    "onSurface": "rgb(28, 28, 28)",
     "surfaceVariant": "rgb(237, 225, 207)",
     "onSurfaceVariant": "rgb(77, 70, 57)",
     "outline": "rgb(127, 118, 103)",
@@ -38,11 +38,11 @@ export const lightTheme = {
     "inversePrimary": "rgb(248, 189, 42)",
     "elevation": {
       "level0": "transparent",
-      "level1": "rgb(248, 243, 242)",
-      "level2": "rgb(244, 238, 235)",
-      "level3": "rgb(240, 233, 227)",
-      "level4": "rgb(239, 232, 224)",
-      "level5": "rgb(236, 228, 219)"
+      "level1": "rgb(247, 247, 247)",
+      "level2": "rgb(242, 242, 242)",
+      "level3": "rgb(237, 237, 237)",
+      "level4": "rgb(235, 235, 235)",
+      "level5": "rgb(232, 232, 232)"
     },
     "surfaceDisabled": "rgba(30, 27, 22, 0.12)",
     "onSurfaceDisabled": "rgba(30, 27, 22, 0.38)",

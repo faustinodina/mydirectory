@@ -70,8 +70,12 @@ const TreeListItem = (props: TreeListItemProps) => {
 
   //console.log("RENDERING TREE LIST ITEM: ", node.id);
 
-  const BORDER_RADIUS = 8;
-  const MARGIN_VERTICAL = 1;
+  // radius can be overridden from the consumer via styles.surface; kept in a
+  // single var so the TouchableRipple and Surface stay in sync (see note below)
+  const BORDER_RADIUS = (props.styles?.surface?.borderRadius as number) ?? 8;
+  // applied to both the ripple and the surface, so the gap between two items is
+  // ~4x this value -> 3 gives ~12px, matching the Note form's gap:12 between inputs
+  const MARGIN_VERTICAL = 3;
   const MARGIN_HORIZONTAL = 2;
 
   //console.log("surfaceElevation: ", surfaceElevation, "props.styles?.surface: ", props.styles?.surface);
@@ -96,17 +100,17 @@ const TreeListItem = (props: TreeListItemProps) => {
         // elevation={surfaceElevation}
         elevation={0}
         style={{
-          flex: 1,                  //...rowContainerStyle, 
-          flexDirection: "row",     //...rowContainerStyle, 
-          //...props.styles?.surface, 
-          backgroundColor: surfaceColor, 
-          //borderColor: "blue", 
+          flex: 1,                  //...rowContainerStyle,
+          flexDirection: "row",     //...rowContainerStyle,
           borderWidth: 1,
-          borderColor: borderColor,
-          borderRadius: BORDER_RADIUS, 
           marginVertical: MARGIN_VERTICAL,
           marginHorizontal: MARGIN_HORIZONTAL,
-          }} 
+          ...props.styles?.surface,
+          // dynamic colors and synced radius are applied last so they win
+          backgroundColor: surfaceColor,
+          borderColor: borderColor,
+          borderRadius: BORDER_RADIUS,
+          }}
         >
         {/* spacer with toggle button */}
         <View 
