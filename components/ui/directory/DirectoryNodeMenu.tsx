@@ -6,8 +6,9 @@ import { GestureResponderEvent } from "react-native";
 import { Menu, Portal } from "react-native-paper";
 import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
-import { removeNoteSubmitted } from "@/store/actions/dialogActions";
-import { isNodeRemovable } from "@/store/slices/tree-list/tree-list-selectors";
+import { addNoteDialogSubmitted, removeNoteSubmitted } from "@/store/actions/dialogActions";
+import { isNodeRemovable, selectNextNodeId } from "@/store/slices/tree-list/tree-list-selectors";
+import { setSelectedNode } from "@/store/slices/tree-list/tree-list-slice";
 import { RootState } from "@/store";
 import { useAppSelector } from "@/store/hooks";
 
@@ -30,11 +31,33 @@ const DirectoryNodeMenu = ({
 }: TreeListMenuProps) => {
 
   const dispatch = useDispatch();
+  const nextNodeId = useAppSelector(selectNextNodeId);
   const isRemovable = useAppSelector(isNodeRemovable(nodeId ?? 0));
 
   if (!nodeId) return null;
 
   // console.log("DirectoryNodeMenu for node:", nodeId);
+
+  // open the note tab for a node (used after create and for edit)
+  const openNoteTab = (id: NodeId) => {
+    dispatch(setSelectedNode({ nodeId: id, treeViewType: "main" }));
+    router.push({ pathname: "/note", params: { nodeId: String(id) } });
+    onDismiss();
+  };
+
+  // create a new node immediately, then open the note tab to fill it in
+  const addNote = (position: { parentId?: NodeId; siblingId?: NodeId }) => {
+    const newNodeId = nextNodeId;
+    dispatch(addNoteDialogSubmitted({
+      newNodeId,
+      treeViewType: "main",
+      position: { parentId: position.parentId as NodeId, siblingId: position.siblingId },
+      title: "New Note",
+      alias: "",
+      description: "",
+    }));
+    openNoteTab(newNodeId);
+  };
 
   return (
       <Portal>
@@ -43,27 +66,15 @@ const DirectoryNodeMenu = ({
           anchor={anchor}
           onDismiss={onDismiss}
         >
-          <Menu.Item 
-            title="Add child note" 
-            onPress={() => {
-              //console.log("Add child note", nodeId);
-              router.push(`/modal/note/add?parentId=${nodeId}`);
-              onDismiss();
-            }} />
-          <Menu.Item 
-            title="Add sibling note" 
-            onPress={() => {
-              //console.log("Add sibling note", nodeId);
-              router.push(`/modal/note/add?siblingId=${nodeId}`);
-              onDismiss();
-            }} />
-          <Menu.Item 
-            title="Edit note" 
-            onPress={() => {
-              //console.log("Edit note", nodeId);
-              router.push(`/modal/note/edit?id=${nodeId}`);
-              onDismiss();
-            }} />
+          <Menu.Item
+            title="Add child note"
+            onPress={() => addNote({ parentId: nodeId })} />
+          <Menu.Item
+            title="Add sibling note"
+            onPress={() => addNote({ siblingId: nodeId })} />
+          <Menu.Item
+            title="Edit note"
+            onPress={() => openNoteTab(nodeId)} />
           {isRemovable && (
             <Menu.Item 
               title="Remove note" 

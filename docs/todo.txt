@@ -10,3 +10,8 @@
 
 -Use react-hook-form to input data
 -Moving app/modal/add-note, app/modal/edit-note to app/modal/note/[mode].tsx
+
+---------------------------------------
+-Note view should have the context menu for TreeListItem as its main menu
+-Remove the "Edit Note" dialog. The menu should open the new Note tab view
+-
