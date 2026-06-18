@@ -65,8 +65,9 @@ const TreeListItem = (props: TreeListItemProps) => {
   const ToggleButton = props.toggleButton;
   const DataView = props.dataView;
   const surfaceElevation = props.elevation || 1;
-  const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.elevation.level1;
-  const borderColor = props.isSelected ? theme.colors.secondary : theme.colors.outlineVariant;
+  // warm tan surfaces: unselected = surfaceVariant (tan), selected = primaryContainer (gold, via selectedColor)
+  const surfaceColor = props.isSelected ? props.selectedColor : theme.colors.surfaceVariant;
+  const borderColor = props.isSelected ? theme.colors.primary : theme.colors.outline;
 
   //console.log("RENDERING TREE LIST ITEM: ", node.id);
 

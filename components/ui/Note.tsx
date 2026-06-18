@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 const logger = log.extend('Note');
 import { View } from "react-native";
-import { Text, TextInput } from "react-native-paper";
+import { Text, TextInput, useTheme } from "react-native-paper";
 import PathBar from "./PathBar";
 import { File, Paths } from 'expo-file-system';
 import TextEditor from "./txt-editor";
@@ -25,6 +25,7 @@ export type NoteProps = {
 
 const Note = (props: NoteProps) => {
   const dispatch = useAppDispatch();
+  const theme = useTheme();
   const note = useAppSelector(selectNote(props.nodeId ?? -1));
 
   const [content, setContent] = React.useState("INITIAL CONTENT");
@@ -113,6 +114,7 @@ const Note = (props: NoteProps) => {
     <View
       style={{
         flex: 1,
+        backgroundColor: theme.colors.background,
         // justifyContent: "center",
         // alignItems: "center",
       }}
@@ -126,6 +128,7 @@ const Note = (props: NoteProps) => {
           render={({ field }) => (
             <TextInput
               mode="outlined"
+              style={{ backgroundColor: theme.colors.surfaceVariant }}
               label="Title"
               value={field.value}
               onChangeText={field.onChange}
@@ -145,6 +148,7 @@ const Note = (props: NoteProps) => {
           render={({ field }) => (
             <TextInput
               mode="outlined"
+              style={{ backgroundColor: theme.colors.surfaceVariant }}
               label="Alias"
               value={field.value}
               onChangeText={field.onChange}
@@ -163,6 +167,7 @@ const Note = (props: NoteProps) => {
           render={({ field }) => (
             <TextInput
               mode="outlined"
+              style={{ backgroundColor: theme.colors.surfaceVariant }}
               label="Description"
               value={field.value}
               onChangeText={field.onChange}
