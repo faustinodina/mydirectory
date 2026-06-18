@@ -38,11 +38,11 @@ export const lightTheme = {
     "inversePrimary": "rgb(248, 189, 42)",
     "elevation": {
       "level0": "transparent",
-      "level1": "rgb(247, 247, 247)",
-      "level2": "rgb(242, 242, 242)",
-      "level3": "rgb(237, 237, 237)",
-      "level4": "rgb(235, 235, 235)",
-      "level5": "rgb(232, 232, 232)"
+      "level1": "rgb(245, 238, 227)",
+      "level2": "rgb(242, 234, 221)",
+      "level3": "rgb(239, 230, 215)",
+      "level4": "rgb(237, 228, 211)",
+      "level5": "rgb(235, 225, 206)"
     },
     "surfaceDisabled": "rgba(30, 27, 22, 0.12)",
     "onSurfaceDisabled": "rgba(30, 27, 22, 0.38)",
@@ -85,11 +85,11 @@ export const darkTheme = {
     "inversePrimary": "rgb(121, 89, 0)",
     "elevation": {
       "level0": "transparent",
-      "level1": "rgb(41, 35, 23)",
-      "level2": "rgb(47, 40, 24)",
-      "level3": "rgb(54, 45, 24)",
-      "level4": "rgb(56, 46, 24)",
-      "level5": "rgb(61, 50, 25)"
+      "level1": "rgb(40, 36, 29)",
+      "level2": "rgb(46, 41, 32)",
+      "level3": "rgb(52, 46, 36)",
+      "level4": "rgb(56, 49, 38)",
+      "level5": "rgb(60, 53, 41)"
     },
     "surfaceDisabled": "rgba(233, 225, 216, 0.12)",
     "onSurfaceDisabled": "rgba(233, 225, 216, 0.38)",
