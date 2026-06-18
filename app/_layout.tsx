@@ -32,6 +32,17 @@ Sentry.init({
   // spotlight: __DEV__,
 });
 
+// Keep React Navigation's scene background in sync with the Paper theme so every
+// screen matches (RN Navigation's DefaultTheme background is gray rgb(242,242,242)).
+const navLightTheme = {
+  ...DefaultTheme,
+  colors: { ...DefaultTheme.colors, background: lightTheme.colors.background },
+};
+const navDarkTheme = {
+  ...DarkTheme,
+  colors: { ...DarkTheme.colors, background: darkTheme.colors.background },
+};
+
 function LoadReduxState() {
   useEffect(() => {
     store.dispatch(loadStateFromFile(false));
@@ -53,7 +64,7 @@ export default Sentry.wrap(function RootLayout() {
   return (
     <SafeAreaProvider>
       <ReduxProvider store={store}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? navDarkTheme : navLightTheme}>
           <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
             <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
               <LoadReduxState />

@@ -28,8 +28,11 @@ export default function TabLayout() {
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            backgroundColor: theme.colors.surfaceVariant,
           },
-          default: {},
+          default: {
+            backgroundColor: theme.colors.surfaceVariant,
+          },
         }),
       }}>
       <Tabs.Screen
