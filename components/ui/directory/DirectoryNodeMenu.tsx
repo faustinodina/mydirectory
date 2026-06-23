@@ -52,7 +52,7 @@ const DirectoryNodeMenu = ({
       newNodeId,
       treeViewType: "main",
       position: { parentId: position.parentId as NodeId, siblingId: position.siblingId },
-      title: "New Note",
+      title: "",
       alias: "",
       description: "",
     }));
