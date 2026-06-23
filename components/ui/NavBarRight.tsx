@@ -56,9 +56,9 @@ const NavBarRight = () => {
         }>
         <Menu.Item onPress={onPressResetDirectoryView} title="Reset Directory View" />
         <Menu.Item onPress={onListNoteFiles} title="List Note Files" />
-        <Menu.Item onPress={onEditState} title="Edit State" />
+        {/* <Menu.Item onPress={onEditState} title="Edit State" /> */}
         <Menu.Item onPress={onToggleColorScheme} title={colorScheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} />
-        <Menu.Item onPress={onTestSentry} title="Test Sentry" />
+        {/* <Menu.Item onPress={onTestSentry} title="Test Sentry" /> */}
     </Menu>
   );
 };
