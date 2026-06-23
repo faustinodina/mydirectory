@@ -4,9 +4,10 @@ import { selectNotesDict } from "@/store/slices/notes/notes-selectors";
 import { selectNodesDict } from "@/store/slices/tree-list/tree-list-selectors";
 import { Directory, File, Paths } from "expo-file-system";
 import { Stack } from "expo-router";
+import * as Updates from "expo-updates";
 import { useCallback, useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { Divider, List, Text, useTheme } from "react-native-paper";
+import { Alert, ScrollView, View } from "react-native";
+import { Button, Divider, List, Text, useTheme } from "react-native-paper";
 
 const logger = log.extend("note-files");
 
@@ -84,6 +85,41 @@ const NoteFilesScreen = () => {
     loadFiles();
   }, [loadFiles]);
 
+  // Delete every file in the document directory (including state.json), then
+  // reload. On restart loadStateFromFile finds no state and re-initializes the
+  // slices fresh — a true clean slate that simulates a fresh install.
+  const deleteAllFiles = useCallback(() => {
+    Alert.alert(
+      "Delete all app files?",
+      "This permanently deletes every note file and the saved state, then restarts the app. This cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              const docDir = new Directory(Paths.document);
+              const entries = docDir.list();
+              let deleted = 0;
+              for (const entry of entries) {
+                if (entry instanceof File) {
+                  entry.delete();
+                  deleted++;
+                }
+              }
+              logger.info("Deleted all document files", { deleted });
+              await Updates.reloadAsync();
+            } catch (e) {
+              logger.error("Error deleting document files", { error: String(e) });
+              setError(String(e));
+            }
+          },
+        },
+      ]
+    );
+  }, []);
+
   const noteFiles = files.filter((f) => f.nodeId != null);
   // An orphan is a note file whose nodeId is missing from BOTH slices.
   const orphanCount = noteFiles.filter((f) => !f.inNotes && !f.inTree).length;
@@ -91,6 +127,20 @@ const NoteFilesScreen = () => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Stack.Screen options={{ title: "Note Files (debug)" }} />
+
+      <View style={{ padding: 16, paddingBottom: 0 }}>
+        <Button
+          mode="contained"
+          icon="delete-forever"
+          buttonColor={theme.colors.error}
+          textColor={theme.colors.onError}
+          disabled={files.length === 0}
+          onPress={deleteAllFiles}
+        >
+          Delete all app files
+        </Button>
+      </View>
+
       <List.Section>
         <List.Subheader>
           {`${noteFiles.length} note file(s) — ${orphanCount} orphaned`}
