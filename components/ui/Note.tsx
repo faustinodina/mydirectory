@@ -47,6 +47,11 @@ const Note = (props: NoteProps) => {
   // Track if we initialized the form for the current note
   const currentNoteIdRef = useRef<number | undefined>(undefined);
 
+  // Track whether this note was ever focused, so the save/validation on
+  // unfocus only runs when actually leaving the note (not on initial mount
+  // of a tab that was never opened).
+  const wasFocusedRef = useRef(false);
+
   // populate form when note changes or when we load a new node
   useEffect(() => {
     if (!note) { return; }
@@ -87,6 +92,7 @@ const Note = (props: NoteProps) => {
   useEffect(() => {
     const fetchNoteContent = async () => {
       if (props.isFocused) {
+        wasFocusedRef.current = true;
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         const fileExists = await file.exists;
@@ -101,6 +107,9 @@ const Note = (props: NoteProps) => {
           return;
         }
       } else {
+        // Only persist/validate when leaving a note that was actually opened.
+        if (!wasFocusedRef.current) { return; }
+        wasFocusedRef.current = false;
         const fileName = `n-${props.nodeId}.html`;
         const file = new File(Paths.document, fileName);
         await file.write(content);
@@ -123,7 +132,8 @@ const Note = (props: NoteProps) => {
         <Controller
           control={control}
           name="title"
-          rules={{ required: "Title is required" }}
+          // Title validation temporarily disabled.
+          // rules={{ required: "Title is required" }}
           render={({ field }) => (
             <TextInput
               mode="outlined"
