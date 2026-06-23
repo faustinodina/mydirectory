@@ -172,7 +172,8 @@ const Note = (props: NoteProps) => {
         <Controller
           control={control}
           name="alias"
-          rules={{ required: "Alias is required" }}
+          // Alias validation temporarily disabled.
+          // rules={{ required: "Alias is required" }}
           render={({ field }) => (
             <TextInput
               mode="outlined"
