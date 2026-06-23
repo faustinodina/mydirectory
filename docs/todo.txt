@@ -13,5 +13,4 @@
 
 ---------------------------------------
 -Note view should have the context menu for TreeListItem as its main menu
--Remove the "Edit Note" dialog. The menu should open the new Note tab view
--
+-Create a better default data

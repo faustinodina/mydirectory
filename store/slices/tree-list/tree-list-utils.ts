@@ -4,6 +4,7 @@ import { INodePathCacheDict, ITreeListState, ITreeNode, ITreeNodePosition, NO_No
 
 export function getInitialStateSample(): ITreeListState {
   return {
+    nextNodeId: 0,    // means it is not initialized yet, when we initialize the state from file we will set it to max existing node id + 1
     nodesDict: {
       1: {
         id: 1,
@@ -11,7 +12,7 @@ export function getInitialStateSample(): ITreeListState {
         parent: NO_NodeId,
         level: 0,
         sortOrder: 0,
-      }, 
+      },
       // 1st level
       2: {
         id: 2,
@@ -33,7 +34,7 @@ export function getInitialStateSample(): ITreeListState {
         parent: 1,
         level: 1,
         sortOrder: 2,
-      }, 
+      },
       // second level
       5: {
         id: 5,
@@ -82,10 +83,10 @@ export function getInitialStateSample(): ITreeListState {
   };
 }
 
-export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, treeViewType: treeViewType}: {
+export function mutateStateToggleNodeExpansion({ state, nodeId, isExpanding, treeViewType: treeViewType }: {
   state: ITreeListState,
-  nodeId: NodeId, 
-  isExpanding: boolean, 
+  nodeId: NodeId,
+  isExpanding: boolean,
   treeViewType: TreeViewType,
 }): void /*[ VisibleNodesDict | undefined, string[] | undefined ]*/ {
 
@@ -101,7 +102,7 @@ export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, tree
   if (!nodeVisibility) {
     //newNodeVisibilityDict = update(state.visibleNodesDict, {[nodeId]: {$set: {key: nodeId, /*level: 0,*/ isExpanded: isExpanding }}});
     stateView.visibleNodesDict[nodeId] = {
-      id: nodeId, 
+      id: nodeId,
       isExpanded: isExpanding,
       //isDirty: true,
     };
@@ -166,12 +167,12 @@ export function mutateStateToggleNodeExpansion({state, nodeId, isExpanding, tree
 }
 
 /// Resets the visibility for all the views, with exceptions
-export function mutateStateResetVisibility({viewsDict, rootNode, exceptions}: {
+export function mutateStateResetVisibility({ viewsDict, rootNode, exceptions }: {
   viewsDict: ViewsDict,
   rootNode: ITreeNode,
   exceptions?: TreeViewType[],
 }): void {
-  
+
   // const rootNode = getRootNode(state.nodesDict);
   // if (!rootNode) { 
   //   console.log("error: no root node detected");
@@ -200,9 +201,9 @@ export function mutateStateResetVisibility({viewsDict, rootNode, exceptions}: {
 // both are mutated
 export function mutateStateSetDefaultVisibility(a: {
   rootNode: ITreeNode,
-  nodeVisibilityDict: VisibleNodesDict, 
+  nodeVisibilityDict: VisibleNodesDict,
   nodeVisibilityList: NodeId[],
-}) : void {
+}): void {
   // recreate the node visibiity list
   a.nodeVisibilityList.length = 0;
 
@@ -264,14 +265,24 @@ export function recurseTreeRecreatePaths(node: ITreeNode, path: NodeId[], pathCa
 
 export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewType: viewType, sortOrder }: {
   state: ITreeListState,
-  nodeId: NodeId, 
-  position: ITreeNodePosition, 
+  nodeId: NodeId,
+  position: ITreeNodePosition,
   treeViewType: TreeViewType,
   sortOrder: number,
 }): void {
 
   //console.log("addNode CALLED parameters: ", arguments);
-  const parentNode = state.nodesDict[position.parentId];
+  let parentId: NodeId | undefined = position.parentId;
+  if (parentId === undefined && position.siblingId !== undefined) {
+    const siblingNode = state.nodesDict[position.siblingId];
+    if (siblingNode) {
+      parentId = siblingNode.parent;
+    }
+  }
+
+  if (parentId === undefined) { return; }
+
+  const parentNode = state.nodesDict[parentId];
   if (!parentNode) { return; }
 
   const rootNode = getRootNode(state.nodesDict);
@@ -279,7 +290,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
   const node: ITreeNode = {
     id: nodeId,
     children: [],
-    parent: position.parentId,
+    parent: parentId,
     level: parentNode.level + 1,
     sortOrder: sortOrder,
   };
@@ -289,7 +300,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
   }
 
   state.nodesDict[nodeId] = node;
-  state.pathCache[nodeId] = [...(state.pathCache[position.parentId] || []), nodeId];
+  state.pathCache[nodeId] = [...(state.pathCache[parentId] || []), nodeId];
 
   if (position.siblingId) {
     // todo: error when sibling is level 1 it is not displayed
@@ -307,7 +318,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
       //parentChildren.push(nodeKey); // TypeError: Cannot add property 0, object is not extensible at Array.push (<anonymous>)
       parentNode.children = [...parentNode.children, nodeId];
     }
-    catch(err) {
+    catch (err) {
       throw err;
     }
   }
@@ -319,17 +330,17 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
 
   //console.log("SEIS, stateView: ", stateView, viewType);
   // always register the new node in the visibility dictionary
-  stateView.visibleNodesDict[nodeId] = {id: nodeId, isExpanded: false }
+  stateView.visibleNodesDict[nodeId] = { id: nodeId, isExpanded: false }
   //console.log("SIETE");
 
   // if parent is root it is not in the vis dictionary nor in the vis list so it will need special treatment
   const isParentTheRoot = !parentNode.parent;
-  
+
   // check if new node is visible (parent is expanded AND parent is visible)
-  const _parentVisibility = stateView.visibleNodesDict[position.parentId];
+  const _parentVisibility = stateView.visibleNodesDict[parentId];
   if (isParentTheRoot || (_parentVisibility && _parentVisibility.isExpanded)) {
-    const _parentVisIndex = stateView.visibleNodesList.indexOf(position.parentId);
-    if (!isParentTheRoot && _parentVisIndex == -1) { 
+    const _parentVisIndex = stateView.visibleNodesList.indexOf(parentId);
+    if (!isParentTheRoot && _parentVisIndex == -1) {
       // parent is not visible so child won't be visible too
       // reset all the other views
       mutateStateResetVisibility({
@@ -356,9 +367,9 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
           // if sibling is expanded then insert after last child visible
           // find last visible child of sibling
           const firstNonAncestorVisIndex = getNextSiblingVisibilityIndexOfExpandedNode({
-            currentVisIndex: _siblingVisIndex, 
-            nodesDict: state.nodesDict, 
-            nodeVisibilityList: stateView.visibleNodesList, 
+            currentVisIndex: _siblingVisIndex,
+            nodesDict: state.nodesDict,
+            nodeVisibilityList: stateView.visibleNodesList,
           });
           if (firstNonAncestorVisIndex === -1) {
             // no node from different ancestor found after _siblingVisIndex: add at the end of the list
@@ -414,7 +425,7 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
         stateView.visibleNodesList.splice(_parentVisIndex + 1, 0, nodeId);
         // only one child: the added one; so we can insert it in the vis list after its parent, returning
       }
-      
+
       // reset all the other views
       mutateStateResetVisibility({
         viewsDict: state.viewsDict,
@@ -453,12 +464,12 @@ export function mutateStateAddNode({ state, nodeId: nodeId, position, treeViewTy
       rootNode,
       exceptions: [viewType]
     });
-  } 
+  }
 }
 
-export function mutateStateRemoveLeafNode({state, nodeId, treeViewType: viewKey}: {
+export function mutateStateRemoveLeafNode({ state, nodeId, treeViewType: viewKey }: {
   state: ITreeListState,
-  nodeId: NodeId, 
+  nodeId: NodeId,
   treeViewType: TreeViewType,
 }): boolean {
 

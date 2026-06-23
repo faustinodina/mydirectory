@@ -71,7 +71,7 @@ export interface IMenuItemHandlerProps {
 }
 
 export interface ITreeNodePosition {
-  parentId: NodeId;
+  parentId?: NodeId;
   siblingId?: NodeId;
   // level: number;          // 0: root account (but root account will never be displayed so will never be in the list or dict), 1: direct children of root account,...
   // sortOrder: number;
