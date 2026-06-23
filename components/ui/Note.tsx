@@ -3,7 +3,7 @@ import HtmlEditor from "@/components/ui/html-editor";
 import React, { useEffect, useRef } from "react";
 
 const logger = log.extend('Note');
-import { View } from "react-native";
+import { AppState, View } from "react-native";
 import { Text, TextInput, useTheme } from "react-native-paper";
 import PathBar from "./PathBar";
 import { File, Paths } from 'expo-file-system';
@@ -89,6 +89,17 @@ const Note = (props: NoteProps) => {
     }));
   });
 
+  // Persist metadata + content for the current note. Kept in a ref (refreshed
+  // every render) so the AppState listener below can call the latest version
+  // without re-subscribing, and always reads the current `content`/form state.
+  const saveNoteRef = useRef<() => Promise<void>>(async () => {});
+  saveNoteRef.current = async () => {
+    await handleAutoSave();
+    const file = new File(Paths.document, `n-${props.nodeId}.html`);
+    await file.write(content);
+    logger.debug('Note saved', { nodeId: props.nodeId, size: content.length });
+  };
+
   useEffect(() => {
     const fetchNoteContent = async () => {
       if (props.isFocused) {
@@ -107,17 +118,25 @@ const Note = (props: NoteProps) => {
           return;
         }
       } else {
-        // Only persist/validate when leaving a note that was actually opened.
+        // Only persist when leaving a note that was actually opened.
         if (!wasFocusedRef.current) { return; }
         wasFocusedRef.current = false;
-        const fileName = `n-${props.nodeId}.html`;
-        const file = new File(Paths.document, fileName);
-        await file.write(content);
-        logger.debug('Note saved', { nodeId: props.nodeId, size: content.length });
+        await saveNoteRef.current();
       }
     };
     fetchNoteContent();
   }, [props.isFocused, props.nodeId]);
+
+  // Save when the app goes to the background/inactive, so edits aren't lost if
+  // the OS kills the app while the note is still open (focus never flips).
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (next) => {
+      if ((next === 'background' || next === 'inactive') && wasFocusedRef.current) {
+        saveNoteRef.current();
+      }
+    });
+    return () => sub.remove();
+  }, []);
 
   return (
     <View

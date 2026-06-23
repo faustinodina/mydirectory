@@ -14,3 +14,4 @@
 ---------------------------------------
 -Note view should have the context menu for TreeListItem as its main menu
 -Create a better default data
+-There are bugs in tree display after node insertions
