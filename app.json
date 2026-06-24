@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "my-directory",
+    "name": "My Directory",
     "slug": "my-directory",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "mydirectory",
     "userInterfaceStyle": "automatic",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "android": {
-      "versionCode": 4,
+      "versionCode": 5,
       "package": "com.faustinodina.mydirectory",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
